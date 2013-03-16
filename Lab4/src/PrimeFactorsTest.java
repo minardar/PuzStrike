@@ -23,8 +23,8 @@ public class PrimeFactorsTest {
 	}
 	
 	@Test
-	public void testGeneratingFactors4() {
-		assertEquals(list(2, 2), PrimeFactors.generateFactors(4));
+	public void testGeneratingFactors6() {
+		assertEquals(list(2, 3), PrimeFactors.generateFactors(6));
 	}
 	
 	private ArrayList<Integer> list(int... ints){
