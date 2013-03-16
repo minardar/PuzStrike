@@ -49,47 +49,47 @@ public class PrimeFactorsTest {
 	
 	@Test
 	public void testLesserPrimes2() {
-		assertEquals(list(1), PrimeFactors.getLesserPrimes(2));
+		assertEquals(list(), PrimeFactors.getLesserPrimes(2));
 	}
 	
 	@Test
 	public void testLesserPrimes3() {
-		assertEquals(list(1, 2), PrimeFactors.getLesserPrimes(3));
+		assertEquals(list(2), PrimeFactors.getLesserPrimes(3));
 	}
 	
 	@Test
 	public void testLesserPrimes4() {
-		assertEquals(list(1, 2, 3), PrimeFactors.getLesserPrimes(4));
+		assertEquals(list(2, 3), PrimeFactors.getLesserPrimes(4));
 	}
 	
 	@Test
 	public void testLesserPrimes5() {
-		assertEquals(list(1, 2, 3), PrimeFactors.getLesserPrimes(5));
+		assertEquals(list(2, 3), PrimeFactors.getLesserPrimes(5));
 	}
 	
 	@Test
 	public void testLesserPrimes6() {
-		assertEquals(list(1, 2, 3, 5), PrimeFactors.getLesserPrimes(6));
+		assertEquals(list(2, 3, 5), PrimeFactors.getLesserPrimes(6));
 	}
 	
 	@Test
 	public void testLesserPrimes7() {
-		assertEquals(list(1, 2, 3, 5), PrimeFactors.getLesserPrimes(7));
+		assertEquals(list(2, 3, 5), PrimeFactors.getLesserPrimes(7));
 	}
 	
 	@Test
 	public void testLesserPrimes8() {
-		assertEquals(list(1, 2, 3, 5, 7), PrimeFactors.getLesserPrimes(8));
+		assertEquals(list(2, 3, 5, 7), PrimeFactors.getLesserPrimes(8));
 	}
 	
 	@Test
 	public void testLesserPrimes9() {
-		assertEquals(list(1, 2, 3, 5, 7), PrimeFactors.getLesserPrimes(9));
+		assertEquals(list(2, 3, 5, 7), PrimeFactors.getLesserPrimes(9));
 	}
 	
 	@Test
 	public void testLesserPrimes10() {
-		assertEquals(list(1, 2, 3, 5, 7), PrimeFactors.getLesserPrimes(10));
+		assertEquals(list(2, 3, 5, 7), PrimeFactors.getLesserPrimes(10));
 	}
 	private ArrayList<Integer> list(int... ints){
 		ArrayList<Integer> ret = new ArrayList<Integer>();
