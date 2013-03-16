@@ -13,4 +13,8 @@ public class PrimeFactors {
 
 		return ret;
 	}
+	
+	public static ArrayList<Integer> getLesserPrimes(int i){
+		return new ArrayList<Integer>();
+	}
 }
