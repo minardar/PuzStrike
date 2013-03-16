@@ -22,6 +22,11 @@ public class PrimeFactorsTest {
 		assertEquals(list(3), PrimeFactors.generateFactors(3));
 	}
 	
+	@Test
+	public void testGeneratingFactors4() {
+		assertEquals(list(2, 2), PrimeFactors.generateFactors(4));
+	}
+	
 	private ArrayList<Integer> list(int... ints){
 		ArrayList<Integer> ret = new ArrayList<Integer>();
 		for (int i : ints){
