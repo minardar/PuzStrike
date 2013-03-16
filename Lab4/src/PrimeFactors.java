@@ -15,6 +15,12 @@ public class PrimeFactors {
 	}
 	
 	public static ArrayList<Integer> getLesserPrimes(int i){
-		return new ArrayList<Integer>();
+		ArrayList<Integer> ret = new ArrayList<Integer>();
+		
+		if (i > 1){
+			ret.add(1);
+		}
+		
+		return ret;
 	}
 }
