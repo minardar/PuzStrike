@@ -13,14 +13,16 @@ public class PrimeFactors {
 
 		return ret;
 	}
-	
-	public static ArrayList<Integer> getLesserPrimes(int i){
+
+	public static ArrayList<Integer> getLesserPrimes(int i) {
 		ArrayList<Integer> ret = new ArrayList<Integer>();
-		
-		for (int candidate = 1; candidate<i; candidate++){
-			ret.add(candidate);
+
+		for (int candidate = 1; candidate < i; candidate++) {
+			if (candidate % 4 != 0) {
+				ret.add(candidate);
+			}
 		}
-		
+
 		return ret;
 	}
 }
