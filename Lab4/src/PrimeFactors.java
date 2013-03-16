@@ -20,6 +20,9 @@ public class PrimeFactors {
 		if (i > 1){
 			ret.add(1);
 		}
+		if (i > 2){
+			ret.add(2);
+		}
 		
 		return ret;
 	}
