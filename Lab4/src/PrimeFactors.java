@@ -12,10 +12,6 @@ public class PrimeFactors {
 			}
 		}
 
-		if (i > 1) {
-			ret.add(i);
-		}
-
 		return ret;
 	}
 }
