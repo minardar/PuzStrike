@@ -57,6 +57,11 @@ public class PrimeFactorsTest {
 		assertEquals(list(1, 2), PrimeFactors.getLesserPrimes(3));
 	}
 	
+	@Test
+	public void testLesserPrimes4() {
+		assertEquals(list(1, 2, 3), PrimeFactors.getLesserPrimes(4));
+	}
+	
 	private ArrayList<Integer> list(int... ints){
 		ArrayList<Integer> ret = new ArrayList<Integer>();
 		for (int i : ints){
