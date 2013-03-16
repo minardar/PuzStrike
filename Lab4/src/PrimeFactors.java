@@ -17,8 +17,11 @@ public class PrimeFactors {
 	public static ArrayList<Integer> getLesserPrimes(int i) {
 		ArrayList<Integer> ret = new ArrayList<Integer>();
 
+		if (i>1){
+			ret.add(1);
+		}
 		for (int candidate = 1; candidate < i; candidate++) {
-			if (candidate % 4 != 0 && candidate % 6 != 0) {
+			if (generateFactors(candidate).size() == 1) {
 				ret.add(candidate);
 			}
 		}
