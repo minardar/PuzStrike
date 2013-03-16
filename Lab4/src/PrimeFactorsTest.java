@@ -34,7 +34,7 @@ public class PrimeFactorsTest {
 	
 	@Test
 	public void testGeneratingFactors9() {
-		assertEquals(list(3, 3), PrimeFactors.generateFactors(8));
+		assertEquals(list(3, 3), PrimeFactors.generateFactors(9));
 	}
 	
 	private ArrayList<Integer> list(int... ints){
