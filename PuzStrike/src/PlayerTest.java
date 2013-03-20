@@ -34,22 +34,23 @@ public class PlayerTest {
 		ArrayList<Color> colors = new ArrayList<Color>();
 		Card card = new Card(colors, 0, CardType.CIRCLE, effects, false, 1);
 		ArrayList<Card> cards = new ArrayList<Card>();
-		cards.add(card);
-		
+		for (int i = 0; i < 5; i++) {
+			cards.add(card);
+		}
 		player.setHand(cards);
 		player.setBag(cards);
 		player.setDiscard(cards);
 		
 		assertNotNull(player.hand);
-		assertEquals(1, player.bag.size());
+		assertEquals(5, player.bag.size());
 		
 		player.drawFromBag(1);
-		assertEquals(2, player.hand.size());
-		assertEquals(0, player.bag.size());
-		assertEquals(1, player.discard.size());
+		assertEquals(6, player.hand.size());
+		assertEquals(4, player.bag.size());
+		assertEquals(5, player.discard.size());
 		player.drawFromBag(1);
-		assertEquals(0, player.bag.size());
-		assertEquals(0, player.discard.size());
+		assertEquals(3, player.bag.size());
+		assertEquals(5, player.discard.size());
 	}
 	
 }

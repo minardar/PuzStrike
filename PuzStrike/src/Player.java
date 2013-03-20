@@ -6,6 +6,7 @@ public class Player {
 	public ArrayList<Card> gemPile;
 	public ArrayList<Card> hand;
 	public ArrayList<Card> bag;
+	public ArrayList<Card> lockedCards;
 	public ArrayList<Card> discard;
 	public int money;
 	public int blackTurns;
@@ -33,13 +34,17 @@ public class Player {
 	
 	public void drawFromBag(int n) {
 		for (int i = 0; i < n; i++) {
-			if (bag.size() == 0) {
-				bag = discard;
-				discard = new ArrayList<Card>();
+			if (this.bag.size() == 0) {
+				this.bag = discard;
+				this.discard = new ArrayList<Card>();
 			}
-			int nextCard = (int) Math.random() * bag.size();
-			System.out.println(nextCard);
-			hand.add(bag.remove(nextCard));
+			
+			if (lockedCards.size() > 0) {
+				this.hand.add(this.lockedCards.remove(0));
+			} else {
+				int nextCard = (int) (Math.random() * this.bag.size());
+				this.hand.add(this.bag.remove(nextCard));
+			}
 		}
 	}
 	
