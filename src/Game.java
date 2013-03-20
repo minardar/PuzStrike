@@ -9,6 +9,8 @@ public class Game {
 	private final int FRAME_HEIGHT = 900;
 	public JPanel hand;
 	public JPanel gemPiles;
+	public JPanel mostPhases;
+	public JPanel shopPhase;
 	
 	
 	
@@ -20,4 +22,11 @@ public class Game {
 		this.frame.setVisible(true);
 		this.frame.setResizable(false);
 	}
+
+
+
+	
+	
+	
+	
 }
