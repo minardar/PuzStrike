@@ -38,6 +38,7 @@ public class Player {
 				discard = new ArrayList<Card>();
 			}
 			int nextCard = (int) Math.random() * bag.size();
+			System.out.println(nextCard);
 			hand.add(bag.remove(nextCard));
 		}
 	}

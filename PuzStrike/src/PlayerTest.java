@@ -1,5 +1,8 @@
 import static org.junit.Assert.*;
 
+import java.awt.Color;
+import java.util.ArrayList;
+
 import org.junit.Test;
 
 
@@ -16,4 +19,37 @@ public class PlayerTest {
 		assertEquals(1, play.blackTurns);
 		assertEquals(0, play.money);
 	}
+	
+	@Test
+	public void testNewTurn() {
+		Player player = new Player();
+		assertEquals(1, player.blackTurns);
+		assertEquals(0, player.money);
+	}
+	
+	@Test
+	public void testDrawFromBag() {
+		Player player = new Player();
+		ArrayList<Integer> effects = new ArrayList<Integer>();
+		ArrayList<Color> colors = new ArrayList<Color>();
+		Card card = new Card(colors, 0, CardType.CIRCLE, effects, false, 1);
+		ArrayList<Card> cards = new ArrayList<Card>();
+		cards.add(card);
+		
+		player.setHand(cards);
+		player.setBag(cards);
+		player.setDiscard(cards);
+		
+		assertNotNull(player.hand);
+		assertEquals(1, player.bag.size());
+		
+		player.drawFromBag(1);
+		assertEquals(2, player.hand.size());
+		assertEquals(0, player.bag.size());
+		assertEquals(1, player.discard.size());
+		player.drawFromBag(1);
+		assertEquals(0, player.bag.size());
+		assertEquals(0, player.discard.size());
+	}
+	
 }
