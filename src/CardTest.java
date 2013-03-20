@@ -16,7 +16,18 @@ public class CardTest {
 		colors.add(CardColor.GREY);
 		new Card(colors, 0, CardType.PUZZLE, new ArrayList<Integer>(), false, 0);
 	}
-	
+	@Test
+	public void testDefaultConstructor() {
+		Card c = new Card();
+		assertEquals(1, c.cost);
+		assertEquals(CardType.CIRCLE, c.cardType);
+		assertEquals(new ArrayList<Integer>(), c.effects);
+		assertFalse(c.defense);
+		assertEquals(1, c.value);
+		ArrayList<CardColor> col = new ArrayList<CardColor>();
+		col.add(CardColor.GREEN);
+		assertEquals(col, c.cardColor);
+	}
 	@Test
 	public void testStartValues(){
 		ArrayList<CardColor> colors = new ArrayList<CardColor>();
