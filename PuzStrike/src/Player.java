@@ -16,8 +16,10 @@ public class Player {
 	
 	public Player(){
 		this.gemPile = new ArrayList<Card>();
+		this.hand = new ArrayList<Card>();
+		this.bag = new ArrayList<Card>();
+		this.discard = new ArrayList<Card>();
 		newTurn();
-		drawFromBag(5);
 	}
 
 	public void newTurn() {
@@ -38,5 +40,21 @@ public class Player {
 			int nextCard = (int) Math.random() * bag.size();
 			hand.add(bag.remove(nextCard));
 		}
+	}
+	
+	public void setHand(ArrayList<Card> cards) {
+		this.hand = cards;
+	}
+	
+	public void setBag(ArrayList<Card> cards) {
+		this.bag = cards;
+	}
+	
+	public void setDiscard(ArrayList<Card> cards) {
+		this.discard = cards;
+	}
+	
+	public void setGemPile(ArrayList<Card> cards) {
+		this.gemPile = cards;
 	}
 }

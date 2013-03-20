@@ -7,7 +7,7 @@ public class PlayerTest {
 
 	@Test
 	public void testPlayerInitiate() {
-		new Player();
+		assertNotNull(new Player());
 	}
 
 	@Test
