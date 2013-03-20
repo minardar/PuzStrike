@@ -15,7 +15,7 @@ public class Card {
 		col.add(CardColor.GREEN);
 		this.cardColor = new ArrayList<CardColor>(col);
 		this.cost = 1;
-		this.value = 1;
+		this.value = 1; 
 		this.defense= false;
 		this.effects = new ArrayList<Integer>();
 		this.cardType = CardType.CIRCLE;
