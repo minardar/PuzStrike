@@ -28,4 +28,5 @@ public class Card {
 		this.defense = defense;
 		this.value = value;
 	}
+	
 }
