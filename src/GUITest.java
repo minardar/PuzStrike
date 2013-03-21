@@ -3,7 +3,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 
-public class GameTest {
+public class GUITest {
 
 	@Test
 	public void test() {
