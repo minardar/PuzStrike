@@ -23,7 +23,7 @@ public class GUI {
 	public int turn = 1;
 	public boolean isShopPhase = false;
 	public int players = 1;
-	public Player player1 = new Player();
+	public Game game;
 	
 	
 	
@@ -34,6 +34,7 @@ public class GUI {
 		this.frame.setResizable(false);
 		this.frame.setVisible(true);
 		this.frame.setResizable(false);
+		this.game = new Game();
 		setUp();
 	}
 
