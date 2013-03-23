@@ -96,9 +96,9 @@ public class GUI {
 				.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		this.shopCards.setBackground(this.trans);
 		this.shopCards.setPreferredSize(new Dimension(FRAME_WIDTH, 14*FRAME_HEIGHT/16));
-		for (int i = 0; i <= this.game.bank.size(); i++) {
+		for (int i = 0; i < this.game.bank.size(); i++) {
 			JButton card = new JBackgroundButton();
-			card.add(new JLabel("Default"));
+			card.add(new JLabel(this.game.bank.get(i).name));
 			card.setPreferredSize(new Dimension(BUT_WIDTH, BUT_HEIGHT));
 			this.shopCards.add(card);
 		}
@@ -129,7 +129,7 @@ public class GUI {
 				2 * FRAME_HEIGHT / 8));
 		for (int i = 0; i < this.game.players.get(this.game.turn).hand.size(); i++) {
 			JButton card = new JBackgroundButton();
-			card.add(new JLabel("Default"));		
+			card.add(new JLabel(this.game.players.get(this.game.turn).hand.get(i).name));		
 			card.setPreferredSize(new Dimension(BUT_WIDTH, BUT_HEIGHT));
 			hand.add(card);
 		}

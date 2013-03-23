@@ -12,7 +12,7 @@ public class Game {
 	public Game(){
 		this.players = new ArrayList<Player>();
 		this.bank = new ArrayList<Card>();
-		
+		makeBank();		
 	}
 	
 	public void makePlayers(int number){
