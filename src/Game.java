@@ -43,6 +43,11 @@ public class Game {
 		}
 	}
 	
+	public void playerUseCard(int card){
+		Player curr = this.players.get(this.turn);
+		curr.hand.get(card).use(curr);
+	}
+	
 	
 	
 }

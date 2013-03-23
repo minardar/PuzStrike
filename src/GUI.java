@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -25,6 +27,7 @@ public class GUI {
 	private final int BUT_HEIGHT = 100;
 	private final int BUT_WIDTH = 100;
 	public JPanel shopPhase = new JPanel();
+	public JPanel shopCards = new JPanel();
 	public JPanel panel;
 	public boolean isShopPhase = false;
 	public Game game;
@@ -61,6 +64,26 @@ public class GUI {
 			g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
 		}
 	}
+	
+	public class JBackgroundButton extends JButton {
+		private BufferedImage img;
+
+		public JBackgroundButton() {
+			// load the background image
+			try {
+				img = ImageIO.read(new File("./cardbg.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			// paint the background image and scale it to fill the entire space
+			g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+		}
+	}
 
 	private void setUp() {
 		this.panel =  new JBackgroundPanel();
@@ -71,10 +94,13 @@ public class GUI {
 		this.shopPhase.setBackground(this.trans);
 		this.shopPhase
 				.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
+		this.shopCards.setBackground(this.trans);
+		this.shopCards.setPreferredSize(new Dimension(FRAME_WIDTH, 14*FRAME_HEIGHT/16));
 		for (int i = 0; i <= this.game.bank.size(); i++) {
-			JButton card = new JButton("Card " + (i + 1));
+			JButton card = new JBackgroundButton();
+			card.add(new JLabel("Default"));
 			card.setPreferredSize(new Dimension(BUT_WIDTH, BUT_HEIGHT));
-			this.shopPhase.add(card);
+			this.shopCards.add(card);
 		}
 
 		class EndShopListener implements ActionListener {
@@ -87,6 +113,7 @@ public class GUI {
 
 		JButton endPhase = new JButton("End Phase");
 		endPhase.addActionListener(new EndShopListener());
+		this.shopPhase.add(this.shopCards);
 		this.shopPhase.add(endPhase);
 		newTurn();
 	}
@@ -98,10 +125,11 @@ public class GUI {
 				FRAME_HEIGHT / 3));
 		JPanel hand = new JPanel();
 		hand.setBackground(this.trans);
-		hand.setPreferredSize(new Dimension(2 * FRAME_WIDTH / 3,
-				FRAME_HEIGHT / 3));
+		hand.setPreferredSize(new Dimension(FRAME_WIDTH,
+				2 * FRAME_HEIGHT / 8));
 		for (int i = 0; i < this.game.players.get(this.game.turn).hand.size(); i++) {
-			JButton card = new JButton("Card " + (i + 1));
+			JButton card = new JBackgroundButton();
+			card.add(new JLabel("Default"));		
 			card.setPreferredSize(new Dimension(BUT_WIDTH, BUT_HEIGHT));
 			hand.add(card);
 		}
