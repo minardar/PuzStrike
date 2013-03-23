@@ -19,12 +19,11 @@ public class Game {
 		this.playerNum = number;
 		for (int i = 0; i < number; i++){
 			this.players.add(new Player());
-//			this.players.get(i).setUp();
+			this.players.get(i).setup();
 		}
 	}
 	
 	public void makeBank(){
-		//later this method should select random cards from implemented cards
 		for (int i = 0; i < 10; i++){
 			if (i < this.AllCards.length){
 				this.bank.add(this.AllCards[i]);
