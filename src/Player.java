@@ -3,24 +3,46 @@ import java.util.ArrayList;
 
 public class Player {
 
-	public ArrayList<Card> gemPile;
-	public ArrayList<Card> hand;
-	public ArrayList<Card> bag;
-	public ArrayList<Card> lockedCards;
-	public ArrayList<Card> discard;
-	public int money;
-	public int blackTurns;
-	public int redTurns;
-	public int blueTurns;
-	public int purpleTurns;
-	public int brownTurns;
+	public ArrayList<Card> hand, bag, lockedCards, discard;
+	public ArrayList<Integer> gemPile;
+	public int money, blackTurns, redTurns, blueTurns, purpleTurns, brownTurns;
 	
 	public Player(){
-		this.gemPile = new ArrayList<Card>();
+		this.gemPile = new ArrayList<Integer>();
+		for (int i = 0; i < 4; i++) {
+			gemPile.add(0);
+		}
 		this.hand = new ArrayList<Card>();
 		this.bag = new ArrayList<Card>();
 		this.discard = new ArrayList<Card>();
+		this.lockedCards = new ArrayList<Card>();
 		newTurn();
+	}
+	
+	public void setup() {
+		Card initGem = new Card();
+		for (int i = 0; i < 5; i++) {
+			this.bag.add(initGem);
+		}
+		
+		ArrayList<CardColor> w = new ArrayList<CardColor>();
+		w.add(CardColor.GREY);
+		ArrayList<Integer> e = new ArrayList<Integer>();
+		e.add(17);
+		Card wound = new Card(w, 5, CardType.CIRCLE, e, false, 0);
+		for (int i = 0; i < 3; i++) {
+			this.bag.add(wound);
+		}
+		
+		w = new ArrayList<CardColor>();
+		w.add(CardColor.PURPLE);
+		e = new ArrayList<Integer>();
+		e.add(23);
+		Card crash = new Card(w, 1, CardType.CIRCLE, e, false, 1);
+		this.bag.add(crash);
+		
+		this.gemPile.set(0, this.gemPile.get(0) + 1);
+		this.drawFromBag(5);
 	}
 
 	public void newTurn() {
@@ -30,6 +52,15 @@ public class Player {
 		this.purpleTurns = 0;
 		this.brownTurns = 0;
 		this.redTurns = 0;
+	}
+	
+	public void endTurn() {
+		int num = this.hand.size();
+		for (int i = 0; i < num; i++) {
+			this.discard.add(this.hand.remove(0));
+		}
+		
+		//this.drawFromBag(5);
 	}
 	
 	public void drawFromBag(int n) {
@@ -60,7 +91,15 @@ public class Player {
 		this.discard = cards;
 	}
 	
-	public void setGemPile(ArrayList<Card> cards) {
-		this.gemPile = cards;
+	public ArrayList<Card> getHand() {
+		return this.hand;
+	}
+	
+	public ArrayList<Card> getBag() {
+		return this.bag;
+	}
+	
+	public ArrayList<Card> getDiscard() {
+		return this.discard;
 	}
 }
