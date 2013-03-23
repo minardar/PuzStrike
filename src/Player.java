@@ -29,7 +29,7 @@ public class Player {
 		w.add(CardColor.GREY);
 		ArrayList<Integer> e = new ArrayList<Integer>();
 		e.add(17);
-		Card wound = new Card(w, 5, CardType.CIRCLE, e, false, 0);
+		Card wound = new Card("Wound", w, 5, CardType.CIRCLE, e, false, 0);
 		for (int i = 0; i < 3; i++) {
 			this.bag.add(wound);
 		}
@@ -38,7 +38,7 @@ public class Player {
 		w.add(CardColor.PURPLE);
 		e = new ArrayList<Integer>();
 		e.add(23);
-		Card crash = new Card(w, 1, CardType.CIRCLE, e, false, 1);
+		Card crash = new Card("CrashGem", w, 1, CardType.CIRCLE, e, false, 1);
 		this.bag.add(crash);
 		
 		this.gemPile.set(0, this.gemPile.get(0) + 1);
