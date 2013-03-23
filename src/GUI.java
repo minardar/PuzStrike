@@ -1,60 +1,82 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
 
 public class GUI {
 
 	public JFrame frame;
 	private final int FRAME_WIDTH = 1280;
 	private final int FRAME_HEIGHT = 900;
-	private final int BUT_HEIGHT = 250;
-	private final int BUT_WIDTH = 150;
+	private final int BUT_HEIGHT = 100;
+	private final int BUT_WIDTH = 100;
 	public JPanel shopPhase = new JPanel();
 	public JPanel panel;
-	public int turn = 1;
 	public boolean isShopPhase = false;
-	public int players = 1;
 	public Game game;
-	
-	
-	
-	public GUI(){
+	public Color trans = new Color(255, 255, 255, 0);
+
+	public GUI() {
 		this.frame = new JFrame("Puzzle Strike: Hand of Cards");
-		this.frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);	
+		this.frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.setResizable(false);
 		this.frame.setVisible(true);
 		this.frame.setResizable(false);
 		this.game = new Game();
+		this.game.makePlayers(2);
 		setUp();
 	}
 
+	public class JBackgroundPanel extends JPanel {
+		private BufferedImage img;
 
+		public JBackgroundPanel() {
+			// load the background image
+			try {
+				img = ImageIO.read(new File("./backgroundpanels.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			// paint the background image and scale it to fill the entire space
+			g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+		}
+	}
 
 	private void setUp() {
-		this.panel = new JPanel();
-		this.panel.setBackground(Color.BLACK);
+		this.panel =  new JBackgroundPanel();
 		this.frame.setContentPane(this.panel);
 		this.frame.validate();
 		this.frame.repaint();
-		
-		this.shopPhase.setBackground(Color.BLACK);
-		this.shopPhase.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
-		for (int i = 1; i <= 18; i++){
-			JButton card = new JButton("Card "+i);
+
+		this.shopPhase.setBackground(this.trans);
+		this.shopPhase
+				.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
+		for (int i = 0; i <= this.game.bank.size(); i++) {
+			JButton card = new JButton("Card " + (i + 1));
 			card.setPreferredSize(new Dimension(BUT_WIDTH, BUT_HEIGHT));
 			this.shopPhase.add(card);
 		}
-		
+
 		class EndShopListener implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -62,36 +84,28 @@ public class GUI {
 				endShopPhase();
 			}
 		}
-		
-		
+
 		JButton endPhase = new JButton("End Phase");
 		endPhase.addActionListener(new EndShopListener());
 		this.shopPhase.add(endPhase);
 		newTurn();
 	}
 
-
-
 	private void newTurn() {
 		JPanel playerStuff = new JPanel();
-		playerStuff.setBackground(Color.BLACK);
-		playerStuff.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT/3));
+		playerStuff.setBackground(this.trans);
+		playerStuff.setPreferredSize(new Dimension(FRAME_WIDTH,
+				FRAME_HEIGHT / 3));
 		JPanel hand = new JPanel();
-		hand.setBackground(Color.BLACK);
-		hand.setPreferredSize(new Dimension(2*FRAME_WIDTH/3, FRAME_HEIGHT/3));
-		for (int i = 1; i <= 5; i++){
-			JButton card = new JButton("Card "+i);
+		hand.setBackground(this.trans);
+		hand.setPreferredSize(new Dimension(2 * FRAME_WIDTH / 3,
+				FRAME_HEIGHT / 3));
+		for (int i = 0; i < this.game.players.get(this.game.turn).hand.size(); i++) {
+			JButton card = new JButton("Card " + (i + 1));
 			card.setPreferredSize(new Dimension(BUT_WIDTH, BUT_HEIGHT));
 			hand.add(card);
 		}
-		JButton discard = new JButton("Discard");
-		discard.setPreferredSize(new Dimension(BUT_WIDTH, BUT_HEIGHT));
-		JButton deck = new JButton("Deck");
-		deck.setPreferredSize(new Dimension(BUT_WIDTH, BUT_HEIGHT));
-		playerStuff.add(discard);
-		playerStuff.add(deck);
 		JButton endPhase = new JButton("End Phase");
-		
 		class EndListener implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -99,67 +113,62 @@ public class GUI {
 				endActionPhase();
 			}
 		}
-		
+
 		endPhase.addActionListener(new EndListener());
-		hand.add(endPhase);
 		playerStuff.add(hand);
-		
-		
+		playerStuff.add(endPhase);
+
 		JPanel gemPileStuff = new JPanel();
-		
-		for (int i = 1; i <= this.players; i++){
-			JLabel name = new JLabel("Player "+i);
+
+		for (int i = 0; i < this.game.playerNum; i++) {
+			JLabel name = new JLabel("Player " + (i + 1));
 			name.setForeground(Color.WHITE);
-			gemPileStuff.add(name);
+			JPanel player = new JPanel();
+			player.setPreferredSize(new Dimension(FRAME_WIDTH
+					/ (this.game.playerNum + 1), FRAME_HEIGHT / 2));
+			player.setBackground(this.trans);
+			player.add(name);
+			gemPileStuff.add(player);
 		}
-		
-		gemPileStuff.setBackground(Color.BLACK);
-		gemPileStuff.setPreferredSize(new Dimension(FRAME_WIDTH, 3*FRAME_HEIGHT/5));
+
+		gemPileStuff.setBackground(this.trans);
+		gemPileStuff.setPreferredSize(new Dimension(FRAME_WIDTH,
+				3 * FRAME_HEIGHT / 5));
 		JPanel mostPhases = new JPanel();
-		mostPhases.setBackground(Color.BLACK);
+		mostPhases.setBackground(this.trans);
 		mostPhases.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		mostPhases.add(gemPileStuff);
 		mostPhases.add(playerStuff);
-		
-		
-		if (this.panel.getComponentCount() != 0){
+
+		if (this.panel.getComponentCount() != 0) {
 			this.panel.removeAll();
 		}
 		this.panel.add(mostPhases);
-		
+
 		this.frame.validate();
 		this.frame.repaint();
 	}
-	
-	public void endActionPhase(){
+
+	public void endActionPhase() {
 		this.isShopPhase = true;
 		newShopPhase();
 	}
 
-	public void endShopPhase(){
+	public void endShopPhase() {
 		this.isShopPhase = false;
 		newTurn();
 	}
 
 	private void newShopPhase() {
 		// TODO Auto-generated method stub
-		
-		if (this.panel.getComponentCount() != 0){
+
+		if (this.panel.getComponentCount() != 0) {
 			this.panel.removeAll();
 		}
 		this.panel.add(this.shopPhase);
-		
+
 		this.frame.validate();
 		this.frame.repaint();
 	}
-	
-	
 
-
-	
-
-	
-	
-	
-	
 }

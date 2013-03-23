@@ -3,8 +3,11 @@ import java.util.ArrayList;
 
 public class Game {
 
+	public Card[] AllCards = {new Card()};
 	public ArrayList<Player> players;
 	public ArrayList<Card> bank;
+	public int turn = 0;
+	public int playerNum;
 	
 	public Game(){
 		this.players = new ArrayList<Player>();
@@ -13,20 +16,33 @@ public class Game {
 	}
 	
 	public void makePlayers(int number){
-		for (int i = 1; i <= number; i++){
+		this.playerNum = number;
+		for (int i = 0; i < number; i++){
 			this.players.add(new Player());
+//			this.players.get(i).setUp();
 		}
 	}
 	
 	public void makeBank(){
 		//later this method should select random cards from implemented cards
-		for (int i = 1; i <= 10; i++){
-			this.bank.add(new Card());
+		for (int i = 0; i < 10; i++){
+			if (i < this.AllCards.length){
+				this.bank.add(this.AllCards[i]);
+			} else {
+				break;
+			}
 		}
-		//later this should be replaced by specific gem cards etc
-		for (int i = 1; i <= 8; i++){
-			this.bank.add(new Card());
+		
+	}
+	
+	public void newTurn(){
+		if (this.turn == (this.playerNum - 1)){
+			this.turn = 0;
+		} else {
+			this.turn++;
 		}
 	}
+	
+	
 	
 }
