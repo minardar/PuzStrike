@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Card {
 
@@ -8,6 +9,7 @@ public class Card {
 	public ArrayList<CardColor> cardColor;
 	public ArrayList<Integer> effects;
 	public CardType cardType;
+	public String name;
 
 	public Card() {
 		ArrayList<CardColor> col = new ArrayList<CardColor>();
@@ -20,8 +22,9 @@ public class Card {
 		this.cardType = CardType.CIRCLE;
 	}
 
-	public Card(ArrayList<CardColor> color, int cost, CardType type,
+	public Card(String name, ArrayList<CardColor> color, int cost, CardType type,
 			ArrayList<Integer> effects, boolean defense, int value) {
+		this.name = name;
 		this.cardColor = color;
 		this.cost = cost;
 		this.cardType = type;
@@ -29,8 +32,19 @@ public class Card {
 		this.defense = defense;
 		this.value = value;
 	}
-
-	public void use(Player p) {
+	public void use(Player user){
+		useHelper(user, null);
+	}
+	public void use (Player user, Player opponent){
+		useHelper(user, opponent);
+	}
+	public void use(Player user, int...choose){
+		useHelper(user, null, choose);
+	}
+	public void use(Player user, Player opponent, int...choose){
+		useHelper(user, opponent, choose);
+	}
+	public void useHelper(Player p, Player opponent, int...choose) {
 		for (int e : this.effects) {
 			switch (e) {
 			case 1:
@@ -85,28 +99,28 @@ public class Card {
 				wound(p);
 				break;
 			case 18:
-				woundOpponent(p);
+				wound(opponent);
 				break;
 			case 19:
-				lock(p, 1);
+				lock(p, choose[0]);
 				break;
 			case 20:
-				lock(p, 2);
+				lock(p, choose[0], choose[1]);
 				break;
 			case 21:
-				combine(p);
+				combine(p, choose[0],choose[1]);
 				break;
 			case 22:
 				p.money--;
 				break;
 			case 23:
-				crash(p, 1);
+				crash(p,opponent, choose[0]);
 				break;
 			case 24:
-				crash(p, 2);
+				crash(p, opponent, choose[0], choose[1]);
 				break;
 			case 25:
-				trash(p);
+				trashHand(p, choose[0]);
 				break;
 			}
 
@@ -116,8 +130,8 @@ public class Card {
 	 * 
 	 * @param p
 	 */
-	public void trash(Player p){
-		
+	public void trashHand(Player p, int card){
+		p.hand.remove(card);
 	}
 	/**
 	 * Effect that allows player p to crash n gems in their gem pile
@@ -125,8 +139,11 @@ public class Card {
 	 * @param p
 	 * @param n
 	 */
-	public void crash(Player p, int n) {
-
+	public void crash(Player crasher, Player crashee, int... gems) {
+		for(int i : gems){
+//			crasher.gemPile.set(i, crasher.gemPile.get(i)--);
+//			crashee.gemPile.set(0, crashee.gemPile.get(0)+i+1);
+		}
 	}
 
 	/**
@@ -135,8 +152,13 @@ public class Card {
 	 * 
 	 * @param p
 	 */
-	public void combine(Player p) {
-
+	public void combine(Player p, int...gems) {
+		int v= gems[0] + gems[1]+1;
+		if(v<3){
+//			p.gemPile.set(gems[0], p.gemPile.get(gems[0])--);
+//			p.gemPile.set(gems[1], p.gemPile.get(gems[1])--);
+//			p.gemPile.set(v, p.gemPile.get(v)++);
+		}
 	}
 
 	/**
@@ -155,7 +177,7 @@ public class Card {
 	 * @param n
 	 */
 	public void draw(Player p, int n) {
-		//p.drawFromBag(n);
+		p.drawFromBag(n);
 	}
 
 	/**
@@ -174,8 +196,12 @@ public class Card {
 	 * 
 	 * @param p
 	 */
-	public void lock(Player p, int n) {
-		//p.lockedCards.add(p.hand.get(0))
+	public void lock(Player p, int... cards) {
+		Arrays.sort(cards);
+		for(int counter=cards.length-1; counter>=0;counter--){
+			p.lockedCards.add(p.hand.get(cards[counter]));
+			p.hand.remove(cards[counter]);
+		}
 	}
 
 	/**
@@ -193,6 +219,8 @@ public class Card {
 	 * @param p
 	 */
 	public void wound(Player p) {
+		Card newWound = new Card("Wound",colorList(CardColor.GREY), 0, CardType.CIRCLE, new ArrayList(), false, 0);
+		p.bag.add(newWound);
 	}
 
 	/**
@@ -202,5 +230,12 @@ public class Card {
 	 * @param p
 	 */
 	public void risky(Player p) {
+	}
+	public ArrayList<CardColor> colorList(CardColor...col){
+		ArrayList<CardColor> colors = new ArrayList<CardColor>();
+		for (CardColor c : col){
+			colors.add(c);
+		}
+		return colors;
 	}
 }
