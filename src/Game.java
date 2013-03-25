@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class Game {
@@ -8,6 +9,7 @@ public class Game {
 	public ArrayList<Card> bank;
 	public int turn = 0;
 	public int playerNum;
+	public boolean boughtSomething = false;
 	
 	public Game(){
 		this.players = new ArrayList<Player>();
@@ -26,7 +28,12 @@ public class Game {
 	public void makeBank(){
 		for (int i = 0; i < 10; i++){
 			if (i < this.AllCards.length){
-				this.bank.add(this.AllCards[i]);
+				Random generator = new Random();
+				int randomIndex = generator.nextInt(this.AllCards.length);
+				while (this.bank.contains(this.AllCards[randomIndex])){
+					randomIndex = generator.nextInt(this.AllCards.length);
+				}
+				this.bank.add(this.AllCards[randomIndex]);
 			} else {
 				break;
 			}
@@ -35,18 +42,13 @@ public class Game {
 	}
 	
 	public void newTurn(){
+		this.boughtSomething = false;
 		if (this.turn == (this.playerNum - 1)){
 			this.turn = 0;
 		} else {
 			this.turn++;
 		}
 	}
-	
-	public void playerUseCard(int card){
-		Player curr = this.players.get(this.turn);
-		curr.hand.get(card).use(curr);
-	}
-	
 	
 	
 }

@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -64,7 +65,7 @@ public class GUI {
 			g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
 		}
 	}
-	
+
 	public class JBackgroundButton extends JButton {
 		private BufferedImage img;
 
@@ -86,20 +87,30 @@ public class GUI {
 	}
 
 	private void setUp() {
-		this.panel =  new JBackgroundPanel();
+		this.panel = new JBackgroundPanel();
 		this.frame.setContentPane(this.panel);
 		this.frame.validate();
 		this.frame.repaint();
 
+		class CardShopListener implements ActionListener {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO: this function;
+				cardShopInfo((JButton) e.getSource());
+			}
+		}
 		this.shopPhase.setBackground(this.trans);
 		this.shopPhase
 				.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		this.shopCards.setBackground(this.trans);
-		this.shopCards.setPreferredSize(new Dimension(FRAME_WIDTH, 14*FRAME_HEIGHT/16));
+		this.shopCards.setPreferredSize(new Dimension(FRAME_WIDTH,
+				14 * FRAME_HEIGHT / 16));
 		for (int i = 0; i < this.game.bank.size(); i++) {
 			JButton card = new JBackgroundButton();
+			card.setName(""+i);
 			card.add(new JLabel(this.game.bank.get(i).name));
 			card.setPreferredSize(new Dimension(BUT_WIDTH, BUT_HEIGHT));
+			card.addActionListener(new CardShopListener());
 			this.shopCards.add(card);
 		}
 
@@ -119,17 +130,26 @@ public class GUI {
 	}
 
 	private void newTurn() {
+		class CardListener implements ActionListener {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO: this function;
+				cardInfo((JButton) e.getSource());
+			}
+		}
 		JPanel playerStuff = new JPanel();
 		playerStuff.setBackground(this.trans);
 		playerStuff.setPreferredSize(new Dimension(FRAME_WIDTH,
 				FRAME_HEIGHT / 3));
 		JPanel hand = new JPanel();
 		hand.setBackground(this.trans);
-		hand.setPreferredSize(new Dimension(FRAME_WIDTH,
-				2 * FRAME_HEIGHT / 8));
+		hand.setPreferredSize(new Dimension(FRAME_WIDTH, 2 * FRAME_HEIGHT / 8));
 		for (int i = 0; i < this.game.players.get(this.game.turn).hand.size(); i++) {
 			JButton card = new JBackgroundButton();
-			card.add(new JLabel(this.game.players.get(this.game.turn).hand.get(i).name));		
+			card.add(new JLabel(this.game.players.get(this.game.turn).hand
+					.get(i).name));
+			card.setName("" + i);
+			card.addActionListener(new CardListener());
 			card.setPreferredSize(new Dimension(BUT_WIDTH, BUT_HEIGHT));
 			hand.add(card);
 		}
@@ -150,7 +170,11 @@ public class GUI {
 
 		for (int i = 0; i < this.game.playerNum; i++) {
 			JLabel name = new JLabel("Player " + (i + 1));
-			name.setForeground(Color.WHITE);
+			if (this.game.turn == i) {
+				name.setForeground(Color.YELLOW);
+			} else {
+				name.setForeground(Color.WHITE);
+			}
 			JPanel player = new JPanel();
 			player.setPreferredSize(new Dimension(FRAME_WIDTH
 					/ (this.game.playerNum + 1), FRAME_HEIGHT / 2));
@@ -184,7 +208,38 @@ public class GUI {
 
 	public void endShopPhase() {
 		this.isShopPhase = false;
+		this.game.newTurn();
 		newTurn();
+	}
+
+	public void cardInfo(JButton card) {
+		String numString = card.getName();
+		int num = Integer.parseInt(numString);
+		Card clicked = this.game.players.get(this.game.turn).hand.get(num);
+		Object[] options = {"Use Card"};
+		Icon icon = new ImageIcon();
+		Integer n = JOptionPane.showOptionDialog(this.frame, "Card Info/Picture later", clicked.name,
+				JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE,
+				icon, options, options[0]);
+		
+		this.frame.validate();
+		this.frame.setVisible(true);
+		this.frame.repaint();
+	}
+	
+	public void cardShopInfo(JButton card) {
+		String numString = card.getName();
+		int num = Integer.parseInt(numString);
+		Card clicked = this.game.bank.get(num);
+		Object[] options = {"Buy Card"};
+		Icon icon = new ImageIcon();
+		Integer n = JOptionPane.showOptionDialog(this.frame, "Cost: "+ clicked.cost + "\nCard Info/Picture later", clicked.name,
+				JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE,
+				icon, options, options[0]);
+		
+		this.frame.validate();
+		this.frame.setVisible(true);
+		this.frame.repaint();
 	}
 
 	private void newShopPhase() {
