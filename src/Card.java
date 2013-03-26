@@ -233,8 +233,8 @@ public class Card {
 	 */
 	public void crash(Player crasher, Player crashee, int... gems) {
 		for (int i : gems) {
-			crasher.gemPile.set(i, crasher.gemPile.get(i) - 1);
-			crashee.gemPile.set(0, crashee.gemPile.get(0) + i + 1);
+			crasher.gemPile[i] = crasher.gemPile[i] - 1;
+			crashee.gemPile[0] = crashee.gemPile[0] + i + 1;
 		}
 	}
 
@@ -247,9 +247,9 @@ public class Card {
 	public void combine(Player p, int... gems) {
 		int v = gems[0] + gems[1] + 1;
 		if (v < 3) {
-			p.gemPile.set(gems[0], p.gemPile.get(gems[0]) - 1);
-			p.gemPile.set(gems[1], p.gemPile.get(gems[1]) - 1);
-			p.gemPile.set(v, p.gemPile.get(v) + 1);
+			p.gemPile[gems[0]] = p.gemPile[gems[0]] - 1;
+			p.gemPile[gems[1]] = p.gemPile[gems[1]] - 1;
+			p.gemPile[v] = p.gemPile[v] + 1;
 		}
 	}
 
@@ -303,7 +303,7 @@ public class Card {
 	 */
 	public void wound(Player p) {
 		Card newWound = new Card("Wound", colorList(CardColor.GREY), 0,
-				CardType.CIRCLE, new ArrayList(), 0); 
+				CardType.CIRCLE, new ArrayList<Integer>(), 0); 
 		p.bag.add(newWound);
 	}
 
