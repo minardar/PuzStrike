@@ -31,6 +31,29 @@ public class Card {
 		this.input[1]=0;
 		this.input[2]=0;
 	}
+	/**
+	 * Older constructor for testing purposes
+	 * @param name
+	 * @param color
+	 * @param cost
+	 * @param type
+	 * @param effects
+	 * @param defense
+	 * @param value
+	 */
+	public Card(String name, ArrayList<CardColor> color, int cost,
+			CardType type, ArrayList<Integer> effects, boolean defense, int value) {
+		this.name = name;
+		this.cardColor = color;
+		this.cost = cost;
+		this.cardType = type;
+		this.effects = effects;
+		this.defense = defense;
+		this.value = value;
+		this.input[0]=0;
+		this.input[1]=0;
+		this.input[2]=0;
+	}
 	/** Constructor for the card class that lets you specify (with inputs=0) the name, colors,
 	 * cost, type, effects, and its value).
 	 * 
