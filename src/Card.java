@@ -3,7 +3,7 @@ import java.util.Arrays;
 
 public class Card {
 
-	public int cost;
+	public int cost; 
 	public int value;
 	public boolean defense;
 	public ArrayList<CardColor> cardColor;
@@ -303,7 +303,7 @@ public class Card {
 	 */
 	public void wound(Player p) {
 		Card newWound = new Card("Wound", colorList(CardColor.GREY), 0,
-				CardType.CIRCLE, new ArrayList(), 0);
+				CardType.CIRCLE, new ArrayList(), 0); 
 		p.bag.add(newWound);
 	}
 

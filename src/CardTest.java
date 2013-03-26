@@ -14,7 +14,7 @@ public class CardTest {
 	public void testInitiating() {
 		ArrayList<CardColor> colors = new ArrayList<CardColor>();
 		colors.add(CardColor.GREY);
-		new Card(colors, 0, CardType.PUZZLE, new ArrayList<Integer>(), false, 0);
+		new Card("Init",colors, 0, CardType.PUZZLE, new ArrayList<Integer>(), 0);
 	}
 	@Test
 	public void testDefaultConstructor() {
@@ -32,7 +32,7 @@ public class CardTest {
 	public void testStartValues(){
 		ArrayList<CardColor> colors = new ArrayList<CardColor>();
 		colors.add(CardColor.GREY);
-		Card card1 = new Card(colors, 0, CardType.PUZZLE, new ArrayList<Integer>(), false, 0);
+		Card card1 = new Card("start",colors, 0, CardType.PUZZLE, new ArrayList<Integer>(),  0);
 		
 		assertEquals(0, card1.cost);
 		assertEquals(CardType.PUZZLE, card1.cardType);
