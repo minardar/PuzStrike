@@ -4,14 +4,11 @@ import java.util.ArrayList;
 public class Player {
 
 	public ArrayList<Card> hand, bag, lockedCards, discard;
-	public ArrayList<Integer> gemPile;
+	public int[] gemPile;
 	public int money, blackTurns, redTurns, blueTurns, purpleTurns, brownTurns;
 	
 	public Player(){
-		this.gemPile = new ArrayList<Integer>();
-		for (int i = 0; i < 4; i++) {
-			gemPile.add(0);
-		}
+		this.gemPile = new int[4];
 		this.hand = new ArrayList<Card>();
 		this.bag = new ArrayList<Card>();
 		this.discard = new ArrayList<Card>();
@@ -41,7 +38,7 @@ public class Player {
 		Card crash = new Card("CrashGem", w, 1, CardType.CIRCLE, e, false, 1);
 		this.bag.add(crash);
 		
-		this.gemPile.set(0, this.gemPile.get(0) + 1);
+		this.gemPile[0] += 1;
 		this.drawFromBag(5);
 	}
 
@@ -60,7 +57,7 @@ public class Player {
 			this.discard.add(this.hand.remove(0));
 		}
 		
-		//this.drawFromBag(5);
+		this.drawFromBag(5);
 	}
 	
 	public void drawFromBag(int n) {
