@@ -238,6 +238,17 @@ public class Card {
 
 		}
 	}
+	
+	public void discard(Player p){
+		p.hand.remove(this);
+		p.discard.add(this);
+	}
+	
+	public Card getCard(Card c){
+		return new Card(c.name,c.cardColor,c.cost,
+			c.cardType, c.effects, c.defense,
+			c.value, c.input[0], c.input[1], c.input[2]);
+	}
 
 	/**
 	 * Method that trashed the chosen card from the players hand
