@@ -35,7 +35,7 @@ public class Player {
 		w.add(CardColor.PURPLE);
 		e = new ArrayList<Integer>();
 		e.add(23);
-		Card crash = new Card("CrashGem", w, 1, CardType.CIRCLE, e, false, 1);
+		Card crash = new Card("CrashGem", w, 1, CardType.CIRCLE, e, false, 1, 1, 1, 0);
 		this.bag.add(crash);
 		
 		this.gemPile[0] += 1;

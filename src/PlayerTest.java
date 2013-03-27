@@ -42,9 +42,9 @@ public class PlayerTest {
 		Player player = new Player();
 		player.setup();
 		player.endTurn();
-		assertEquals(0, player.hand.size());
+		assertEquals(5, player.hand.size());
 		assertEquals(4, player.bag.size());
-		assertEquals(5, player.discard.size());
+		assertEquals(0, player.discard.size());
 	}
 	
 	@Test
@@ -54,15 +54,15 @@ public class PlayerTest {
 		player.endTurn();
 		
 		player.drawFromBag(3);
-		assertEquals(3, player.hand.size());
+		assertEquals(8, player.hand.size());
 		assertEquals(1, player.getBag().size());
-		assertEquals(5, player.discard.size());
+		assertEquals(0, player.discard.size());
 		
 		player.endTurn();
-		assertEquals(0, player.hand.size());
-		assertEquals(8, player.discard.size());
+		assertEquals(5, player.hand.size());
+		assertEquals(0, player.discard.size());
 		
-		player.drawFromBag(5);
+		player.endTurn();
 		assertEquals(5, player.hand.size());
 		assertEquals(4, player.bag.size());
 		assertEquals(0, player.discard.size());
@@ -76,6 +76,12 @@ public class PlayerTest {
 		player.gemPile[2] += 1;
 		player.gemPile[3] += 1;
 		assertEquals(10, player.totalGemValue());
+	}
+	
+	@Test
+	public void testCanUseCard() {
+		Player player = new Player();
+		
 	}
 	
 }
