@@ -11,7 +11,7 @@ public class Card {
 	public CardType cardType;
 	public String name;
 	public int[] input = new int[3];
-	public int amount=0;
+	public int amount=1;
 
 	/**
 	 * Default constructor for the card class. Creates a "1 Gem", color green,
