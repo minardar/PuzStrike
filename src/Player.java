@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Player {
 
-	public ArrayList<Card> hand, bag, lockedCards, discard;
+	public ArrayList<Card> hand, bag, lockedCards, discard, toUse;
 	public int[] gemPile;
 	public int money, total, blackTurns, redTurns, blueTurns, purpleTurns, brownTurns;
 	
@@ -13,6 +13,7 @@ public class Player {
 		this.bag = new ArrayList<Card>();
 		this.discard = new ArrayList<Card>();
 		this.lockedCards = new ArrayList<Card>();
+		this.toUse = new ArrayList<Card>();
 		newTurn();
 	}
 	
@@ -85,12 +86,29 @@ public class Player {
 		return total;
 	}
 	
+	public int totalMoney() {
+		money = 0;
+		for (int i = 0; i < this.hand.size(); i++) {
+			if (this.hand.get(i).cardColor.contains(CardColor.GREEN)){
+				money += this.hand.get(i).value;
+			}
+		}
+		
+		return money;
+	}
+	
 	public void addToDiscard(Card card) {
 		this.discard.add(card);
 	}
 	
+	public void addToUse(Card card) {
+		this.toUse.add(card);
+	}
+	
 	public boolean canUseCard(Card card) {
-		if (card.cardColor.contains(CardColor.PURPLE) && this.purpleTurns > 0) {
+		if (this.blackTurns > 0) {
+			return true;
+		} else if (card.cardColor.contains(CardColor.PURPLE) && this.purpleTurns > 0) {
 			return true;
 		} else if (card.cardColor.contains(CardColor.RED) && this.redTurns > 0) {
 			return true;
@@ -99,16 +117,6 @@ public class Player {
 		} else if (card.cardColor.contains(CardColor.BROWN) && this.brownTurns > 0) {
 			return true;
 		} else return false;
-	}
-	
-	public int totalMoney() {
-		for (int i = 0; i < this.hand.size(); i++) {
-			if (this.hand.get(i).cardColor.contains(CardColor.GREEN)){
-				money += this.hand.get(i).value;
-			}
-		}
-		
-		return money;
 	}
 	
 	public void setHand(ArrayList<Card> cards) {

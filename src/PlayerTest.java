@@ -81,7 +81,74 @@ public class PlayerTest {
 	@Test
 	public void testCanUseCard() {
 		Player player = new Player();
+		ArrayList<CardColor> w = new ArrayList<CardColor>();
+		w.add(CardColor.PURPLE);
+		ArrayList<Integer> e = new ArrayList<Integer>();
+		e.add(23);
+		Card card = new Card("CrashGem", w, 1, CardType.CIRCLE, e, false, 1, 1, 1, 0);
+		assertTrue(player.canUseCard(card));
 		
+		player.blackTurns = 0;
+		assertFalse(player.canUseCard(card));
 	}
 	
+	@Test
+	public void testCanUsePurpleCard() {
+		Player player = new Player();
+		player.blackTurns = 0;
+		player.purpleTurns = 1;
+		ArrayList<CardColor> w = new ArrayList<CardColor>();
+		w.add(CardColor.PURPLE);
+		ArrayList<Integer> e = new ArrayList<Integer>();
+		e.add(23);
+		Card card = new Card("CrashGem", w, 1, CardType.CIRCLE, e, false, 1, 1, 1, 0);
+		assertTrue(player.canUseCard(card));
+	}
+	
+	@Test
+	public void testTotalMoney() {
+		Player player = new Player();
+		Card gem = new Card();
+		player.hand.add(gem);
+		player.hand.add(gem);
+		assertEquals(2, player.totalMoney());
+		
+		ArrayList<CardColor> w = new ArrayList<CardColor>();
+		w.add(CardColor.GREEN);
+		ArrayList<Integer> e = new ArrayList<Integer>();
+		e.add(13);
+		Card gem3 = new Card("3Gem", w, 1, CardType.CIRCLE, e, false, 3);
+		player.hand.add(gem3);
+		assertEquals(5, player.totalMoney());
+	}
+	
+	@Test
+	public void testTotalMoneyWithDrawFromBag() {
+		Player player = new Player();
+		player.setup();
+		
+		assertTrue(player.totalMoney() > 0);
+	}
+	
+	@Test
+	public void testAddToDiscard() {
+		Player player = new Player();
+		Card card = new Card();
+		assertEquals(0, player.discard.size());
+		player.addToDiscard(card);
+		assertEquals(1, player.discard.size());
+		player.addToDiscard(card);
+		assertEquals(2, player.discard.size());
+	}
+	
+	@Test
+	public void testAddToUse() {
+		Player player = new Player();
+		Card card = new Card();
+		assertEquals(0, player.toUse.size());
+		player.addToUse(card);
+		assertEquals(1, player.toUse.size());
+		player.addToUse(card);
+		assertEquals(2, player.toUse.size());
+	}
 }
