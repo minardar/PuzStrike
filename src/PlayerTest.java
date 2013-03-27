@@ -68,4 +68,14 @@ public class PlayerTest {
 		assertEquals(0, player.discard.size());
 	}
 	
+	@Test
+	public void testTotalGemValue() {
+		Player player = new Player();
+		player.setup();
+		player.gemPile[1] += 1;
+		player.gemPile[2] += 1;
+		player.gemPile[3] += 1;
+		assertEquals(10, player.totalGemValue());
+	}
+	
 }

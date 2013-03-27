@@ -5,7 +5,7 @@ public class Player {
 
 	public ArrayList<Card> hand, bag, lockedCards, discard;
 	public int[] gemPile;
-	public int money, blackTurns, redTurns, blueTurns, purpleTurns, brownTurns;
+	public int money, total, blackTurns, redTurns, blueTurns, purpleTurns, brownTurns;
 	
 	public Player(){
 		this.gemPile = new int[4];
@@ -74,6 +74,41 @@ public class Player {
 				this.hand.add(this.bag.remove(nextCard));
 			}
 		}
+	}
+	
+	public int totalGemValue() {
+		total = 0;
+		total += gemPile[0];
+		total += gemPile[1] * 2;
+		total += gemPile[2] * 3;
+		total += gemPile[3] * 4;
+		return total;
+	}
+	
+	public void addToDiscard(Card card) {
+		this.discard.add(card);
+	}
+	
+	public boolean canUseCard(Card card) {
+		if (card.cardColor.contains(CardColor.PURPLE) && this.purpleTurns > 0) {
+			return true;
+		} else if (card.cardColor.contains(CardColor.RED) && this.redTurns > 0) {
+			return true;
+		} else if (card.cardColor.contains(CardColor.BLUE) && this.blueTurns > 0) {
+			return true;
+		} else if (card.cardColor.contains(CardColor.BROWN) && this.brownTurns > 0) {
+			return true;
+		} else return false;
+	}
+	
+	public int totalMoney() {
+		for (int i = 0; i < this.hand.size(); i++) {
+			if (this.hand.get(i).cardColor.contains(CardColor.GREEN)){
+				money += this.hand.get(i).value;
+			}
+		}
+		
+		return money;
 	}
 	
 	public void setHand(ArrayList<Card> cards) {
