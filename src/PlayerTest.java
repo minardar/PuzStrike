@@ -109,6 +109,23 @@ public class PlayerTest {
 	}
 	
 	@Test
+	public void testUseCard() {
+		Player player = new Player();
+		player.purpleTurns = 1;
+		ArrayList<CardColor> w = new ArrayList<CardColor>();
+		w.add(CardColor.PURPLE);
+		ArrayList<Integer> e = new ArrayList<Integer>();
+		e.add(23);
+		Card card = new Card("CrashGem", w, 1, CardType.CIRCLE, e, false, 1, 1, 1, 0);
+		assertTrue(player.canUseCard(card));
+		player.useCard(card);
+		assertEquals(0, player.purpleTurns);
+	
+		player.useCard(card);
+		assertEquals(0, player.blackTurns);
+	}
+	
+	@Test
 	public void testTotalMoney() {
 		Player player = new Player();
 		Card gem = new Card();

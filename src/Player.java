@@ -122,7 +122,17 @@ public class Player {
 		} else return false;
 	}
 	
-	
+	public void useCard(Card card) {
+		if (card.cardColor.contains(CardColor.PURPLE) && this.purpleTurns != 0) {
+			this.purpleTurns--;
+		} else if (card.cardColor.contains(CardColor.RED) && this.redTurns != 0) {
+			this.redTurns--;
+		} else if (card.cardColor.contains(CardColor.BLUE) && this.blueTurns != 0) {
+			this.blueTurns--;
+		} else if (card.cardColor.contains(CardColor.BROWN) && this.brownTurns != 0) {
+			this.brownTurns--;
+		} else this.blackTurns--;
+	}
 	
 	public void setHand(ArrayList<Card> cards) {
 		this.hand = cards;
