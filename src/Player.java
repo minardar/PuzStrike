@@ -122,7 +122,7 @@ public class Player {
 		} else return false;
 	}
 	
-	public void useCard(Card card) {
+	public void useTurn(Card card) {
 		if (card.cardColor.contains(CardColor.PURPLE) && this.purpleTurns != 0) {
 			this.purpleTurns--;
 		} else if (card.cardColor.contains(CardColor.RED) && this.redTurns != 0) {

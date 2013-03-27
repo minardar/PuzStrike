@@ -109,7 +109,7 @@ public class PlayerTest {
 	}
 	
 	@Test
-	public void testUseCard() {
+	public void testUseTurn() {
 		Player player = new Player();
 		player.purpleTurns = 1;
 		ArrayList<CardColor> w = new ArrayList<CardColor>();
@@ -118,10 +118,10 @@ public class PlayerTest {
 		e.add(23);
 		Card card = new Card("CrashGem", w, 1, CardType.CIRCLE, e, false, 1, 1, 1, 0);
 		assertTrue(player.canUseCard(card));
-		player.useCard(card);
+		player.useTurn(card);
 		assertEquals(0, player.purpleTurns);
 	
-		player.useCard(card);
+		player.useTurn(card);
 		assertEquals(0, player.blackTurns);
 	}
 	
