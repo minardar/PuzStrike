@@ -3,7 +3,8 @@ import java.util.ArrayList;
 
 public class Player {
 
-	public ArrayList<Card> hand, bag, lockedCards, discard, toUse;
+	public ArrayList<Card> hand, bag, lockedCards, discard;
+	public ArrayList<Integer> toUse;
 	public int[] gemPile;
 	public int money, total, blackTurns, redTurns, blueTurns, purpleTurns, brownTurns;
 	
@@ -13,7 +14,7 @@ public class Player {
 		this.bag = new ArrayList<Card>();
 		this.discard = new ArrayList<Card>();
 		this.lockedCards = new ArrayList<Card>();
-		this.toUse = new ArrayList<Card>();
+		this.toUse = new ArrayList<Integer>();
 		newTurn();
 	}
 	
@@ -101,7 +102,7 @@ public class Player {
 		this.discard.add(card);
 	}
 	
-	public void addToUse(Card card) {
+	public void addToUse(int card) {
 		this.toUse.add(card);
 	}
 	

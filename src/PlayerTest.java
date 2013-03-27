@@ -144,11 +144,10 @@ public class PlayerTest {
 	@Test
 	public void testAddToUse() {
 		Player player = new Player();
-		Card card = new Card();
 		assertEquals(0, player.toUse.size());
-		player.addToUse(card);
+		player.addToUse(10);
 		assertEquals(1, player.toUse.size());
-		player.addToUse(card);
+		player.addToUse(2);
 		assertEquals(2, player.toUse.size());
 	}
 }
