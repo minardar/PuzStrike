@@ -103,6 +103,9 @@ public class PlayerTest {
 		e.add(23);
 		Card card = new Card("CrashGem", w, 1, CardType.CIRCLE, e, false, 1, 1, 1, 0);
 		assertTrue(player.canUseCard(card));
+		
+		card = new Card();
+		assertFalse(player.canUseCard(card));
 	}
 	
 	@Test

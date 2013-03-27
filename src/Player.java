@@ -107,7 +107,9 @@ public class Player {
 	}
 	
 	public boolean canUseCard(Card card) {
-		if (this.blackTurns > 0) {
+		if (card.cardColor.contains(CardColor.GREEN) || card.cardColor.contains(CardColor.GREY)) {
+			return false;
+		} else if (this.blackTurns > 0) {
 			return true;
 		} else if (card.cardColor.contains(CardColor.PURPLE) && this.purpleTurns > 0) {
 			return true;
@@ -119,6 +121,8 @@ public class Player {
 			return true;
 		} else return false;
 	}
+	
+	
 	
 	public void setHand(ArrayList<Card> cards) {
 		this.hand = cards;
