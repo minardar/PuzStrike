@@ -30,19 +30,19 @@ public class GUI {
 	public JPanel shopPhase = new JPanel();
 	public JPanel shopCards = new JPanel();
 	public JPanel panel;
-	public boolean isShopPhase = false;
+	public JPanel gemPileStuff;
+	public JPanel playerStuff;
 	public Game game;
 	public Color trans = new Color(255, 255, 255, 0);
 
 	public GUI() {
-		this.frame = new JFrame("Puzzle Strike: Hand of Cards");
+		this.frame = new JFrame("Puzzle Strike: Deck of Cards");
 		this.frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.setResizable(false);
 		this.frame.setVisible(true);
 		this.frame.setResizable(false);
-		this.game = new Game();
-		this.game.makePlayers(2);
+		this.game = new Game(3);
 		setUp();
 	}
 
@@ -89,8 +89,7 @@ public class GUI {
 	private void setUp() {
 		this.panel = new JBackgroundPanel();
 		this.frame.setContentPane(this.panel);
-		this.frame.validate();
-		this.frame.repaint();
+		updateFrame();
 
 		class CardShopListener implements ActionListener {
 			@Override
@@ -107,7 +106,7 @@ public class GUI {
 				14 * FRAME_HEIGHT / 16));
 		for (int i = 0; i < this.game.bank.size(); i++) {
 			JButton card = new JBackgroundButton();
-			card.setName(""+i);
+			card.setName("" + i);
 			card.add(new JLabel(this.game.bank.get(i).name));
 			card.setPreferredSize(new Dimension(BUT_WIDTH, BUT_HEIGHT));
 			card.addActionListener(new CardShopListener());
@@ -137,17 +136,16 @@ public class GUI {
 				cardInfo((JButton) e.getSource());
 			}
 		}
-		JPanel playerStuff = new JPanel();
-		playerStuff.setBackground(this.trans);
-		playerStuff.setPreferredSize(new Dimension(FRAME_WIDTH,
+		this.playerStuff = new JPanel();
+		this.playerStuff.setBackground(this.trans);
+		this.playerStuff.setPreferredSize(new Dimension(FRAME_WIDTH,
 				FRAME_HEIGHT / 3));
 		JPanel hand = new JPanel();
 		hand.setBackground(this.trans);
 		hand.setPreferredSize(new Dimension(FRAME_WIDTH, 2 * FRAME_HEIGHT / 8));
 		for (int i = 0; i < this.game.players.get(this.game.turn).hand.size(); i++) {
 			JButton card = new JBackgroundButton();
-			card.add(new JLabel(this.game.players.get(this.game.turn).hand
-					.get(i).name));
+			card.add(new JLabel(this.game.getCurrentPlayer().hand.get(i).name));
 			card.setName("" + i);
 			card.addActionListener(new CardListener());
 			card.setPreferredSize(new Dimension(BUT_WIDTH, BUT_HEIGHT));
@@ -163,13 +161,36 @@ public class GUI {
 		}
 
 		endPhase.addActionListener(new EndListener());
-		playerStuff.add(hand);
-		playerStuff.add(endPhase);
+		this.playerStuff.add(hand);
+		this.playerStuff.add(endPhase);
 
-		JPanel gemPileStuff = new JPanel();
+		this.gemPileStuff = new JPanel();
 
 		for (int i = 0; i < this.game.playerNum; i++) {
 			JLabel name = new JLabel("Player " + (i + 1));
+			JPanel gemPileMargins = new JPanel();
+			JPanel gemPile = new JPanel();
+			gemPileMargins.setPreferredSize(new Dimension(FRAME_WIDTH
+					/ (this.game.playerNum + 1), 400));
+			gemPileMargins.setBackground(this.trans);
+			gemPile.setPreferredSize(new Dimension(100, 400));
+			gemPile.setBackground(this.trans);
+			JLabel gem1 = new JLabel("1 gem(s): "
+					+ this.game.players.get(i).gemPile[0]);
+			JLabel gem2 = new JLabel("2 gem(s): "
+					+ this.game.players.get(i).gemPile[1]);
+			JLabel gem3 = new JLabel("3 gem(s): "
+					+ this.game.players.get(i).gemPile[2]);
+			JLabel gem4 = new JLabel("4 gem(s): "
+					+ this.game.players.get(i).gemPile[3]);
+			JLabel totalVal = new JLabel("Total: "
+					+ this.game.players.get(i).totalGemValue());
+			gemPile.add(gem1);
+			gemPile.add(gem2);
+			gemPile.add(gem3);
+			gemPile.add(gem4);
+			gemPile.add(totalVal);
+			gemPileMargins.add(gemPile);
 			if (this.game.turn == i) {
 				name.setForeground(Color.YELLOW);
 			} else {
@@ -180,77 +201,207 @@ public class GUI {
 					/ (this.game.playerNum + 1), FRAME_HEIGHT / 2));
 			player.setBackground(this.trans);
 			player.add(name);
-			gemPileStuff.add(player);
+			player.add(gemPileMargins);
+			this.gemPileStuff.add(player);
 		}
 
-		gemPileStuff.setBackground(this.trans);
-		gemPileStuff.setPreferredSize(new Dimension(FRAME_WIDTH,
+		this.gemPileStuff.setBackground(this.trans);
+		this.gemPileStuff.setPreferredSize(new Dimension(FRAME_WIDTH,
 				3 * FRAME_HEIGHT / 5));
+
 		JPanel mostPhases = new JPanel();
 		mostPhases.setBackground(this.trans);
 		mostPhases.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
-		mostPhases.add(gemPileStuff);
-		mostPhases.add(playerStuff);
+		mostPhases.add(this.gemPileStuff);
+		mostPhases.add(this.playerStuff);
 
 		if (this.panel.getComponentCount() != 0) {
 			this.panel.removeAll();
 		}
 		this.panel.add(mostPhases);
 
-		this.frame.validate();
-		this.frame.repaint();
+		updateFrame();
 	}
 
 	public void endActionPhase() {
-		this.isShopPhase = true;
 		newShopPhase();
 	}
 
 	public void endShopPhase() {
-		this.isShopPhase = false;
-		this.game.newTurn();
-		newTurn();
+		if (this.game.boughtSomething) {
+			this.game.getCurrentPlayer().endTurn();
+			this.game.newTurn();
+			newTurn();
+		}
 	}
 
 	public void cardInfo(JButton card) {
 		String numString = card.getName();
-		int num = Integer.parseInt(numString);
-		Card clicked = this.game.players.get(this.game.turn).hand.get(num);
-		Object[] options = {"Use Card"};
 		Icon icon = new ImageIcon();
-		Integer n = JOptionPane.showOptionDialog(this.frame, "Card Info/Picture later", clicked.name,
-				JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE,
-				icon, options, options[0]);
-		
-		this.frame.validate();
-		this.frame.setVisible(true);
-		this.frame.repaint();
+		int num = Integer.parseInt(numString);
+		Card clicked = this.game.getCurrentPlayer().hand.get(num);
+		if (this.game.getCurrentPlayer().canUseCard(clicked)) {
+			Object[] options = { "Use Card" };
+			Integer n = JOptionPane.showOptionDialog(this.frame,
+					"Card Info/Picture later", clicked.name,
+					JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, icon,
+					options, options[0]);
+
+			if (n == 0) {
+				useCard(clicked);
+			}
+		} else {
+			Object[] options = {};
+			JOptionPane.showOptionDialog(this.frame, "Card Info/Picture later",
+					clicked.name, JOptionPane.DEFAULT_OPTION,
+					JOptionPane.INFORMATION_MESSAGE, icon, options, null);
+		}
+
+		updateFrame();
 	}
-	
+
 	public void cardShopInfo(JButton card) {
 		String numString = card.getName();
+		Icon icon = new ImageIcon();
 		int num = Integer.parseInt(numString);
 		Card clicked = this.game.bank.get(num);
-		Object[] options = {"Buy Card"};
-		Icon icon = new ImageIcon();
-		Integer n = JOptionPane.showOptionDialog(this.frame, "Cost: "+ clicked.cost + "\nCard Info/Picture later", clicked.name,
-				JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE,
-				icon, options, options[0]);
-		
-		this.frame.validate();
-		this.frame.setVisible(true);
-		this.frame.repaint();
+		if (this.game.canBuy(clicked)) {
+			Object[] options = { "Buy Card" };
+			Integer n = JOptionPane.showOptionDialog(this.frame, "Cost: "
+					+ clicked.cost + "\nAmount: " + clicked.amount
+					+ "\nCard Info/Picture later", clicked.name,
+					JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, icon,
+					options, options[0]);
+
+			if (n == 0) {
+				this.game.playerBuyCard(this.game.getCurrentPlayer(), clicked);
+			}
+		} else {
+			Object[] options = {};
+			JOptionPane.showOptionDialog(this.frame, "Cost: "
+					+ clicked.cost + "\nAmount: " + clicked.amount
+					+ "\nCard Info/Picture later",
+					clicked.name, JOptionPane.DEFAULT_OPTION,
+					JOptionPane.INFORMATION_MESSAGE, icon, options, null);
+		}
+
+		updateFrame();
 	}
 
 	private void newShopPhase() {
 		// TODO Auto-generated method stub
 
+		this.game.totalMoney();
 		if (this.panel.getComponentCount() != 0) {
 			this.panel.removeAll();
 		}
 		this.panel.add(this.shopPhase);
 
+		updateFrame();
+	}
+
+	private void useCard(Card clicked) {
+		// TODO Auto-generated method stub
+		int pickOpponent = clicked.input[0];
+		int numValues = clicked.input[1];
+		int valType = clicked.input[2];
+		Player opponent = null;
+		int[] place = null;
+		ArrayList<Card> place2 = null;
+		Icon icon = new ImageIcon();
+
+		switch (valType) {
+		case 0:
+			place = this.game.getCurrentPlayer().gemPile;
+			break;
+		case 1:
+			place2 = this.game.getCurrentPlayer().hand;
+			break;
+		case 2:
+			place2 = this.game.getCurrentPlayer().bag;
+			break;
+		case 3:
+			place2 = this.game.getCurrentPlayer().discard;
+			break;
+		case 4:
+			place2 = this.game.bank;
+			break;
+		}
+
+		if (pickOpponent == 1) {
+			ArrayList<String> opponentsList = new ArrayList<String>();
+			for (int p = 0; p < this.game.playerNum; p++) {
+				if (p != this.game.turn) {
+					opponentsList.add("Player " + (p + 1));
+				}
+			}
+
+			Object[] opponents = opponentsList.toArray();
+			Object o = JOptionPane.showInputDialog(this.frame, "",
+					"Pick a Target", JOptionPane.OK_OPTION, icon, opponents,
+					opponents[0]);
+			if (o != null) {
+				int index = Integer.parseInt(((String) o).substring(7, 8)) - 1;
+				opponent = this.game.players.get(index);
+			}
+		}
+
+		if (valType == 0) {
+			if (numValues > 0) {
+				for (int i = 0; i < numValues; i++) {
+					ArrayList<String> possible = new ArrayList<String>();
+					for (int j = 0; j < place.length; j++) {
+						if (place[j] > 0) {
+							possible.add("" + (j + 1) + " gem");
+						}
+					}
+					Object[] options = possible.toArray();
+					Object n;
+					if (i == 0) {
+						n = JOptionPane.showInputDialog(this.frame, "",
+								"Pick a Target", JOptionPane.OK_OPTION, icon,
+								options, options[0]);
+					} else {
+						n = JOptionPane.showInputDialog(this.frame, "",
+								"Pick Another Target", JOptionPane.OK_OPTION,
+								icon, options, options[0]);
+					}
+					if (n != null) {
+						int val = Integer
+								.parseInt(((String) n).substring(0, 1)) - 1;
+						this.game.getCurrentPlayer().addToUse(val);
+					}
+				}
+
+				Player curr = this.game.getCurrentPlayer();
+
+				int[] b = new int[curr.toUse.size()];
+				for (int k = 0; k < b.length; k++) {
+					int i = (int) curr.toUse.get(k);
+					System.out.println(i);
+					b[k] = i;
+				}
+
+				clicked.useHelper(curr, opponent, b);
+				curr.useTurn(clicked);
+				clicked.discard(curr);
+				newTurn();
+			} else {
+				Player curr = this.game.getCurrentPlayer();
+				clicked.use(curr, opponent);
+				curr.useTurn(clicked);
+				clicked.discard(curr);
+				newTurn();
+			}
+
+		}
+
+		updateFrame();
+	}
+
+	private void updateFrame() {
 		this.frame.validate();
+		this.frame.setVisible(true);
 		this.frame.repaint();
 	}
 
