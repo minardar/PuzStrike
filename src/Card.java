@@ -304,9 +304,9 @@ public class Card {
 	 * 
 	 * @param p
 	 */
-	public void trap(Player p) {
-
-	}
+//	public void trap(Player p) {
+//
+//	}
 
 	/**
 	 * Effect that allows player p to lock a card in his hand
@@ -326,9 +326,9 @@ public class Card {
 	 * 
 	 * @param p
 	 */
-	public void ongoingLock(Player p) {
-
-	}
+//	public void ongoingLock(Player p) {
+//
+//	}
 
 	/**
 	 * Wound: this player gains a wound chip
@@ -347,11 +347,11 @@ public class Card {
 	 * 
 	 * @param p
 	 */
-	public void risky(Player p, int gem) {
-//		int v = p.hand.get(gem).value;
-//		p.hand.remove(gem);
-//		p.discard.add()
-	}
+//	public void risky(Player p, int gem) {
+////		int v = p.hand.get(gem).value;
+////		p.hand.remove(gem);
+////		p.discard.add()
+//	}
 
 	public ArrayList<CardColor> colorList(CardColor... col) {
 		ArrayList<CardColor> colors = new ArrayList<CardColor>();
