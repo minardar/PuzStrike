@@ -382,7 +382,7 @@ public class GUI {
 					b[k] = i;
 				}
 
-				clicked.useHelper(curr, opponent, b);
+				clicked.use(curr, opponent, b);
 				curr.useTurn(clicked);
 				clicked.discard(curr);
 				newTurn();

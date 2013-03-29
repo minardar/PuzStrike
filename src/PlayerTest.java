@@ -133,10 +133,10 @@ public class PlayerTest {
 		player.hand.add(gem);
 		assertEquals(2, player.totalMoney());
 		
+		
 		ArrayList<CardColor> w = new ArrayList<CardColor>();
 		w.add(CardColor.GREEN);
 		ArrayList<Integer> e = new ArrayList<Integer>();
-		e.add(13);
 		Card gem3 = new Card("3Gem", w, 1, CardType.CIRCLE, e, false, 3);
 		player.hand.add(gem3);
 		assertEquals(5, player.totalMoney());

@@ -29,10 +29,19 @@ public class Game {
 		w.add(CardColor.PURPLE);
 		e = new ArrayList<Integer>();
 		e.add(23);
-		Card crash = new Card("CrashGem", w, 5, CardType.CIRCLE, e, false, 1, 1, 1, 0);
+		e.add(10);
+		Card crash = new Card("Crash Gem", w, 0, CardType.CIRCLE, e, true, 0, 1, 1, 0);
+		
+		w = new ArrayList<CardColor>();
+		w.add(CardColor.PURPLE);
+		e = new ArrayList<Integer>();
+		e.add(21);
+		e.add(4);
+		Card combine = new Card("Combine", w, 4, CardType.CIRCLE, e, false, 0, 0, 2, 0);
 		this.AlwaysCards.add(new Card());
 		this.AlwaysCards.add(crash);
 		this.AlwaysCards.add(wound);
+		this.AlwaysCards.add(combine);
 		
 		makePlayers(number);
 		makeBank();		
@@ -57,6 +66,9 @@ public class Game {
 		Card wound = this.AlwaysCards.get(2);
 		wound.setAmount(24);
 		this.bank.add(wound);	
+		Card combine = this.AlwaysCards.get(3);
+		combine.setAmount(20);
+		this.bank.add(combine);	
 //		for (int i = 0; i < 10; i++){
 //			if (i < this.AllCards.size()){
 //				Random generator = new Random();
@@ -90,7 +102,7 @@ public class Game {
 	}
 	
 	public void playerBuyCard(Player play, Card card){
-		if (card.amount > 0 && card.cost < this.playerMoney){
+		if (card.amount > 0 && card.cost <= this.playerMoney){
 			card.amount--;
 			this.playerMoney -= card.cost;
 			this.boughtSomething = true;

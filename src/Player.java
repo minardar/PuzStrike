@@ -28,7 +28,7 @@ public class Player {
 		w.add(CardColor.GREY);
 		ArrayList<Integer> e = new ArrayList<Integer>();
 		e.add(17);
-		Card wound = new Card("Wound", w, 5, CardType.CIRCLE, e, false, 0);
+		Card wound = new Card("Wound", w, 0, CardType.CIRCLE, e, false, 0);
 		for (int i = 0; i < 3; i++) {
 			this.bag.add(wound);
 		}
@@ -37,7 +37,8 @@ public class Player {
 		w.add(CardColor.PURPLE);
 		e = new ArrayList<Integer>();
 		e.add(23);
-		Card crash = new Card("CrashGem", w, 1, CardType.CIRCLE, e, false, 1, 1, 1, 0);
+		e.add(10);
+		Card crash = new Card("Crash Gem", w, 5, CardType.CIRCLE, e, true, 0, 1, 1, 0);
 		this.bag.add(crash);
 		
 		this.gemPile[0] += 1;
@@ -88,14 +89,14 @@ public class Player {
 	}
 	
 	public int totalMoney() {
-		money = 0;
+		int money= 0;
 		for (int i = 0; i < this.hand.size(); i++) {
 			if (this.hand.get(i).cardColor.contains(CardColor.GREEN)){
 				money += this.hand.get(i).value;
 			}
 		}
 		
-		return money;
+		return this.money+ money;
 	}
 	
 	public void addToDiscard(Card card) {
