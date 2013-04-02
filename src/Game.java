@@ -19,32 +19,32 @@ public class Game {
 		this.AllCards = new ArrayList<Card>();
 		this.AlwaysCards = new ArrayList<Card>();
 		
-		ArrayList<CardColor> w = new ArrayList<CardColor>();
-		w.add(CardColor.GREY);
-		ArrayList<Integer> e = new ArrayList<Integer>();
-		e.add(17);
-		Card wound = new Card("Wound", w, 0, CardType.CIRCLE, e, false, 0);
-		
-		w = new ArrayList<CardColor>();
-		w.add(CardColor.PURPLE);
-		e = new ArrayList<Integer>();
-		e.add(23);
-		e.add(10);
-		Card crash = new Card("Crash Gem", w, 0, CardType.CIRCLE, e, true, 0, 1, 1, 0);
-		
-		w = new ArrayList<CardColor>();
-		w.add(CardColor.PURPLE);
-		e = new ArrayList<Integer>();
-		e.add(21);
-		e.add(4);
-		Card combine = new Card("Combine", w, 4, CardType.CIRCLE, e, false, 0, 0, 2, 0);
-		this.AlwaysCards.add(new Card());
-		this.AlwaysCards.add(crash);
-		this.AlwaysCards.add(wound);
-		this.AlwaysCards.add(combine);
+//		ArrayList<CardColor> w = new ArrayList<CardColor>();
+//		w.add(CardColor.GREY);
+//		ArrayList<Integer> e = new ArrayList<Integer>();
+//		e.add(17);
+//		Card wound = new Card("Wound", w, 0, CardType.CIRCLE, e, false, 0);
+//		
+//		w = new ArrayList<CardColor>();
+//		w.add(CardColor.PURPLE);
+//		e = new ArrayList<Integer>();
+//		e.add(23);
+//		e.add(10);
+//		Card crash = new Card("Crash Gem", w, 0, CardType.CIRCLE, e, true, 0, 1, 1, 0);
+//		
+//		w = new ArrayList<CardColor>();
+//		w.add(CardColor.PURPLE);
+//		e = new ArrayList<Integer>();
+//		e.add(21);
+//		e.add(4);
+//		Card combine = new Card("Combine", w, 4, CardType.CIRCLE, e, false, 0, 0, 2, 0);
+//		this.AlwaysCards.add(new Card());
+//		this.AlwaysCards.add(crash);
+//		this.AlwaysCards.add(wound);
+//		this.AlwaysCards.add(combine);
 		
 		makePlayers(number);
-		makeBank();		
+//		makeBank();		
 	}
 	
 	public void makePlayers(int number){
@@ -106,7 +106,7 @@ public class Game {
 			card.amount--;
 			this.playerMoney -= card.cost;
 			this.boughtSomething = true;
-			play.addToDiscard(card.getCard(card));
+//			play.addToDiscard(card.getCard(card));
 		}
 	}
 	

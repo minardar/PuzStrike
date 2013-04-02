@@ -1,253 +1,97 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Card {
+/**
+ * Abstract class for the card class
+ * 
+ * @author harrissa
+ * 
+ */
+public abstract class Card {
 
-	public int cost; 
+	public int cost;
 	public int value;
 	public boolean defense;
-	public ArrayList<CardColor> cardColor;
-	public ArrayList<Integer> effects;
+	public ArrayList<CardColor> cardColor = new ArrayList<CardColor>();
+	public ArrayList<Integer> effects = new ArrayList<Integer>();
 	public CardType cardType;
 	public String name;
 	public int[] input = new int[3];
-	public int amount=1;
+	public int amount = 1;
+	public ArrayList<Player> oppObjList = new ArrayList<Player>();
 
 	/**
-	 * Default constructor for the card class. Creates a "1 Gem", color green,
-	 * type circle, no effects, cost 1, value 1, no defense,
-	 */
-	public Card() {
-		ArrayList<CardColor> col = new ArrayList<CardColor>();
-		col.add(CardColor.GREEN);
-		this.name = "1 Gem";
-		this.cardColor = new ArrayList<CardColor>(col);
-		this.cost = 1;
-		this.value = 1;
-		this.defense = false;
-		this.effects = new ArrayList<Integer>();
-		this.cardType = CardType.CIRCLE;
-		this.input[0]=0;
-		this.input[1]=0;
-		this.input[2]=0;
-	}
-	/**
-	 * Older constructor for testing purposes
-	 * @param name
-	 * @param color
-	 * @param cost
-	 * @param type
-	 * @param effects
-	 * @param defense
-	 * @param value
-	 */
-	public Card(String name, ArrayList<CardColor> color, int cost,
-			CardType type, ArrayList<Integer> effects, boolean defense, int value) {
-		this.name = name;
-		this.cardColor = color;
-		this.cost = cost;
-		this.cardType = type;
-		this.effects = effects;
-		this.defense = defense;
-		this.value = value;
-		this.input[0]=0;
-		this.input[1]=0;
-		this.input[2]=0;
-	}
-	/** Constructor for the card class that lets you specify (with inputs=0) the name, colors,
-	 * cost, type, effects, and its value).
+	 * A method that will get a list of opponents
 	 * 
-	 * @param name
-	 * @param color
-	 * @param cost
-	 * @param type
-	 * @param effects
-	 * @param value
+	 * @param g
+	 * @return
 	 */
-	public Card(String name, ArrayList<CardColor> color, int cost,
-			CardType type, ArrayList<Integer> effects, int value) {
-		this.name = name;
-		this.cardColor = color;
-		this.cost = cost;
-		this.cardType = type;
-		this.effects = effects;
-		this.defense = false;
-		this.value = value;
-		this.input[0]=0;
-		this.input[1]=0;
-		this.input[2]=0;
-	}
-	/**
-	 * Constructor for the card class that lets you specify the name, colors,
-	 * cost, type, effects, if it is defensive, and its value).
-	 * 
-	 * @param name
-	 * @param color
-	 * @param cost
-	 * @param type
-	 * @param effects
-	 * @param defense
-	 * @param value
-	 */
-	public Card(String name, ArrayList<CardColor> color, int cost,
-			CardType type, ArrayList<Integer> effects, boolean defense,
-			int value, int inputOpponent, int inputChoice, int inputType) {
-		this.name = name;
-		this.cardColor = color;
-		this.cost = cost;
-		this.cardType = type;
-		this.effects = effects;
-		this.defense = defense;
-		this.value = value;
-		this.input[0]=inputOpponent;
-		this.input[1]=inputChoice;
-		this.input[2]=inputType;
-	}
-
-	/**
-	 * Use method for a card that only involves a user.
-	 * 
-	 * @param user
-	 */
-	public void use(Player user) {
-		useHelper(user, null);
-	}
-
-	/**
-	 * Use method for a card that involves a user and a chosen opponent
-	 * 
-	 * @param user
-	 * @param opponent
-	 */
-	public void use(Player user, Player opponent) {
-		useHelper(user, opponent);
-	}
-
-	/**
-	 * use method that involves a user and something chosen (ex: chosen card in
-	 * hand)
-	 * 
-	 * @param user
-	 * @param choose
-	 */
-	public void use(Player user, int... choose) {
-		useHelper(user, null, choose);
-	}
-
-	/**
-	 * Use method that takes user, an opponent to use the card on and chosen
-	 * things (ex: A double crash needs a user to lose gems, an opponent to get
-	 * gems and gems to be chosen fromt he gem pile.
-	 * 
-	 * @param user
-	 * @param opponent
-	 * @param choose
-	 */
-	public void use(Player user, Player opponent, int... choose) {
-		useHelper(user, opponent, choose);
-	}
-
-	/**
-	 * Use helper combines all the use methods above into one helper method that
-	 * performs the effect and/or calls another method to perform the effect
-	 * based on the effects in the cards effect array.
-	 * 
-	 * @param p
-	 * @param opponent
-	 * @param choose
-	 */
-	public void useHelper(Player p, Player opponent, int... choose) {
-		for (int e : this.effects) {
-			switch (e) {
-			case 1:
-				p.blackTurns++;
-				break;
-			case 2:
-				p.blueTurns++;
-				break;
-			case 3:
-				p.brownTurns++;
-				break;
-			case 4:
-				p.purpleTurns++;
-				break;
-			case 5:
-				p.redTurns++;
-				break;
-			case 6:
-				p.blackTurns += 2;
-				break;
-			case 7:
-				p.brownTurns += 2;
-				break;
-			case 8:
-				p.blueTurns += 2;
-				break;
-			case 9:
-				p.blackTurns += 3;
-				break;
-			case 10:
-				p.money++;
-				break;
-			case 11:
-				p.money += 2;
-				break;
-			case 12:
-				p.money += 3;
-				break;
-			case 13:
-				draw(p, 1);
-				break;
-			case 14:
-				draw(p, 2);
-				break;
-			case 15:
-				draw(p, 3);
-				break;
-			case 16:
-				draw(p, 4);
-				break;
-			case 17:
-				wound(p);
-				break;
-			case 18:
-				wound(opponent);
-				break;
-			case 19:
-				lock(p, choose[0]);
-				break;
-			case 20:
-				lock(p, choose[0], choose[1]);
-				break;
-			case 21:
-				combine(p, choose[0], choose[1]);
-				break;
-			case 22:
-				p.money--;
-				break;
-			case 23:
-				crash(p, opponent, choose[0]);
-				break;
-			case 24:
-				crash(p, opponent, choose[0], choose[1]);
-				break;
-			case 25:
-				trashHand(p, choose[0]);
-				break;
+	public ArrayList<String> getOpponents(Game g) {
+		Player p = g.getCurrentPlayer();
+		ArrayList<Player> oppObj = g.players;
+		ArrayList<String> oppStrings = new ArrayList<String>();
+		int i = 1;
+		for (Player o : oppObj) {
+			if (!p.equals(o)) {
+				oppObjList.add(o);
+				String name = "Player " + i;
+				oppStrings.add(name);
 			}
-
+			i++;
 		}
+		return oppStrings;
 	}
-	
-	public void discard(Player p){
+
+	/**
+	 * A method that will return a list of gems in the players gempile
+	 * 
+	 * @param g
+	 * @return
+	 */
+	public ArrayList<String> getGempile(Game g) {
+		Player p = g.getCurrentPlayer();
+		int[] gempile = p.gemPile;
+		ArrayList<String> gemStrings = new ArrayList<String>();
+		for (int gems : gempile) {
+			for (int i = 0; i < gems; i++) {
+				gemStrings.add(Integer.toString(gems + 1) + " gem");
+			}
+		}
+		return gemStrings;
+	}
+	/**
+	 * A method that will return a list of cards in the player's hand
+	 * @param g
+	 * @return
+	 */
+	public ArrayList<String> getHand(Game g) {
+		Player p = g.getCurrentPlayer();
+		ArrayList<Card> h = p.hand;
+		ArrayList<String> handStrings = new ArrayList<String>();
+		for (Card card : h) {
+			handStrings.add(card.name);
+		}
+		return handStrings;
+	}
+
+	/**
+	 * A method that will return a list of cards in the player's bag
+	 * @param g
+	 * @return
+	 */
+	public ArrayList<String> getBag(Game g) {
+		Player p = g.getCurrentPlayer();
+		ArrayList<Card> b = p.bag;
+		ArrayList<String> bagStrings = new ArrayList<String>();
+		for (Card card : b) {
+			bagStrings.add(card.name);
+		}
+		return bagStrings;
+	}
+
+	public void discard(Player p) {
 		p.hand.remove(this);
 		p.discard.add(this);
-	}
-	
-	public Card getCard(Card c){
-		return new Card(c.name,c.cardColor,c.cost,
-			c.cardType, c.effects, c.defense,
-			c.value, c.input[0], c.input[1], c.input[2]);
 	}
 
 	/**
@@ -304,9 +148,9 @@ public class Card {
 	 * 
 	 * @param p
 	 */
-//	public void trap(Player p) {
-//
-//	}
+	// public void trap(Player p) {
+	//
+	// }
 
 	/**
 	 * Effect that allows player p to lock a card in his hand
@@ -326,20 +170,9 @@ public class Card {
 	 * 
 	 * @param p
 	 */
-//	public void ongoingLock(Player p) {
-//
-//	}
-
-	/**
-	 * Wound: this player gains a wound chip
-	 * 
-	 * @param p
-	 */
-	public void wound(Player p) {
-		Card newWound = new Card("Wound", colorList(CardColor.GREY), 0,
-				CardType.CIRCLE, new ArrayList<Integer>(), 0); 
-		p.bag.add(newWound);
-	}
+	// public void ongoingLock(Player p) {
+	//
+	// }
 
 	/**
 	 * Risky Move: Put a gem from your hand into your gem pile. If you do, gain
@@ -347,11 +180,11 @@ public class Card {
 	 * 
 	 * @param p
 	 */
-//	public void risky(Player p, int gem) {
-////		int v = p.hand.get(gem).value;
-////		p.hand.remove(gem);
-////		p.discard.add()
-//	}
+	// public void risky(Player p, int gem) {
+	// // int v = p.hand.get(gem).value;
+	// // p.hand.remove(gem);
+	// // p.discard.add()
+	// }
 
 	public ArrayList<CardColor> colorList(CardColor... col) {
 		ArrayList<CardColor> colors = new ArrayList<CardColor>();
@@ -360,7 +193,8 @@ public class Card {
 		}
 		return colors;
 	}
-	public void setAmount(int num){
-		this.amount=num;
+
+	public void setAmount(int num) {
+		this.amount = num;
 	}
 }

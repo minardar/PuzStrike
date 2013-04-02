@@ -19,30 +19,30 @@ public class Player {
 	}
 	
 	public void setup() {
-		Card initGem = new Card();
-		for (int i = 0; i < 5; i++) {
-			this.bag.add(initGem);
-		}
-		
-		ArrayList<CardColor> w = new ArrayList<CardColor>();
-		w.add(CardColor.GREY);
-		ArrayList<Integer> e = new ArrayList<Integer>();
-		e.add(17);
-		Card wound = new Card("Wound", w, 0, CardType.CIRCLE, e, false, 0);
-		for (int i = 0; i < 3; i++) {
-			this.bag.add(wound);
-		}
-		
-		w = new ArrayList<CardColor>();
-		w.add(CardColor.PURPLE);
-		e = new ArrayList<Integer>();
-		e.add(23);
-		e.add(10);
-		Card crash = new Card("Crash Gem", w, 5, CardType.CIRCLE, e, true, 0, 1, 1, 0);
-		this.bag.add(crash);
+//		Card initGem = new Card();
+//		for (int i = 0; i < 5; i++) {
+//			this.bag.add(initGem);
+//		}
+//		
+//		ArrayList<CardColor> w = new ArrayList<CardColor>();
+//		w.add(CardColor.GREY);
+//		ArrayList<Integer> e = new ArrayList<Integer>();
+//		e.add(17);
+//		Card wound = new Card("Wound", w, 0, CardType.CIRCLE, e, false, 0);
+//		for (int i = 0; i < 3; i++) {
+//			this.bag.add(wound);
+//		}
+//		
+//		w = new ArrayList<CardColor>();
+//		w.add(CardColor.PURPLE);
+//		e = new ArrayList<Integer>();
+//		e.add(23);
+//		e.add(10);
+//		Card crash = new Card("Crash Gem", w, 5, CardType.CIRCLE, e, true, 0, 1, 1, 0);
+//		this.bag.add(crash);
 		
 		this.gemPile[0] += 1;
-		this.drawFromBag(5);
+//		this.drawFromBag(5);
 	}
 
 	public void newTurn() {
