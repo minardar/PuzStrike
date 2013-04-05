@@ -30,7 +30,7 @@ public class Game {
 		e = new ArrayList<Integer>();
 		e.add(23);
 		e.add(10);
-		Card crash = new Card("Crash Gem", w, 0, CardType.CIRCLE, e, true, 0, 1, 1, 0);
+		Card crash = new Card("Crash Gem", w, 5, CardType.CIRCLE, e, true, 0, 1, 1, 0);
 		
 		w = new ArrayList<CardColor>();
 		w.add(CardColor.PURPLE);
