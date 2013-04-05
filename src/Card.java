@@ -59,10 +59,12 @@ public abstract class Card {
 		Player p = g.getCurrentPlayer();
 		int[] gempile = p.gemPile;
 		ArrayList<String> gemStrings = new ArrayList<String>();
+		int whichGem = 1;
 		for (int gems : gempile) {
-			for (int i = 0; i < gems; i++) {
-				gemStrings.add(Integer.toString(gems + 1) + " gem");
+			if(gems>0){
+				gemStrings.add(Integer.toString(whichGem) + " Gem");
 			}
+			whichGem++;
 		}
 		return gemStrings;
 	}
