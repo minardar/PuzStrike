@@ -31,4 +31,10 @@ public class Wound extends Card{
 		return new ArrayList<Choice>();
 	}
 
+	/**
+	 * Returns new instance of Wound card
+	 */
+	public Card newCard(){
+		return new Wound();
+	}
 }

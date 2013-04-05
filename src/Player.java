@@ -122,6 +122,11 @@ public class Player {
 		} else this.blackTurns--;
 	}
 	
+	public void cardWasUsed(Card card){
+		this.hand.remove(card);
+		this.discard.add(card);
+	}
+	
 	public void setHand(ArrayList<Card> cards) {
 		this.hand = cards;
 	}

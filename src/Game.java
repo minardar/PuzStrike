@@ -76,7 +76,7 @@ public class Game {
 			card.amount--;
 			this.playerMoney -= card.cost;
 			this.boughtSomething = true;
-//			play.addToDiscard(card.getCard(card));
+			play.addToDiscard(card.newCard());
 		}
 	}
 	

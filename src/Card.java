@@ -26,6 +26,8 @@ public abstract class Card {
 	
 	public abstract void use(ArrayList<Choice> choices);
 	
+	public abstract Card newCard();
+	
 	
 	/**
 	 * A method that will get a list of opponents

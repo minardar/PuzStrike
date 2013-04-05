@@ -62,4 +62,11 @@ public class Crash extends Card {
 		choice.add(c2);
 		return choice;
 	}
+	
+	/**
+	 * Returns new instance of Crash Gem card
+	 */
+	public Card newCard(){
+		return new Crash();
+	}
 }

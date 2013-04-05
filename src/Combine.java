@@ -37,8 +37,8 @@ public class Combine extends Card {
 		 * "1 gem" in the chosen string into the integer "0", "2 gem" into "1"
 		 * etc.
 		 */
-		int gem1val = Integer.valueOf(gem1.getChoice().charAt(0)) - 1;
-		int gem2val = Integer.valueOf(gem2.getChoice().charAt(0)) - 1;
+		int gem1val = Integer.parseInt(gem1.getChoice().substring(0, 1)) - 1;
+		int gem2val = Integer.parseInt(gem2.getChoice().substring(0, 1)) - 1;
 		Player p = gem1.getCurrentPlayer();
 		gem1.getOptions().indexOf(gem1.getChoice());
 		int v = gem1val + gem2val + 1;
@@ -67,5 +67,12 @@ public class Combine extends Card {
 		choice.add(c1);
 		choice.add(c2);
 		return choice;
+	}
+	
+	/**
+	 * Returns new instance of Combine card
+	 */
+	public Card newCard(){
+		return new Combine();
 	}
 }

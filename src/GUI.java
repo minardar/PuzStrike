@@ -310,7 +310,6 @@ public class GUI {
 			String n = (String) JOptionPane.showInputDialog(this.frame,
 					current.getInstructions(), clicked.name,
 					JOptionPane.OK_OPTION, icon, options, options[0]);
-			System.out.println(n);
 			if (n != null) {
 				current.setChoice(n);
 			} else {
@@ -321,7 +320,10 @@ public class GUI {
 		if (completeSoFar) {
 			clicked.use(choices);
 		}
-		updateFrame();
+		
+		this.game.getCurrentPlayer().useTurn(clicked);
+		this.game.getCurrentPlayer().cardWasUsed(clicked);
+		newTurn();
 	}
 
 	private void updateFrame() {

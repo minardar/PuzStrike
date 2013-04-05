@@ -42,4 +42,11 @@ public class Gem extends Card {
 	public ArrayList<Choice> getChoice(Game g) {
 		return null;
 	}
+	
+	/**
+	 * Returns new instance of Gem card
+	 */
+	public Card newCard(){
+		return new Gem(this.value);
+	}
 }
