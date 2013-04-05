@@ -1,4 +1,8 @@
+import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
+
+import javax.swing.ImageIcon;
 
 /**
  * Class for the CRASH card. This card is meant for sending a gem from your
@@ -13,6 +17,7 @@ public class Crash extends Card {
 	 * values for CRASH
 	 */
 	public Crash() {
+		this.imagePath = "CrashGem.png";
 		this.cardColor.add(CardColor.PURPLE);
 		this.cardType = cardType.CIRCLE;
 		this.defense = true;

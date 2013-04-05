@@ -1,5 +1,10 @@
+import java.awt.Image;
+import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import javax.swing.ImageIcon;
 
 /**
  * Abstract class for the card class
@@ -10,6 +15,7 @@ import java.util.Arrays;
 public abstract class Card {
 
 	public int cost;
+	public String imagePath;
 	public int value;
 	public boolean defense;
 	public ArrayList<CardColor> cardColor = new ArrayList<CardColor>();

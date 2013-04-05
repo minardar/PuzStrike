@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 /**
  * 
  * @author harrissa
@@ -8,6 +10,7 @@ import java.util.ArrayList;
  */
 public class Wound extends Card{
 	public Wound(){
+		this.imagePath = "Wound.png";
 		this.cardColor.add(CardColor.GREY);
 		this.cardType=cardType.CIRCLE;
 		this.defense=false;

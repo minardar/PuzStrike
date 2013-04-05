@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 /**
  * Class for combine card. This card takes two gems from the players gempile and
  * combines them into a single gem of their combined value if they add to less
@@ -13,6 +15,7 @@ public class Combine extends Card {
 	 * the default constructor for the combine card
 	 */
 	public Combine() {
+		this.imagePath = "Combine.png";
 		this.cardColor.add(CardColor.PURPLE);
 		this.cardType = cardType.CIRCLE;
 		this.defense = false;

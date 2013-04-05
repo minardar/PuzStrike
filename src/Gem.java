@@ -13,6 +13,20 @@ public class Gem extends Card {
 	 * values for CRASH
 	 */
 	public Gem(int i) {
+		switch (i){
+		case 2:
+			this.imagePath = "2gem.png";
+			break;
+		case 3:
+			this.imagePath = "3gem.png";
+			break;
+		case 4:
+			this.imagePath = "4gem.png";
+			break;
+		default:
+			this.imagePath = "1gem.png";
+			break;
+		}
 		this.cardColor.add(CardColor.GREEN);
 		this.cardType = cardType.CIRCLE;
 		this.defense = false;

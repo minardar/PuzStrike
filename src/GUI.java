@@ -85,6 +85,27 @@ public class GUI {
 			g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
 		}
 	}
+	
+	public class JBackgroundLabel extends JLabel {
+		private BufferedImage img;
+
+		public JBackgroundLabel(File path) {
+			// load the background image
+			try {
+				img = ImageIO.read(path);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		protected void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			// paint the background image and scale it to fill the entire space
+			g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+		}
+	}
+
 
 	private void setUp() {
 		this.panel = new JBackgroundPanel();
@@ -237,22 +258,24 @@ public class GUI {
 
 	public void cardInfo(JButton card) {
 		String numString = card.getName();
-		Icon icon = new ImageIcon();
 		int num = Integer.parseInt(numString);
 		Card clicked = this.game.getCurrentPlayer().hand.get(num);
+		Icon icon = new ImageIcon(clicked.imagePath);
 		if (this.game.getCurrentPlayer().canUseCard(clicked)) {
 			Object[] options = { "Use Card" };
+			
 			Integer n = JOptionPane.showOptionDialog(this.frame,
-					"Card Info/Picture later", clicked.name,
+					"", clicked.name,
 					JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, icon,
 					options, options[0]);
 
 			if (n == 0) {
+				newTurn();
 				useCard(clicked);
 			}
 		} else {
 			Object[] options = {};
-			JOptionPane.showOptionDialog(this.frame, "Card Info/Picture later",
+			JOptionPane.showOptionDialog(this.frame, "",
 					clicked.name, JOptionPane.DEFAULT_OPTION,
 					JOptionPane.INFORMATION_MESSAGE, icon, options, null);
 		}
@@ -262,14 +285,12 @@ public class GUI {
 
 	public void cardShopInfo(JButton card) {
 		String numString = card.getName();
-		Icon icon = new ImageIcon();
 		int num = Integer.parseInt(numString);
 		Card clicked = this.game.bank.get(num);
+		Icon icon = new ImageIcon(clicked.imagePath);
 		if (this.game.canBuy(clicked)) {
 			Object[] options = { "Buy Card" };
-			Integer n = JOptionPane.showOptionDialog(this.frame, "Cost: "
-					+ clicked.cost + "\nAmount: " + clicked.amount
-					+ "\nCard Info/Picture later", clicked.name,
+			Integer n = JOptionPane.showOptionDialog(this.frame, "Amount: " + clicked.amount, clicked.name,
 					JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, icon,
 					options, options[0]);
 
@@ -278,9 +299,7 @@ public class GUI {
 			}
 		} else {
 			Object[] options = {};
-			JOptionPane.showOptionDialog(this.frame, "Cost: " + clicked.cost
-					+ "\nAmount: " + clicked.amount
-					+ "\nCard Info/Picture later", clicked.name,
+			JOptionPane.showOptionDialog(this.frame, "Amount: " + clicked.amount, clicked.name,
 					JOptionPane.DEFAULT_OPTION,
 					JOptionPane.INFORMATION_MESSAGE, icon, options, null);
 		}
