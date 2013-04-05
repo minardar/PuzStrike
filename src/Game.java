@@ -19,29 +19,14 @@ public class Game {
 		this.AllCards = new ArrayList<Card>();
 		this.AlwaysCards = new ArrayList<Card>();
 		
-		ArrayList<CardColor> w = new ArrayList<CardColor>();
-		w.add(CardColor.GREY);
-		ArrayList<Integer> e = new ArrayList<Integer>();
-		e.add(17);
-		Card wound = new Card("Wound", w, 0, CardType.CIRCLE, e, false, 0);
+		//add Cards to Always Cards
+		this.AlwaysCards.add(new Gem(1));
+		this.AlwaysCards.add(new Crash());
+		this.AlwaysCards.add(new Wound());
+		this.AlwaysCards.add(new Combine());
 		
-		w = new ArrayList<CardColor>();
-		w.add(CardColor.PURPLE);
-		e = new ArrayList<Integer>();
-		e.add(23);
-		e.add(10);
-		Card crash = new Card("Crash Gem", w, 5, CardType.CIRCLE, e, true, 0, 1, 1, 0);
+		//add Cards to All Cards
 		
-		w = new ArrayList<CardColor>();
-		w.add(CardColor.PURPLE);
-		e = new ArrayList<Integer>();
-		e.add(21);
-		e.add(4);
-		Card combine = new Card("Combine", w, 4, CardType.CIRCLE, e, false, 0, 0, 2, 0);
-		this.AlwaysCards.add(new Card());
-		this.AlwaysCards.add(crash);
-		this.AlwaysCards.add(wound);
-		this.AlwaysCards.add(combine);
 		
 		makePlayers(number);
 		makeBank();		
@@ -68,22 +53,7 @@ public class Game {
 		this.bank.add(wound);	
 		Card combine = this.AlwaysCards.get(3);
 		combine.setAmount(20);
-		this.bank.add(combine);	
-//		for (int i = 0; i < 10; i++){
-//			if (i < this.AllCards.size()){
-//				Random generator = new Random();
-//				int randomIndex = generator.nextInt(this.AllCards.size());
-//				while (this.bank.contains(this.AllCards.get(randomIndex))){
-//					randomIndex = generator.nextInt(this.AllCards.size());
-//				}
-//				Card card = this.AllCards.get(randomIndex);
-//				card.setAmount(5);
-//				this.bank.add(card);
-//			} else {
-//				break;
-//			}
-//		}
-		
+		this.bank.add(combine);			
 	}
 	
 	public void newTurn(){
@@ -106,7 +76,7 @@ public class Game {
 			card.amount--;
 			this.playerMoney -= card.cost;
 			this.boughtSomething = true;
-			play.addToDiscard(card.getCard(card));
+//			play.addToDiscard(card.getCard(card));
 		}
 	}
 	

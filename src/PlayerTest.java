@@ -85,7 +85,7 @@ public class PlayerTest {
 		w.add(CardColor.PURPLE);
 		ArrayList<Integer> e = new ArrayList<Integer>();
 		e.add(23);
-		Card card = new Card("CrashGem", w, 1, CardType.CIRCLE, e, false, 1, 1, 1, 0);
+		Card card = new Crash();
 		assertTrue(player.canUseCard(card));
 		
 		player.blackTurns = 0;
@@ -101,10 +101,10 @@ public class PlayerTest {
 		w.add(CardColor.PURPLE);
 		ArrayList<Integer> e = new ArrayList<Integer>();
 		e.add(23);
-		Card card = new Card("CrashGem", w, 1, CardType.CIRCLE, e, false, 1, 1, 1, 0);
+		Card card = new Crash();
 		assertTrue(player.canUseCard(card));
 		
-		card = new Card();
+		card = new Gem(1);
 		assertFalse(player.canUseCard(card));
 	}
 	
@@ -116,7 +116,7 @@ public class PlayerTest {
 		w.add(CardColor.PURPLE);
 		ArrayList<Integer> e = new ArrayList<Integer>();
 		e.add(23);
-		Card card = new Card("CrashGem", w, 1, CardType.CIRCLE, e, false, 1, 1, 1, 0);
+		Card card = new Crash();
 		assertTrue(player.canUseCard(card));
 		player.useTurn(card);
 		assertEquals(0, player.purpleTurns);
@@ -128,7 +128,7 @@ public class PlayerTest {
 	@Test
 	public void testTotalMoney() {
 		Player player = new Player();
-		Card gem = new Card();
+		Card gem = new Gem(1);
 		player.hand.add(gem);
 		player.hand.add(gem);
 		assertEquals(2, player.totalMoney());
@@ -137,7 +137,7 @@ public class PlayerTest {
 		ArrayList<CardColor> w = new ArrayList<CardColor>();
 		w.add(CardColor.GREEN);
 		ArrayList<Integer> e = new ArrayList<Integer>();
-		Card gem3 = new Card("3Gem", w, 1, CardType.CIRCLE, e, false, 3);
+		Card gem3 = new Gem(3);
 		player.hand.add(gem3);
 		assertEquals(5, player.totalMoney());
 	}
@@ -153,7 +153,7 @@ public class PlayerTest {
 	@Test
 	public void testAddToDiscard() {
 		Player player = new Player();
-		Card card = new Card();
+		Card card = new Gem(1);
 		assertEquals(0, player.discard.size());
 		player.addToDiscard(card);
 		assertEquals(1, player.discard.size());

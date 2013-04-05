@@ -278,10 +278,10 @@ public class GUI {
 			}
 		} else {
 			Object[] options = {};
-			JOptionPane.showOptionDialog(this.frame, "Cost: "
-					+ clicked.cost + "\nAmount: " + clicked.amount
-					+ "\nCard Info/Picture later",
-					clicked.name, JOptionPane.DEFAULT_OPTION,
+			JOptionPane.showOptionDialog(this.frame, "Cost: " + clicked.cost
+					+ "\nAmount: " + clicked.amount
+					+ "\nCard Info/Picture later", clicked.name,
+					JOptionPane.DEFAULT_OPTION,
 					JOptionPane.INFORMATION_MESSAGE, icon, options, null);
 		}
 
@@ -301,101 +301,26 @@ public class GUI {
 	}
 
 	private void useCard(Card clicked) {
-		// TODO Auto-generated method stub
-		int pickOpponent = clicked.input[0];
-		int numValues = clicked.input[1];
-		int valType = clicked.input[2];
-		Player opponent = null;
-		int[] place = null;
-		ArrayList<Card> place2 = null;
+		ArrayList<Choice> choices = clicked.getChoice(this.game);
 		Icon icon = new ImageIcon();
-
-		switch (valType) {
-		case 0:
-			place = this.game.getCurrentPlayer().gemPile;
-			break;
-		case 1:
-			place2 = this.game.getCurrentPlayer().hand;
-			break;
-		case 2:
-			place2 = this.game.getCurrentPlayer().bag;
-			break;
-		case 3:
-			place2 = this.game.getCurrentPlayer().discard;
-			break;
-		case 4:
-			place2 = this.game.bank;
-			break;
-		}
-
-		if (pickOpponent == 1) {
-			ArrayList<String> opponentsList = new ArrayList<String>();
-			for (int p = 0; p < this.game.playerNum; p++) {
-				if (p != this.game.turn) {
-					opponentsList.add("Player " + (p + 1));
-				}
-			}
-
-			Object[] opponents = opponentsList.toArray();
-			Object o = JOptionPane.showInputDialog(this.frame, "",
-					"Pick a Target", JOptionPane.OK_OPTION, icon, opponents,
-					opponents[0]);
-			if (o != null) {
-				int index = Integer.parseInt(((String) o).substring(7, 8)) - 1;
-				opponent = this.game.players.get(index);
-			}
-		}
-
-		if (valType == 0) {
-			if (numValues > 0) {
-				for (int i = 0; i < numValues; i++) {
-					ArrayList<String> possible = new ArrayList<String>();
-					for (int j = 0; j < place.length; j++) {
-						if (place[j] > 0) {
-							possible.add("" + (j + 1) + " gem");
-						}
-					}
-					Object[] options = possible.toArray();
-					Object n;
-					if (i == 0) {
-						n = JOptionPane.showInputDialog(this.frame, "",
-								"Pick a Target", JOptionPane.OK_OPTION, icon,
-								options, options[0]);
-					} else {
-						n = JOptionPane.showInputDialog(this.frame, "",
-								"Pick Another Target", JOptionPane.OK_OPTION,
-								icon, options, options[0]);
-					}
-					if (n != null) {
-						int val = Integer
-								.parseInt(((String) n).substring(0, 1)) - 1;
-						this.game.getCurrentPlayer().addToUse(val);
-					}
-				}
-
-				Player curr = this.game.getCurrentPlayer();
-
-				int[] b = new int[curr.toUse.size()];
-				for (int k = 0; k < b.length; k++) {
-					int i = (int) curr.toUse.get(k);
-					System.out.println(i);
-					b[k] = i;
-				}
-
-				clicked.use(curr, opponent, b);
-				curr.useTurn(clicked);
-				clicked.discard(curr);
-				newTurn();
+		boolean completeSoFar = true;
+		for (int i = 0; i < choices.size(); i++) {
+			Choice current = choices.get(i);
+			Object[] options = current.getOptions().toArray();
+			String n = (String) JOptionPane.showInputDialog(this.frame,
+					current.getInstructions(), clicked.name,
+					JOptionPane.OK_OPTION, icon, options, options[0]);
+			System.out.println(n);
+			if (n != null) {
+				current.setChoice(n);
 			} else {
-				Player curr = this.game.getCurrentPlayer();
-				clicked.use(curr, opponent);
-				curr.useTurn(clicked);
-				clicked.discard(curr);
-				newTurn();
+				completeSoFar = false;
 			}
-
 		}
 
+		if (completeSoFar) {
+			clicked.use(choices);
+		}
 		updateFrame();
 	}
 
