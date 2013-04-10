@@ -13,7 +13,7 @@ public class Choice {
 	private String instructions;
 	private ArrayList<String> options;
 	private ArrayList<Object> optionObjects;
-	private ArrayList<Object> chosen;
+	private ArrayList<Object> chosen=new ArrayList<Object>();
 	private int amtOfChoices;
 
 	/**
@@ -52,7 +52,6 @@ public class Choice {
 	 */
 	public void addChoice(String c) {
 		int index = options.indexOf(c);
-
 		chosen.add(optionObjects.get(index));
 
 		options.remove(index);

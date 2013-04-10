@@ -12,6 +12,8 @@ public class Game {
 	public int playerNum;
 	public boolean boughtSomething = false;
 	public int playerMoney = 0;
+	public Player currentTarget = null;
+	public Card lastUsedCard = null;
 	
 	public Game(int number){
 		this.players = new ArrayList<Player>();
@@ -86,5 +88,20 @@ public class Game {
 	
 	public boolean canBuy(Card card){
 		return this.playerMoney >= card.cost;
+	}
+	
+	public void setTarget(Player target, Card used){
+		this.currentTarget = target;
+		this.lastUsedCard = used;
+	}
+	
+	public void useCard(Card clicked){
+		getCurrentPlayer().useTurn(clicked);
+		getCurrentPlayer().cardWasUsed(clicked);
+		this.lastUsedCard = clicked;
+	}
+	
+	public void clearTarget(){
+		this.currentTarget = null;
 	}
 }

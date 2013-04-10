@@ -85,7 +85,7 @@ public class GUI {
 			g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
 		}
 	}
-	
+
 	public class JBackgroundLabel extends JLabel {
 		private BufferedImage img;
 
@@ -105,7 +105,6 @@ public class GUI {
 			g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
 		}
 	}
-
 
 	private void setUp() {
 		this.panel = new JBackgroundPanel();
@@ -260,14 +259,16 @@ public class GUI {
 		String numString = card.getName();
 		int num = Integer.parseInt(numString);
 		Card clicked = this.game.getCurrentPlayer().hand.get(num);
-		Icon icon = new ImageIcon(clicked.imagePath);
+		Icon icon = new ImageIcon();
+		if (clicked.imagePath != null) {
+			icon = new ImageIcon(clicked.imagePath);
+		}
 		if (this.game.getCurrentPlayer().canUseCard(clicked)) {
 			Object[] options = { "Use Card" };
-			
-			Integer n = JOptionPane.showOptionDialog(this.frame,
-					"", clicked.name,
-					JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, icon,
-					options, options[0]);
+
+			Integer n = JOptionPane.showOptionDialog(this.frame, "",
+					clicked.name, JOptionPane.OK_OPTION,
+					JOptionPane.QUESTION_MESSAGE, icon, options, options[0]);
 
 			if (n == 0) {
 				newTurn();
@@ -275,8 +276,8 @@ public class GUI {
 			}
 		} else {
 			Object[] options = {};
-			JOptionPane.showOptionDialog(this.frame, "",
-					clicked.name, JOptionPane.DEFAULT_OPTION,
+			JOptionPane.showOptionDialog(this.frame, "", clicked.name,
+					JOptionPane.DEFAULT_OPTION,
 					JOptionPane.INFORMATION_MESSAGE, icon, options, null);
 		}
 
@@ -287,20 +288,24 @@ public class GUI {
 		String numString = card.getName();
 		int num = Integer.parseInt(numString);
 		Card clicked = this.game.bank.get(num);
-		Icon icon = new ImageIcon(clicked.imagePath);
+		Icon icon = new ImageIcon();
+		if (clicked.imagePath != null) {
+			icon = new ImageIcon(clicked.imagePath);
+		}
+
 		if (this.game.canBuy(clicked)) {
 			Object[] options = { "Buy Card" };
-			Integer n = JOptionPane.showOptionDialog(this.frame, "Amount: " + clicked.amount, clicked.name,
-					JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, icon,
-					options, options[0]);
+			Integer n = JOptionPane.showOptionDialog(this.frame, "Amount: "
+					+ clicked.amount, clicked.name, JOptionPane.OK_OPTION,
+					JOptionPane.QUESTION_MESSAGE, icon, options, options[0]);
 
 			if (n == 0) {
 				this.game.playerBuyCard(this.game.getCurrentPlayer(), clicked);
 			}
 		} else {
 			Object[] options = {};
-			JOptionPane.showOptionDialog(this.frame, "Amount: " + clicked.amount, clicked.name,
-					JOptionPane.DEFAULT_OPTION,
+			JOptionPane.showOptionDialog(this.frame, "Amount: "
+					+ clicked.amount, clicked.name, JOptionPane.DEFAULT_OPTION,
 					JOptionPane.INFORMATION_MESSAGE, icon, options, null);
 		}
 
@@ -325,23 +330,25 @@ public class GUI {
 		boolean completeSoFar = true;
 		for (int i = 0; i < choices.size(); i++) {
 			Choice current = choices.get(i);
-			Object[] options = current.getOptions().toArray();
-			String n = (String) JOptionPane.showInputDialog(this.frame,
-					current.getInstructions(), clicked.name,
-					JOptionPane.OK_OPTION, icon, options, options[0]);
-			if (n != null) {
-				current.setChoice(n);
-			} else {
-				completeSoFar = false;
+			while (current.nextChoice()) {
+				current = choices.get(i);
+				Object[] options = current.getOptions().toArray();
+				String n = (String) JOptionPane.showInputDialog(this.frame,
+						current.getInstructions(), clicked.name,
+						JOptionPane.OK_OPTION, icon, options, options[0]);
+				if (n != null) {
+					current.addChoice(n);
+				} else {
+					completeSoFar = false;
+				}
 			}
 		}
 
 		if (completeSoFar) {
 			clicked.use(choices);
 		}
-		
-		this.game.getCurrentPlayer().useTurn(clicked);
-		this.game.getCurrentPlayer().cardWasUsed(clicked);
+
+		this.game.useCard(clicked);
 		newTurn();
 	}
 

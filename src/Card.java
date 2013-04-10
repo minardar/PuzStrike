@@ -24,7 +24,7 @@ public abstract class Card {
 	public String name;
 	public int[] input = new int[3];
 	public int amount = 1;
-	public ArrayList<Object> objList = new ArrayList<Object>();
+	public ArrayList<Object> objList;
 	
 
 	
@@ -43,6 +43,7 @@ public abstract class Card {
 	 * @return
 	 */
 	public ArrayList<String> getOpponents(Game g) {
+		objList = new ArrayList<Object>();
 		Player p = g.getCurrentPlayer();
 		ArrayList<Player> oppObj = g.players;
 		ArrayList<String> oppStrings = new ArrayList<String>();
@@ -65,6 +66,7 @@ public abstract class Card {
 	 * @return
 	 */
 	public ArrayList<String> getGempile(Game g) {
+		objList = new ArrayList<Object>();
 		Player p = g.getCurrentPlayer();
 		int[] gempile = p.gemPile;
 		ArrayList<String> gemStrings = new ArrayList<String>();

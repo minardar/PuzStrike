@@ -13,6 +13,8 @@ public class GameTest {
 		assertNotNull(game.bank);
 		assertNotNull(game.players);
 		assertEquals(0, game.turn);
+		assertNull(game.currentTarget);
+		assertNull(game.lastUsedCard);
 	}
 	
 	@Test
@@ -92,24 +94,53 @@ public class GameTest {
 		assertEquals(game.AlwaysCards.size(), game.bank.size());
 	}
 	
-//	@Test
-//	public void testPlayerBuyCard() {
-//		Game game = new Game(1);
-//		Player play = game.players.get(0);
-//		Card card = new Gem(1);
-//		game.playerBuyCard(play, card);
-//		assertEquals(1, card.amount);
-//		assertEquals(0, play.discard.size());
-//		game.totalMoney();
-//		game.playerBuyCard(play, card);
-//		assertEquals(0, card.amount);
-//		assertEquals(1, play.discard.size());
-//		game.playerBuyCard(play, card);
-//		assertEquals(0, card.amount);
-//		assertEquals(1, play.discard.size());
-//	}
+	@Test
+	public void testPlayerBuyCard() {
+		Game game = new Game(1);
+		Player play = game.players.get(0);
+		Card card = new Gem(1);
+		game.playerBuyCard(play, card);
+		assertEquals(1, card.amount);
+		assertEquals(0, play.discard.size());
+		game.totalMoney();
+		game.playerBuyCard(play, card);
+		assertEquals(0, card.amount);
+		assertEquals(1, play.discard.size());
+		game.playerBuyCard(play, card);
+		assertEquals(0, card.amount);
+		assertEquals(1, play.discard.size());
+	}
 	
+	@Test
+	public void testSetTarget(){
+		Game game = new Game(2);
+		Player play = game.players.get(0);
+		Card card = new Crash();
+		game.setTarget(play, card);
+		assertEquals(card, game.lastUsedCard);
+		assertEquals(play, game.currentTarget);
+	}
 	
+	@Test
+	public void testClearTarget(){
+		Game game = new Game(2);
+		Player play = game.players.get(0);
+		Card card = new Crash();
+		game.setTarget(play, card);
+		assertEquals(card, game.lastUsedCard);
+		assertEquals(play, game.currentTarget);
+		game.clearTarget();
+		assertEquals(card, game.lastUsedCard);
+		assertNull(game.currentTarget);
+	}
+	
+	@Test
+	public void testUseCard(){
+		Game game = new Game(2);
+		Card card = new Crash();
+		game.useCard(card);
+		assertEquals(card, game.lastUsedCard);
+	}
 	
 	
 }
