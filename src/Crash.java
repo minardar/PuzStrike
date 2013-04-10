@@ -39,10 +39,9 @@ public class Crash extends Card {
 	public void use(ArrayList<Choice> choices) {
 		Choice oppChoice = choices.get(0);
 		Choice gemChoice = choices.get(1);
-		int choice = oppChoice.getOptions().indexOf(oppChoice.getChoice());
-		Player crashee = this.oppObjList.get(choice);
+		Player crashee = (Player) oppChoice.getChoice().get(0);
 		Player crasher = oppChoice.getCurrentPlayer();
-		int gem = Integer.parseInt(gemChoice.getChoice().substring(0, 1)) - 1;
+		int gem = (Integer) gemChoice.getChoice().get(0);
 		crasher.gemPile[gem] = crasher.gemPile[gem] - 1;
 		crashee.gemPile[0] = crashee.gemPile[0] + gem + 1;
 		crasher.money++;
@@ -58,14 +57,13 @@ public class Crash extends Card {
 	 */
 	public ArrayList<Choice> getChoice(Game g) {
 		ArrayList<String> opponents = this.getOpponents(g);
-		Choice c1 = new Choice(g, "Choose Opponent to crash!", opponents,
-				"Choose");
+		Choice c1 = new Choice(g, "Choose Opponent to crash!", opponents, this.objList, 1);
 		ArrayList<String> gempile = this.getGempile(g);
-		Choice c2 = new Choice(g, "Choose gems to crash!", gempile, "Choose");
-		ArrayList<Choice> choice = new ArrayList<Choice>();
-		choice.add(c1);
-		choice.add(c2);
-		return choice;
+		Choice c2 = new Choice(g, "Choose gems to crash!", gempile, this.objList, 1);
+		ArrayList<Choice> choices = new ArrayList<Choice>();
+		choices.add(c1);
+		choices.add(c2);
+		return choices;
 	}
 	
 	/**

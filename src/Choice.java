@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * The choice class for dealing with options and choices on the GUI
@@ -11,8 +12,9 @@ public class Choice {
 	private Player currentPlayer;
 	private String instructions;
 	private ArrayList<String> options;
-	private String button;
-	private String chosen;
+	private ArrayList<Object> optionObjects;
+	private ArrayList<Object> chosen;
+	private int amtOfChoices;
 
 	/**
 	 * Choice constructor takes the game, instructoin, options, and button
@@ -26,12 +28,13 @@ public class Choice {
 	 * @param but
 	 *            The text on the button the user will click
 	 */
-	public Choice(Game ga, String inst, ArrayList<String> opt, String but) {
+	public Choice(Game ga, String inst, ArrayList<String> opt, ArrayList<Object> optObjects, int amt) {
 		g = ga;
 		currentPlayer = ga.getCurrentPlayer();
 		instructions = inst;
 		options = opt;
-		button = but;
+		optionObjects = optObjects;
+		amtOfChoices = amt;
 	}
 
 	/**
@@ -39,11 +42,23 @@ public class Choice {
 	 * send the choice back to the GameEngine. Send the object choice with the
 	 * new choice set.
 	 * 
+	 * It does this by finding the chosen string in the arraylist of options.
+	 * Since the arraylist of objects exactly parallel the strings, we can use
+	 * that index to choose the correct object and then remove the object and
+	 * its string counterpart from the arraylists
+	 * 
 	 * @param c
 	 *            user's choice
 	 */
-	public void setChoice(String c) {
-		chosen = c;
+	public void addChoice(String c) {
+		int index = options.indexOf(c);
+
+		chosen.add(optionObjects.get(index));
+
+		options.remove(index);
+		optionObjects.remove(index);
+
+		amtOfChoices--;
 	}
 
 	/**
@@ -51,7 +66,7 @@ public class Choice {
 	 * 
 	 * @return
 	 */
-	public String getChoice() {
+	public ArrayList<Object> getChoice() {
 		return chosen;
 	}
 
@@ -72,15 +87,6 @@ public class Choice {
 	 */
 	public ArrayList<String> getOptions() {
 		return options;
-	}
-
-	/**
-	 * A method that the GUI can use to get the button text for this choice.
-	 * 
-	 * @return
-	 */
-	public String getButton() {
-		return button;
 	}
 
 	/**

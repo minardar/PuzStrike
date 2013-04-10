@@ -33,21 +33,15 @@ public class Combine extends Card {
 	 *            secondgem to combine}
 	 */
 	public void use(ArrayList<Choice> choices) {
-		Choice gem1 = choices.get(0);
-		Choice gem2 = choices.get(1);
-		/*
-		 * The lines below will grab the values of each gem by parsing the words
-		 * "1 gem" in the chosen string into the integer "0", "2 gem" into "1"
-		 * etc.
-		 */
-		int gem1val = Integer.parseInt(gem1.getChoice().substring(0, 1)) - 1;
-		int gem2val = Integer.parseInt(gem2.getChoice().substring(0, 1)) - 1;
-		Player p = gem1.getCurrentPlayer();
-		gem1.getOptions().indexOf(gem1.getChoice());
-		int v = gem1val + gem2val + 1;
+		Choice c = choices.get(0);
+		int gem1 = (Integer) c.getChoice().get(0);
+		int gem2 = (Integer) c.getChoice().get(1);
+
+		Player p = c.getCurrentPlayer();
+		int v = gem1 + gem2 + 1;
 		if (v < 3) {
-			p.gemPile[gem1val] = p.gemPile[gem1val] - 1;
-			p.gemPile[gem2val] = p.gemPile[gem2val] - 1;
+			p.gemPile[gem1] = p.gemPile[gem1] - 1;
+			p.gemPile[gem2] = p.gemPile[gem2] - 1;
 			p.gemPile[v] = p.gemPile[v] + 1;
 		}
 	}
@@ -62,13 +56,9 @@ public class Combine extends Card {
 	 */
 	public ArrayList<Choice> getChoice(Game g) {
 		ArrayList<String> gempile = this.getGempile(g);
-		Choice c1 = new Choice(g, "Choose the first gem to Combine!", gempile,
-				"Choose");
-		Choice c2 = new Choice(g, "Choose the second gem to Combine!", gempile,
-				"Choose");
+		Choice c1 = new Choice(g, "Choose the first gem to Combine!", gempile, this.objList, 2);
 		ArrayList<Choice> choice = new ArrayList<Choice>();
 		choice.add(c1);
-		choice.add(c2);
 		return choice;
 	}
 	

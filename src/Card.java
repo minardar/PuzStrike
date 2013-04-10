@@ -24,7 +24,8 @@ public abstract class Card {
 	public String name;
 	public int[] input = new int[3];
 	public int amount = 1;
-	public ArrayList<Player> oppObjList = new ArrayList<Player>();
+	public ArrayList<Object> objList = new ArrayList<Object>();
+	
 
 	
 	
@@ -48,7 +49,7 @@ public abstract class Card {
 		int i = 1;
 		for (Player o : oppObj) {
 			if (!p.equals(o)) {
-				oppObjList.add(o);
+				objList.add(o);
 				String name = "Player " + i;
 				oppStrings.add(name);
 			}
@@ -70,6 +71,7 @@ public abstract class Card {
 		int whichGem = 1;
 		for (int gems : gempile) {
 			if(gems>0){
+				this.objList.add(whichGem-1);
 				gemStrings.add(Integer.toString(whichGem) + " Gem");
 			}
 			whichGem++;
