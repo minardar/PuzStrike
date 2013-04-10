@@ -61,6 +61,9 @@ public class Choice {
 		amtOfChoices--;
 	}
 
+	public boolean nextChoice(){
+		return amtOfChoices>0;
+	}
 	/**
 	 * Method to let the game engine receive the choice that the GUI has set.
 	 * 
