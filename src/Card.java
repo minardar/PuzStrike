@@ -72,7 +72,7 @@ public abstract class Card {
 		ArrayList<String> gemStrings = new ArrayList<String>();
 		int whichGem = 1;
 		for (int gems : gempile) {
-			if(gems>0){
+			for(int i =0; i < gems; i++){
 				this.objList.add(whichGem-1);
 				gemStrings.add(Integer.toString(whichGem) + " Gem");
 			}
