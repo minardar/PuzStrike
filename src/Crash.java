@@ -46,7 +46,7 @@ public class Crash extends Card {
 		crashee.gemPile[0] = crashee.gemPile[0] + gem + 1;
 		crasher.money++;
 	}
-
+	
 	/**
 	 * Gets the appropriate choices necessary to run the use crash method. It
 	 * will first load the options for opponents, then the gempile options. Both

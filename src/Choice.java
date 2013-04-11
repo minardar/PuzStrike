@@ -80,6 +80,10 @@ public class Choice {
 	public String getInstructions() {
 		return instructions;
 	}
+	
+	public Game getGame() {
+		return g;
+	}
 
 	/**
 	 * A method that the GUI can use to get the different options in this choice

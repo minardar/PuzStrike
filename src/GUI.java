@@ -350,6 +350,7 @@ public class GUI {
 
 		this.game.useCard(clicked);
 		newTurn();
+		
 	}
 
 	private void updateFrame() {
