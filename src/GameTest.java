@@ -142,5 +142,26 @@ public class GameTest {
 		assertEquals(card, game.lastUsedCard);
 	}
 	
+	@Test
+	public void testMiniBuy(){
+		Game game = new Game(2);
+		assertEquals(0, game.getNumber);
+		assertEquals(0, game.underVal);
+		game.setMiniBuy(2, 3);
+		assertEquals(3, game.getNumber);
+		assertEquals(2, game.underVal);
+		game.clearMiniBuy();
+		assertEquals(0, game.getNumber);
+		assertEquals(0, game.underVal);
+	}
 	
+	@Test
+	public void testPlayeGetCard() {
+		Game game = new Game(1);
+		Player play = game.players.get(0);
+		Card card = new Gem(1);
+		game.playerGetCard(play, card);
+		assertEquals(0, card.amount);
+		assertEquals(1, play.discard.size());
+	}
 }
