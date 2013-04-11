@@ -25,17 +25,13 @@ public abstract class Card {
 	public int[] input = new int[3];
 	public int amount = 1;
 	public ArrayList<Object> objList;
-	
 
-	
-	
 	public abstract ArrayList<Choice> getChoice(Game g);
-	
+
 	public abstract void use(ArrayList<Choice> choices);
-	
+
 	public abstract Card newCard();
-	
-	
+
 	/**
 	 * A method that will get a list of opponents
 	 * 
@@ -72,39 +68,49 @@ public abstract class Card {
 		ArrayList<String> gemStrings = new ArrayList<String>();
 		int whichGem = 1;
 		for (int gems : gempile) {
-			for(int i =0; i < gems; i++){
-				this.objList.add(whichGem-1);
+			for (int i = 0; i < gems; i++) {
+				this.objList.add(whichGem - 1);
 				gemStrings.add(Integer.toString(whichGem) + " Gem");
 			}
 			whichGem++;
 		}
 		return gemStrings;
 	}
+
 	/**
 	 * A method that will return a list of cards in the player's hand
+	 * 
 	 * @param g
 	 * @return
 	 */
 	public ArrayList<String> getHand(Game g) {
+		objList = new ArrayList<Object>();
 		Player p = g.getCurrentPlayer();
 		ArrayList<Card> h = p.hand;
 		ArrayList<String> handStrings = new ArrayList<String>();
 		for (Card card : h) {
-			handStrings.add(card.name);
+			if (!card.equals(this)) {
+				objList.add(card);
+				handStrings.add(card.name);
+			}
 		}
 		return handStrings;
 	}
+	
 
 	/**
 	 * A method that will return a list of cards in the player's bag
+	 * 
 	 * @param g
 	 * @return
 	 */
 	public ArrayList<String> getBag(Game g) {
+		objList = new ArrayList<Object>();
 		Player p = g.getCurrentPlayer();
 		ArrayList<Card> b = p.bag;
 		ArrayList<String> bagStrings = new ArrayList<String>();
 		for (Card card : b) {
+			objList.add(card);
 			bagStrings.add(card.name);
 		}
 		return bagStrings;
@@ -217,5 +223,15 @@ public abstract class Card {
 
 	public void setAmount(int num) {
 		this.amount = num;
+	}
+
+	public boolean cardsSameKind(Card card1) {
+			if (this.imagePath.equals(card1.imagePath) && this.cost == card1.cost
+					&& this.name.equals(card1.name) && this.value == card1.value
+					&& this.cardColor.equals(card1.cardColor)) {
+				return true;
+			} else {
+				return false;
+		}
 	}
 }

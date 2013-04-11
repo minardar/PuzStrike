@@ -22,7 +22,7 @@ public class Crash extends Card {
 		this.cardType = cardType.CIRCLE;
 		this.defense = true;
 		this.name = "Crash";
-		this.value = 1;
+		this.value = 0;
 		this.cost = 5;
 
 	}

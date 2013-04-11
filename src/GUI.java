@@ -34,6 +34,8 @@ public class GUI {
 	public JPanel playerStuff;
 	public Game game;
 	public Color trans = new Color(255, 255, 255, 0);
+	private int quickBuyVal;
+	private int quickBuyNum;
 
 	public GUI() {
 		this.frame = new JFrame("Puzzle Strike: Deck of Cards");
@@ -247,6 +249,10 @@ public class GUI {
 		newShopPhase();
 	}
 
+	public void endQuickBuy() {
+		newTurn();
+	}
+
 	public void endShopPhase() {
 		if (this.game.boughtSomething) {
 			this.game.getCurrentPlayer().endTurn();
@@ -312,6 +318,28 @@ public class GUI {
 		updateFrame();
 	}
 
+	public void cardGetInfo(JButton card) {
+		String numString = card.getName();
+		int num = Integer.parseInt(numString);
+		Card clicked = this.game.bank.get(num);
+		Icon icon = new ImageIcon();
+		if (clicked.imagePath != null) {
+			icon = new ImageIcon(clicked.imagePath);
+		}
+
+		Object[] options = { "Get Card" };
+		Integer n = JOptionPane.showOptionDialog(this.frame, "Amount: "
+				+ clicked.amount, clicked.name, JOptionPane.OK_OPTION,
+				JOptionPane.QUESTION_MESSAGE, icon, options, options[0]);
+
+		if (n == 0) {
+			this.game.playerGetCard(this.game.getCurrentPlayer(), clicked);
+			quickBuy(this.quickBuyVal, this.quickBuyNum - 1);
+		}
+
+		updateFrame();
+	}
+
 	private void newShopPhase() {
 		// TODO Auto-generated method stub
 
@@ -348,15 +376,77 @@ public class GUI {
 			clicked.use(choices);
 		}
 
-		this.game.useCard(clicked);
-		newTurn();
-		
+		if (this.game.getNumber > 0) {
+			this.game.useCard(clicked);
+			quickBuy(this.game.underVal, this.game.getNumber);
+		} else {
+			newTurn();
+		}
+
 	}
 
 	private void updateFrame() {
 		this.frame.validate();
 		this.frame.setVisible(true);
 		this.frame.repaint();
+	}
+
+	private void quickBuy(int val, int num) {
+		this.panel = new JBackgroundPanel();
+		this.frame.setContentPane(this.panel);
+		updateFrame();
+		this.quickBuyVal = val;
+		this.quickBuyNum = num;
+		JPanel quickBuy = new JPanel();
+		JPanel quickCards = new JPanel();
+
+		if (num > 0) {
+
+			class CardShopListener implements ActionListener {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO: this function;
+					cardGetInfo((JButton) e.getSource());
+				}
+			}
+			quickBuy.setBackground(this.trans);
+			quickBuy.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
+			quickCards.setBackground(this.trans);
+			quickCards.setPreferredSize(new Dimension(FRAME_WIDTH,
+					14 * FRAME_HEIGHT / 16));
+			for (int i = 0; i < this.game.bank.size(); i++) {
+				if (this.game.bank.get(i).cost <= val) {
+					JButton card = new JBackgroundButton();
+					card.setName("" + i);
+					card.add(new JLabel(this.game.bank.get(i).name));
+					card.setPreferredSize(new Dimension(BUT_WIDTH, BUT_HEIGHT));
+					card.addActionListener(new CardShopListener());
+					quickCards.add(card);
+				}
+			}
+
+			class EndShopListener implements ActionListener {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO: this function;
+					endQuickBuy();
+				}
+			}
+
+			JButton endPhase = new JButton("End Phase");
+			endPhase.addActionListener(new EndShopListener());
+			quickBuy.add(quickCards);
+			quickBuy.add(endPhase);
+
+			if (this.panel.getComponentCount() != 0) {
+				this.panel.removeAll();
+			}
+			this.panel.add(quickBuy);
+
+			updateFrame();
+		} else {
+			newTurn();
+		}
 	}
 
 }
