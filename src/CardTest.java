@@ -54,5 +54,14 @@ public class CardTest {
 		e.add(18);
 		
 	}
+	@Test
+	public void testGetBag(){
+		Game g = new Game(1);
+		Player p = g.getCurrentPlayer();
+		Card c = new Crash();
+		ArrayList<String> bag = c.getBag(g);
+		assertTrue(bag.contains("1 Gem"));
+		assertTrue(bag.contains("Crash"));
+	}
 
 }
