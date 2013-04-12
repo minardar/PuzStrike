@@ -53,8 +53,12 @@ public class Player {
 	public void drawFromBag(int n) {
 		for (int i = 0; i < n; i++) {
 			if (this.bag.size() == 0) {
-				this.bag = discard;
-				this.discard = new ArrayList<Card>();
+				if (this.discard.size() == 0) {
+					break;
+				} else {
+					this.bag = discard;
+					this.discard = new ArrayList<Card>();
+				}
 			}
 			
 			if (lockedCards.size() > 0) {
@@ -76,14 +80,14 @@ public class Player {
 	}
 	
 	public int totalMoney() {
-		int money= 0;
+		int money = 0;
 		for (int i = 0; i < this.hand.size(); i++) {
 			if (this.hand.get(i).cardColor.contains(CardColor.GREEN)){
 				money += this.hand.get(i).value;
 			}
 		}
 		
-		return this.money+ money;
+		return this.money + money;
 	}
 	
 	public void addToDiscard(Card card) {
@@ -127,27 +131,27 @@ public class Player {
 		this.discard.add(card);
 	}
 	
-	public void setHand(ArrayList<Card> cards) {
-		this.hand = cards;
-	}
-	
-	public void setBag(ArrayList<Card> cards) {
-		this.bag = cards;
-	}
-	
-	public void setDiscard(ArrayList<Card> cards) {
-		this.discard = cards;
-	}
-	
-	public ArrayList<Card> getHand() {
-		return this.hand;
-	}
-	
-	public ArrayList<Card> getBag() {
-		return this.bag;
-	}
-	
-	public ArrayList<Card> getDiscard() {
-		return this.discard;
-	}
+//	public void setHand(ArrayList<Card> cards) {
+//		this.hand = cards;
+//	}
+//	
+//	public void setBag(ArrayList<Card> cards) {
+//		this.bag = cards;
+//	}
+//	
+//	public void setDiscard(ArrayList<Card> cards) {
+//		this.discard = cards;
+//	}
+//	
+//	public ArrayList<Card> getHand() {
+//		return this.hand;
+//	}
+//	
+//	public ArrayList<Card> getBag() {
+//		return this.bag;
+//	}
+//	
+//	public ArrayList<Card> getDiscard() {
+//		return this.discard;
+//	}
 }

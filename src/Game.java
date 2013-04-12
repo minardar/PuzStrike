@@ -56,6 +56,18 @@ public class Game {
 		Card combine = this.AlwaysCards.get(3);
 		combine.setAmount(20);
 		this.bank.add(combine);
+		Card drawThree = new ParamCard("DrawThree");
+		drawThree.setAmount(5);
+		this.bank.add(drawThree);
+		Card oneTwoPunch = new ParamCard("OneTwoPunch");
+		oneTwoPunch.setAmount(5);
+		this.bank.add(oneTwoPunch);
+		Card roundhouse = new ParamCard("Roundhouse");
+		roundhouse.setAmount(5);
+		this.bank.add(roundhouse);
+		Card oneOfEach = new ParamCard("OneOfEach");
+		oneOfEach.setAmount(5);
+		this.bank.add(oneOfEach);
 	}
 
 	public void newTurn() {

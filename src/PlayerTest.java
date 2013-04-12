@@ -33,7 +33,7 @@ public class PlayerTest {
 		player.setup();
 		
 		assertEquals(5, player.hand.size());
-		assertEquals(4, player.getBag().size());
+		assertEquals(4, player.bag.size());
 		assertEquals(0, player.discard.size());
 	}
 	
@@ -55,7 +55,7 @@ public class PlayerTest {
 		
 		player.drawFromBag(3);
 		assertEquals(8, player.hand.size());
-		assertEquals(1, player.getBag().size());
+		assertEquals(1, player.bag.size());
 		assertEquals(0, player.discard.size());
 		
 		player.endTurn();
@@ -97,12 +97,32 @@ public class PlayerTest {
 		Player player = new Player();
 		player.blackTurns = 0;
 		player.purpleTurns = 1;
-		ArrayList<CardColor> w = new ArrayList<CardColor>();
-		w.add(CardColor.PURPLE);
-		ArrayList<Integer> e = new ArrayList<Integer>();
-		e.add(23);
 		Card card = new Crash();
 		assertTrue(player.canUseCard(card));
+	}
+	
+	@Test
+	public void testCanMultipleColoredCards() {
+		Player player = new Player();
+		player.blackTurns = 0;
+		player.redTurns = 1;
+		player.blueTurns = 1;
+		player.brownTurns = 1;
+		Card card = new Crash();
+		
+		ArrayList<CardColor> c = new ArrayList<CardColor>();
+		c.add(CardColor.RED);
+		card.cardColor = c;
+		assertTrue(player.canUseCard(card));
+		
+		c.set(0, CardColor.BLUE);
+		assertTrue(player.canUseCard(card));
+		
+		c.set(0, CardColor.BROWN);
+		assertTrue(player.canUseCard(card));
+		
+		c.set(0, CardColor.GOLD);
+		assertFalse(player.canUseCard(card));
 		
 		card = new Gem(1);
 		assertFalse(player.canUseCard(card));
@@ -112,14 +132,37 @@ public class PlayerTest {
 	public void testUseTurn() {
 		Player player = new Player();
 		player.purpleTurns = 1;
-		ArrayList<CardColor> w = new ArrayList<CardColor>();
-		w.add(CardColor.PURPLE);
-		ArrayList<Integer> e = new ArrayList<Integer>();
-		e.add(23);
+
 		Card card = new Crash();
-		assertTrue(player.canUseCard(card));
 		player.useTurn(card);
 		assertEquals(0, player.purpleTurns);
+	
+		player.useTurn(card);
+		assertEquals(0, player.blackTurns);
+	}
+	
+	@Test
+	public void testMultipleUseTurns() {
+		Player player = new Player();
+		player.redTurns = 1;
+		player.blueTurns = 1;
+		player.brownTurns = 1;
+		
+		Card card = new Crash();
+		ArrayList<CardColor> c = new ArrayList<CardColor>();
+		c.add(CardColor.RED);
+		card.cardColor = c;
+		
+		player.useTurn(card);
+		assertEquals(0, player.redTurns);
+		
+		c.set(0, CardColor.BLUE);
+		player.useTurn(card);
+		assertEquals(0, player.blueTurns);
+		
+		c.set(0, CardColor.BROWN);
+		player.useTurn(card);
+		assertEquals(0, player.brownTurns);
 	
 		player.useTurn(card);
 		assertEquals(0, player.blackTurns);
