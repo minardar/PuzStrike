@@ -116,19 +116,19 @@ public abstract class Card {
 		return bagStrings;
 	}
 
-	public void discard(Player p) {
-		p.hand.remove(this);
-		p.discard.add(this);
-	}
+//	public void discard(Player p) {
+//		p.hand.remove(this);
+//		p.discard.add(this);
+//	}
 
 	/**
 	 * Method that trashed the chosen card from the players hand
 	 * 
 	 * @param p
 	 */
-	public void trashHand(Player p, int card) {
-		p.hand.remove(card);
-	}
+//	public void trashHand(Player p, int card) {
+//		p.hand.remove(card);
+//	}
 
 	/**
 	 * Effect that allows player p to crash n gems in their gem pile
@@ -136,12 +136,12 @@ public abstract class Card {
 	 * @param p
 	 * @param n
 	 */
-	public void crash(Player crasher, Player crashee, int... gems) {
-		for (int i : gems) {
-			crasher.gemPile[i] = crasher.gemPile[i] - 1;
-			crashee.gemPile[0] = crashee.gemPile[0] + i + 1;
-		}
-	}
+//	public void crash(Player crasher, Player crashee, int... gems) {
+//		for (int i : gems) {
+//			crasher.gemPile[i] = crasher.gemPile[i] - 1;
+//			crashee.gemPile[0] = crashee.gemPile[0] + i + 1;
+//		}
+//	}
 
 	/**
 	 * Effect that allows player p to combine two gems into one gem in their gem
@@ -149,14 +149,14 @@ public abstract class Card {
 	 * 
 	 * @param p
 	 */
-	public void combine(Player p, int... gems) {
-		int v = gems[0] + gems[1] + 1;
-		if (v < 3) {
-			p.gemPile[gems[0]] = p.gemPile[gems[0]] - 1;
-			p.gemPile[gems[1]] = p.gemPile[gems[1]] - 1;
-			p.gemPile[v] = p.gemPile[v] + 1;
-		}
-	}
+//	public void combine(Player p, int... gems) {
+//		int v = gems[0] + gems[1] + 1;
+//		if (v < 3) {
+//			p.gemPile[gems[0]] = p.gemPile[gems[0]] - 1;
+//			p.gemPile[gems[1]] = p.gemPile[gems[1]] - 1;
+//			p.gemPile[v] = p.gemPile[v] + 1;
+//		}
+//	}
 
 	/**
 	 * Effect that allows player p to draw n cards from his bag
@@ -164,9 +164,9 @@ public abstract class Card {
 	 * @param p
 	 * @param n
 	 */
-	public void draw(Player p, int n) {
-		p.drawFromBag(n);
-	}
+//	public void draw(Player p, int n) {
+//		p.drawFromBag(n);
+//	}
 
 	/**
 	 * Effect that allows player p to put a trap token on a stack in the bank,
@@ -184,13 +184,13 @@ public abstract class Card {
 	 * 
 	 * @param p
 	 */
-	public void lock(Player p, int... cards) {
-		Arrays.sort(cards);
-		for (int counter = cards.length - 1; counter >= 0; counter--) {
-			p.lockedCards.add(p.hand.get(cards[counter]));
-			p.hand.remove(cards[counter]);
-		}
-	}
+//	public void lock(Player p, int... cards) {
+//		Arrays.sort(cards);
+//		for (int counter = cards.length - 1; counter >= 0; counter--) {
+//			p.lockedCards.add(p.hand.get(cards[counter]));
+//			p.hand.remove(cards[counter]);
+//		}
+//	}
 
 	/**
 	 * Ongoing: Lock a card each turn, discard when you buy a purplecard
@@ -213,13 +213,13 @@ public abstract class Card {
 	// // p.discard.add()
 	// }
 
-	public ArrayList<CardColor> colorList(CardColor... col) {
-		ArrayList<CardColor> colors = new ArrayList<CardColor>();
-		for (CardColor c : col) {
-			colors.add(c);
-		}
-		return colors;
-	}
+//	public ArrayList<CardColor> colorList(CardColor... col) {
+//		ArrayList<CardColor> colors = new ArrayList<CardColor>();
+//		for (CardColor c : col) {
+//			colors.add(c);
+//		}
+//		return colors;
+//	}
 
 	public void setAmount(int num) {
 		this.amount = num;
