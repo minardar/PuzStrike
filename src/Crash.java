@@ -33,8 +33,7 @@ public class Crash extends Card {
 	 * of cash.
 	 * 
 	 * @param choices
-	 *            An arraylist of {Crashee, Gem1, Gem2, Gem3.... ect} only one
-	 *            gem needed
+	 *            An arraylist of {Crashee, GemChoices}
 	 */
 	public void use(ArrayList<Choice> choices) {
 		Choice oppChoice = choices.get(0);
