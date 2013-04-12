@@ -12,7 +12,7 @@ public class ParamCardTest {
 	public void testDrawThreeCard() {
 		Card testCard = new ParamCard("DrawThree");
 		assertEquals(3, testCard.cost);
-		assertNull(testCard.getChoice(g));
+		assertEquals(new ArrayList<Choice>(), testCard.getChoice(g));
 		
 		ArrayList<String> opponents = testCard.getOpponents(g);
 		Choice c1 = new Choice(g, "Test", opponents, testCard.objList, 1);
@@ -28,11 +28,9 @@ public class ParamCardTest {
 		Card testCard = new ParamCard("OneTwoPunch");
 		assertEquals(4, testCard.cost);
 		
-		ArrayList<String> opponents = testCard.getOpponents(g);
-		Choice c1 = new Choice(g, "Test", opponents, testCard.objList, 1);
 		ArrayList<Choice> choices = new ArrayList<Choice>();
-		choices.add(c1);
 		
+		testCard.getChoice(g);
 		testCard.use(choices);
 		assertEquals(3, g.players.get(0).blackTurns);
 	}
@@ -42,11 +40,9 @@ public class ParamCardTest {
 		Card testCard = new ParamCard("Roundhouse");
 		assertEquals(4, testCard.cost);
 		
-		ArrayList<String> opponents = testCard.getOpponents(g);
-		Choice c1 = new Choice(g, "Test", opponents, testCard.objList, 1);
 		ArrayList<Choice> choices = new ArrayList<Choice>();
-		choices.add(c1);
 		
+		testCard.getChoice(g);
 		testCard.use(choices);
 		assertEquals(2, g.players.get(0).blackTurns);
 		assertEquals(7, g.players.get(0).hand.size());
@@ -57,11 +53,9 @@ public class ParamCardTest {
 		Card testCard = new ParamCard("OneOfEach");
 		assertEquals(5, testCard.cost);
 		
-		ArrayList<String> opponents = testCard.getOpponents(g);
-		Choice c1 = new Choice(g, "Test", opponents, testCard.objList, 1);
 		ArrayList<Choice> choices = new ArrayList<Choice>();
-		choices.add(c1);
 		
+		testCard.getChoice(g);
 		testCard.use(choices);
 		assertEquals(2, g.players.get(0).blackTurns);
 		assertEquals(6, g.players.get(0).hand.size());

@@ -61,7 +61,6 @@ public class CardTest {
 		Card c = new Crash();
 		ArrayList<String> bag = c.getBag(g);
 		assertTrue(bag.contains("1 Gem"));
-		assertTrue(bag.contains("Crash"));
 	}
 
 }

@@ -2,6 +2,8 @@ import java.util.ArrayList;
 
 public class ParamCard extends Card {
 
+	private Player currentPlayer;
+
 	public ParamCard(String name) {
 		this.cardColor.add(CardColor.BROWN);
 		this.cardType = cardType.PUZZLE;
@@ -23,7 +25,7 @@ public class ParamCard extends Card {
 
 	@Override
 	public void use(ArrayList<Choice> choices) {
-		Player p = choices.get(0).getCurrentPlayer();
+		Player p = this.currentPlayer;
 		
 		if (name == "DrawThree") {
 			p.drawFromBag(3);
@@ -41,7 +43,8 @@ public class ParamCard extends Card {
 
 	@Override
 	public ArrayList<Choice> getChoice(Game g) {
-		return null;
+		this.currentPlayer = g.getCurrentPlayer();
+		return new ArrayList<Choice>();
 	}
 
 	@Override

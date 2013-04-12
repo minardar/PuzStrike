@@ -27,6 +27,10 @@ public class Game {
 		this.AlwaysCards.add(new Crash());
 		this.AlwaysCards.add(new Wound());
 		this.AlwaysCards.add(new Combine());
+		this.AllCards.add(new ParamCard("DrawThree"));
+		this.AllCards.add(new ParamCard("OneTwoPunch"));
+		this.AllCards.add(new ParamCard("Roundhouse"));
+		this.AllCards.add(new ParamCard("OneOfEach"));
 
 		// add Cards to All Cards
 

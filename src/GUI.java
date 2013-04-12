@@ -250,6 +250,7 @@ public class GUI {
 	}
 
 	public void endQuickBuy() {
+		this.game.clearMiniBuy();
 		newTurn();
 	}
 
@@ -380,6 +381,7 @@ public class GUI {
 			this.game.useCard(clicked);
 			quickBuy(this.game.underVal, this.game.getNumber);
 		} else {
+			this.game.useCard(clicked);
 			newTurn();
 		}
 
@@ -445,6 +447,7 @@ public class GUI {
 
 			updateFrame();
 		} else {
+			this.game.clearMiniBuy();
 			newTurn();
 		}
 	}

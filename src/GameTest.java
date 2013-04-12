@@ -91,7 +91,7 @@ public class GameTest {
 	@Test
 	public void testMakeBank() {
 		Game game = new Game(1);
-		assertEquals(game.AlwaysCards.size(), game.bank.size());
+		assertEquals(game.AlwaysCards.size()+game.AllCards.size(), game.bank.size());
 	}
 	
 	@Test
