@@ -5,7 +5,7 @@ public class ParamCard extends Card {
 	private Player currentPlayer;
 	int blackTurns, purpleTurns, redTurns, brownTurns, blueTurns, draw, money;
 
-	public ParamCard(String name) {
+	public ParamCard() {
 		this.cardColor.add(CardColor.BROWN);
 		this.cardType = cardType.PUZZLE;
 		this.defense = false;
@@ -16,17 +16,9 @@ public class ParamCard extends Card {
 		
 		int blackTurns = 0, purpleTurns = 0, redTurns = 0, brownTurns = 0, blueTurns = 0, draw = 0, money = 0;
 	}
-	
-	public void DrawThree() {
-		makeDrawThree();
-	}
-	
-	public void OneTwoPunch() {
-		makeOneTwoPunch();
-	}
 
 	@Override
-	public void use(ArrayList<Choice> choices) {
+	public void use(ArrayList<Choice> choices, Game game) {
 		Player p = this.currentPlayer;
 		p.blackTurns += blackTurns;
 		p.purpleTurns += purpleTurns;
@@ -39,33 +31,30 @@ public class ParamCard extends Card {
 
 	@Override
 	public ChoiceGroup getChoice(Game g) {
-		return new ChoiceGroup;
+		return new ChoiceGroup();
 	}
 
 	@Override
 	public Card newCard() {
-		return new ParamCard(this.name);
-	}
-
-	public static Card newCard(String name) {
-		return new ParamCard(name);
+		
+		return new ParamCard();
 	}
 	
-	public void makeDrawThree() {
+	public void DrawThree() {
 		this.name = "DrawThree";
 		this.imagePath = name + ".png";
 		this.cost = 3;
 		draw += 3;
 	}
-
-	private void makeOneTwoPunch() {
+	
+	public void OneTwoPunch() {
 		this.name = "DrawThree";
 		this.imagePath = name + ".png";
 		this.cost = 4;
 		blackTurns += 2;
 	}
 	
-	public void makeRoundHouse() {
+	public void RoundHouse() {
 		this.name = "DrawThree";
 		this.imagePath = name + ".png";
 		this.cost = 6;
@@ -73,7 +62,7 @@ public class ParamCard extends Card {
 		draw += 2;
 	}
 	
-	public void makeOneOfEach() {
+	public void OneOfEach() {
 		this.name = "DrawThree";
 		this.imagePath = name + ".png";
 		this.cost = 5;
@@ -81,4 +70,5 @@ public class ParamCard extends Card {
 		draw += 1;
 		money += 1;
 	}
+	
 }

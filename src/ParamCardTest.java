@@ -10,53 +10,57 @@ public class ParamCardTest {
 	
 	@Test
 	public void testDrawThreeCard() {
-		Card testCard = new ParamCard("DrawThree");
+		ParamCard testCard = new ParamCard();
+		testCard.DrawThree();
 		assertEquals(3, testCard.cost);
 		assertEquals(new ArrayList<Choice>(), testCard.getChoice(g));
 		
 		ArrayList<String> opponents = testCard.getOpponents(g);
-		Choice c1 = new Choice(g, "Test", opponents, testCard.objList, 1);
+		Choice c1 = new Choice("Test", opponents, testCard.objList, 1);
 		ArrayList<Choice> choices = new ArrayList<Choice>();
 		choices.add(c1);
 		
-		testCard.use(choices);
+		testCard.use(choices, g);
 		assertEquals(8, g.players.get(0).hand.size());
 	}
 	
 	@Test
 	public void testOnetwoPunchCard() {
-		Card testCard = new ParamCard("OneTwoPunch");
+		ParamCard testCard = new ParamCard();
+		testCard.OneTwoPunch();
 		assertEquals(4, testCard.cost);
 		
 		ArrayList<Choice> choices = new ArrayList<Choice>();
 		
 		testCard.getChoice(g);
-		testCard.use(choices);
+		testCard.use(choices, g);
 		assertEquals(3, g.players.get(0).blackTurns);
 	}
 	
 	@Test
 	public void testRoundhouseCard() {
-		Card testCard = new ParamCard("Roundhouse");
+		ParamCard testCard = new ParamCard();
+		testCard.RoundHouse();
 		assertEquals(4, testCard.cost);
 		
 		ArrayList<Choice> choices = new ArrayList<Choice>();
 		
 		testCard.getChoice(g);
-		testCard.use(choices);
+		testCard.use(choices, g);
 		assertEquals(2, g.players.get(0).blackTurns);
 		assertEquals(7, g.players.get(0).hand.size());
 	}
 	
 	@Test
 	public void testOneOfEachCard() {
-		Card testCard = new ParamCard("OneOfEach");
+		ParamCard testCard = new ParamCard();
+		testCard.OneOfEach();
 		assertEquals(5, testCard.cost);
 		
 		ArrayList<Choice> choices = new ArrayList<Choice>();
 		
 		testCard.getChoice(g);
-		testCard.use(choices);
+		testCard.use(choices, g);
 		assertEquals(2, g.players.get(0).blackTurns);
 		assertEquals(6, g.players.get(0).hand.size());
 		assertEquals(1, g.players.get(0).money);
@@ -64,7 +68,8 @@ public class ParamCardTest {
 	
 	@Test
 	public void testMiscParamCardFunctions() {
-		Card testCard = new ParamCard("DrawThree");
-		assertEquals(testCard.cost, ParamCard.newCard("DrawThree").cost);
+		ParamCard testCard = new ParamCard();
+		testCard.DrawThree();
+		assertEquals(testCard.cost, ParamCard.newCard().cost);
 	}
 }
