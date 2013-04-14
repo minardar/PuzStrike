@@ -41,7 +41,7 @@ public class GemTest {
 	@Test
 	public void testUse(){
 		Gem gem1 = new Gem(4);
-		gem1.use(null);
+		gem1.use(null, new Game(1));
 	}
 	
 	@Test

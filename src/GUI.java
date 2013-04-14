@@ -334,13 +334,14 @@ public class GUI {
 	}
 
 	private void useCard(Card clicked) {
-		ArrayList<Choice> choices = clicked.getChoice(this.game);
+		ChoiceGroup choices = clicked.getChoice(this.game);
 		Icon icon = new ImageIcon();
 		boolean completeSoFar = true;
-		for (int i = 0; i < choices.size(); i++) {
-			Choice current = choices.get(i);
+		Choice current = choices.getNextChoice();
+//		while (current != null) {
 			while (current.nextChoice()) {
-				current = choices.get(i);
+				current = choices.getNextChoice();
+				System.out.println(current);
 				Object[] options = current.getOptions().toArray();
 				String n = (String) JOptionPane.showInputDialog(this.frame,
 						current.getInstructions(), clicked.name,
@@ -350,11 +351,15 @@ public class GUI {
 				} else {
 					completeSoFar = false;
 				}
+				System.out.println("Inner While");
 			}
-		}
+			
+//			System.out.println("Outer While");
+//			current = choices.getNextChoice();
+//		}
 
 		if (completeSoFar) {
-			clicked.use(choices);
+			clicked.use(choices.getChoiceList(), this.game);
 		}
 
 		if (this.game.getNumber > 0) {

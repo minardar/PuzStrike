@@ -19,15 +19,15 @@ public class CrashTest {
 		b.add("1 Gem");
 		ArrayList<Object> j = new ArrayList<Object>();
 		j.add(0);
-		Choice c1 = new Choice(g, "blah", a,o, 1);
+		Choice c1 = new Choice("blah", a,o, 1);
 		c1.addChoice("Player 2");
-		Choice c2 = new Choice(g, "blah", b,j,1);
+		Choice c2 = new Choice("blah", b,j,1);
 		c2.addChoice("1 Gem");
 		ArrayList<Choice> c3 = new ArrayList<Choice>();
 		c3.add(c1);
 		c3.add(c2);
 		Crash cra = new Crash();
-		cra.use(c3);
+		cra.use(c3, g);
 		assertEquals(2, crashee.gemPile[0]);
 		assertEquals(0, crasher.gemPile[0]);
 	}

@@ -23,15 +23,15 @@ public class Wound extends Card{
 	 * Choices should be null... The wound card does nothing really
 	 * @param choices
 	 */
-	public void use(ArrayList<Choice> choices) {
+	public void use(ArrayList<Choice> choices, Game game) {
 	}
 	/**
 	 * No real choices here
 	 * @param g
 	 * @return
 	 */
-	public ArrayList<Choice> getChoice(Game g){
-		return new ArrayList<Choice>();
+	public ChoiceGroup getChoice(Game g){
+		return new ChoiceGroup();
 	}
 
 	/**

@@ -43,17 +43,17 @@ public class Gem extends Card {
 	 *            An arraylist of {Crashee, Gem1, Gem2, Gem3.... ect} only one
 	 *            gem needed
 	 */
-	public void use(ArrayList<Choice> choices) {
+	public void use(ArrayList<Choice> choices, Game game) {
 		//ignore
 	}
 
 	/**
-	 * Returns null because has no effect.
+	 * Returns null because cannot be used.
 	 * 
 	 * @param g
 	 * @return
 	 */
-	public ArrayList<Choice> getChoice(Game g) {
+	public ChoiceGroup getChoice(Game g) {
 		return null;
 	}
 	

@@ -15,25 +15,25 @@ public class TrainingDay extends Card {
 	}
 
 	
-	public void use(ArrayList<Choice> choices) {
+	public void use(ArrayList<Choice> choices, Game game) {
 		Choice cardChoice = choices.get(0);
 		Card keep = (Card) cardChoice.getChoice().get(0);
 		Card trash = (Card) cardChoice.getChoice().get(1);
-		Player player = cardChoice.getCurrentPlayer();
+		Player player = game.getCurrentPlayer();
 		player.lockedCards.add(keep);
 		player.hand.remove(keep);
-		cardChoice.getGame().playerTrashCard(player, trash);
+		game.playerTrashCard(player, trash);
 		int val = trash.cost + 2;
 		int num = 1;
-		cardChoice.getGame().setMiniBuy(val, num);
+		game.setMiniBuy(val, num);
 	}
 	
 	
-	public ArrayList<Choice> getChoice(Game g) {
+	public ChoiceGroup getChoice(Game g) {
 		ArrayList<String> cards = this.getHand(g);
-		Choice c1 = new Choice(g, "Choose card to keep, then on to trash.", cards, this.objList, 2);
-		ArrayList<Choice> choices = new ArrayList<Choice>();
-		choices.add(c1);
+		Choice c1 = new Choice("Choose card to keep, then on to trash.", cards, this.objList, 2);
+		ChoiceGroup choices = new ChoiceGroup();
+		choices.addChoiceToGroup(c1);
 		return choices;
 	}
 	

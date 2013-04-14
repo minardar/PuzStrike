@@ -21,12 +21,12 @@ public class TrainingDayTest {
 		Game game = new Game(3);
 		TrainingDay tDay = new TrainingDay();
 		ArrayList<String> cards = tDay.getHand(game);
-		Choice c1 = new Choice(game, "Choose card to keep, then on to trash.", cards, tDay.objList, 2);
+		Choice c1 = new Choice("Choose card to keep, then on to trash.", cards, tDay.objList, 2);
 		c1.addChoice(game.getCurrentPlayer().hand.get(0).name);
 		c1.addChoice(game.getCurrentPlayer().hand.get(2).name);
 		ArrayList<Choice> choices = new ArrayList<Choice>();
 		choices.add(c1);
-		tDay.use(choices);
+		tDay.use(choices, game);
 		assertFalse(game.getCurrentPlayer().lockedCards.isEmpty());
 	}
 	
