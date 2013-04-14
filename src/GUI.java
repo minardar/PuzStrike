@@ -338,7 +338,7 @@ public class GUI {
 		Icon icon = new ImageIcon();
 		boolean completeSoFar = true;
 		Choice current = choices.getNextChoice();
-//		while (current != null) {
+		while (current != null) {
 			while (current.nextChoice()) {
 				current = choices.getNextChoice();
 				System.out.println(current);
@@ -351,12 +351,9 @@ public class GUI {
 				} else {
 					completeSoFar = false;
 				}
-				System.out.println("Inner While");
 			}
-			
-//			System.out.println("Outer While");
-//			current = choices.getNextChoice();
-//		}
+			current = choices.getNextChoice();
+		}
 
 		if (completeSoFar) {
 			clicked.use(choices.getChoiceList(), this.game);
