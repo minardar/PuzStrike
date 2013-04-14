@@ -14,10 +14,9 @@ public class CardTest {
 	public void testTestGetChoices(){
 		Game g = new Game(3);
 		Crash c = new Crash();
-		Choice opponentChoice = c.getChoice(g).get(0);
-		Choice gemChoice = c.getChoice(g).get(1);
+		Choice opponentChoice = c.getChoice(g).getChoiceList().get(0);
+		Choice gemChoice = c.getChoice(g).getChoiceList().get(1);
 		ArrayList<String> opponents = opponentChoice.getOptions();
-		ArrayList<String> gems = gemChoice.getOptions();
 		ArrayList<String> realOpponents=  new ArrayList<String>();
 		realOpponents.add("Player 2");
 		realOpponents.add("Player 3");
@@ -57,7 +56,6 @@ public class CardTest {
 	@Test
 	public void testGetBag(){
 		Game g = new Game(1);
-		Player p = g.getCurrentPlayer();
 		Card c = new Crash();
 		ArrayList<String> bag = c.getBag(g);
 		assertTrue(bag.contains("1 Gem"));

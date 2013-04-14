@@ -24,7 +24,7 @@ public class Player {
 			this.bag.add(new Gem(1));
 		}
 		for (int i = 0; i < 3; i++) {
-			this.bag.add(new ParamCard("DrawThree"));
+			this.bag.add(new TrainingDay());
 		}
 		this.bag.add(new Crash());
 		

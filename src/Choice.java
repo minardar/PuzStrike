@@ -8,8 +8,6 @@ import java.util.Collection;
  * 
  */
 public class Choice {
-	private Game g;
-	private Player currentPlayer;
 	private String instructions;
 	private ArrayList<String> options;
 	private ArrayList<Object> optionObjects;
@@ -28,9 +26,7 @@ public class Choice {
 	 * @param but
 	 *            The text on the button the user will click
 	 */
-	public Choice(Game ga, String inst, ArrayList<String> opt, ArrayList<Object> optObjects, int amt) {
-		g = ga;
-		currentPlayer = ga.getCurrentPlayer();
+	public Choice(String inst, ArrayList<String> opt, ArrayList<Object> optObjects, int amt) {
 		instructions = inst;
 		options = opt;
 		optionObjects = optObjects;
@@ -80,10 +76,6 @@ public class Choice {
 	public String getInstructions() {
 		return instructions;
 	}
-	
-	public Game getGame() {
-		return g;
-	}
 
 	/**
 	 * A method that the GUI can use to get the different options in this choice
@@ -93,15 +85,5 @@ public class Choice {
 	 */
 	public ArrayList<String> getOptions() {
 		return options;
-	}
-
-	/**
-	 * A method that the card class can use to grab the current player without
-	 * knowing the game.
-	 * 
-	 * @return
-	 */
-	public Player getCurrentPlayer() {
-		return currentPlayer;
 	}
 }

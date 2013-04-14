@@ -26,9 +26,9 @@ public abstract class Card {
 	public int amount = 1;
 	public ArrayList<Object> objList;
 
-	public abstract ArrayList<Choice> getChoice(Game g);
+	public abstract ChoiceGroup getChoice(Game g);
 
-	public abstract void use(ArrayList<Choice> choices);
+	public abstract void use(ArrayList<Choice> choices, Game game);
 
 	public abstract Card newCard();
 

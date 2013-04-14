@@ -88,26 +88,6 @@ public class GUI {
 		}
 	}
 
-	public class JBackgroundLabel extends JLabel {
-		private BufferedImage img;
-
-		public JBackgroundLabel(File path) {
-			// load the background image
-			try {
-				img = ImageIO.read(path);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		@Override
-		protected void paintComponent(Graphics g) {
-			super.paintComponent(g);
-			// paint the background image and scale it to fill the entire space
-			g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
-		}
-	}
-
 	private void setUp() {
 		this.panel = new JBackgroundPanel();
 		this.frame.setContentPane(this.panel);
