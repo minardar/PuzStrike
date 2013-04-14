@@ -32,12 +32,12 @@ public class Combine extends Card {
 	 *            ArrayList of Choices arranged like this: {firstgem to combine,
 	 *            secondgem to combine}
 	 */
-	public void use(ArrayList<Choice> choices) {
+	public void use(ArrayList<Choice> choices, Game game) {
 		Choice c = choices.get(0);
 		int gem1 = (Integer) c.getChoice().get(0);
 		int gem2 = (Integer) c.getChoice().get(1);
 
-		Player p = c.getCurrentPlayer();
+		Player p = game.getCurrentPlayer();
 		int v = gem1 + gem2 + 1;
 		if (v < 3) {
 			p.gemPile[gem1] = p.gemPile[gem1] - 1;
@@ -54,11 +54,11 @@ public class Combine extends Card {
 	 * @param g
 	 * @return
 	 */
-	public ArrayList<Choice> getChoice(Game g) {
+	public ChoiceGroup getChoice(Game g) {
 		ArrayList<String> gempile = this.getGempile(g);
-		Choice c1 = new Choice(g, "Choose the first gem to Combine!", gempile, this.objList, 2);
-		ArrayList<Choice> choice = new ArrayList<Choice>();
-		choice.add(c1);
+		Choice c1 = new Choice("Choose the first gem to Combine!", gempile, this.objList, 2);
+		ChoiceGroup choice = new ChoiceGroup();
+		choice.addChoiceToGroup(c1);
 		return choice;
 	}
 	
