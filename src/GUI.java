@@ -340,8 +340,6 @@ public class GUI {
 		Choice current = choices.getNextChoice();
 		while (current != null) {
 			while (current.nextChoice()) {
-				current = choices.getNextChoice();
-				System.out.println(current);
 				Object[] options = current.getOptions().toArray();
 				String n = (String) JOptionPane.showInputDialog(this.frame,
 						current.getInstructions(), clicked.name,
@@ -351,6 +349,14 @@ public class GUI {
 				} else {
 					completeSoFar = false;
 				}
+				current = choices.getNextChoice();
+				if (current == null){
+					break;
+				}
+			}
+			
+			if (current == null){
+				break;
 			}
 			current = choices.getNextChoice();
 		}

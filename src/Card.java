@@ -97,6 +97,31 @@ public abstract class Card {
 		return handStrings;
 	}
 	
+	
+	/**
+	 * A method that will return a list of cards in the player's hand
+	 * excluding the cards in excluding
+	 * 
+	 * @param g, ArrayList<Card> excluding
+	 * @return
+	 */
+	public ArrayList<String> getHand(Game g, ArrayList<Card> excluding) {
+		objList = new ArrayList<Object>();
+		Player p = g.getCurrentPlayer();
+		ArrayList<Card> h = p.hand;
+		ArrayList<String> handStrings = new ArrayList<String>();
+		for (Card card : h) {
+			if (!card.equals(this)) {
+				for (Card excl : excluding) {
+					if (!card.cardsSameKind(excl)) {
+						objList.add(card);
+						handStrings.add(card.name);
+					}
+				}
+			}
+		}
+		return handStrings;
+	}
 
 	/**
 	 * A method that will return a list of cards in the player's bag

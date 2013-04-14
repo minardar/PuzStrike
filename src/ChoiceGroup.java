@@ -16,14 +16,12 @@ public class ChoiceGroup {
 	public Choice getNextChoice() {
 
 		if (choices.isEmpty()) {
-			System.out.println("Empty");
 			return null;
 		} else if (!choices.get(whichChoice).nextChoice()) {
 			this.whichChoice++;
 			if (this.choices.size() >= (this.whichChoice + 1)) {
 				return choices.get(whichChoice);
 			} else {
-				System.out.println("Out of bounds");
 				return null;
 			}
 		} else {
