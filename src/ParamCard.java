@@ -35,7 +35,7 @@ public class ParamCard extends Card {
 	}
 
 	@Override
-	public ParamCard newCard() {
+	public Card newCard() {
 		ParamCard newCard = new ParamCard();
 		newCard.setEqual(this);
 		return newCard;
@@ -117,7 +117,7 @@ public class ParamCard extends Card {
 			p.discard.add(new Wound());
 		}
 
-		public ParamCard newCard() {
+		public Card newCard() {
 			return super.newCard();
 		}
 	}
@@ -140,7 +140,7 @@ public class ParamCard extends Card {
 			p.discard.add(new Wound());
 		}
 
-		public ParamCard newCard() {
+		public Card newCard() {
 			return super.newCard();
 		}
 	}

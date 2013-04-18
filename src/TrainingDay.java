@@ -29,10 +29,7 @@ public class TrainingDay extends TrickyCard {
 	
 	
 	public ChoiceGroup getChoice(Game g) {
-//		ArrayList<String> cards = this.getHand(g);
-//		Choice c1 = new Choice("Choose card to keep, then on to trash.", cards, this.objList, 2);
 		TrickyChoiceGroup choices = new TrickyChoiceGroup(this, g);
-//		choices.addChoiceToGroup(c1);
 		return choices;
 	}
 	

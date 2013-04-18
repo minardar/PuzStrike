@@ -1,24 +1,20 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 public class GUI {
 
@@ -96,7 +92,6 @@ public class GUI {
 		class CardShopListener implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO: this function;
 				cardShopInfo((JButton) e.getSource());
 			}
 		}
@@ -118,7 +113,6 @@ public class GUI {
 		class EndShopListener implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO: this function;
 				endShopPhase();
 			}
 		}
@@ -134,7 +128,6 @@ public class GUI {
 		class CardListener implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO: this function;
 				cardInfo((JButton) e.getSource());
 			}
 		}
@@ -157,7 +150,6 @@ public class GUI {
 		class EndListener implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO: this function;
 				endActionPhase();
 			}
 		}
@@ -322,8 +314,6 @@ public class GUI {
 	}
 
 	private void newShopPhase() {
-		// TODO Auto-generated method stub
-
 		this.game.totalMoney();
 		if (this.panel.getComponentCount() != 0) {
 			this.panel.removeAll();
@@ -395,7 +385,6 @@ public class GUI {
 			class CardShopListener implements ActionListener {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// TODO: this function;
 					cardGetInfo((JButton) e.getSource());
 				}
 			}
@@ -418,7 +407,6 @@ public class GUI {
 			class EndShopListener implements ActionListener {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					// TODO: this function;
 					endQuickBuy();
 				}
 			}

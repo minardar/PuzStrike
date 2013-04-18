@@ -67,7 +67,7 @@ public class ParamCardTest {
 	public void testMiscParamCardFunctions() {
 		ParamCard testCard = new ParamCard();
 		testCard.DrawThree();
-		ParamCard testEqual = testCard.newCard();
+		Card testEqual = testCard.newCard();
 		assertEquals(testCard.cost, testEqual.cost);
 	}
 }

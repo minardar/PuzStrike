@@ -29,9 +29,6 @@ public class ChoiceGroup {
 		}
 	}
 
-	public void startOver() {
-		this.whichChoice = 0;
-	}
 
 	public ArrayList<Choice> getChoiceList() {
 		return this.choices;
