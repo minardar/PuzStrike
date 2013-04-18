@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
@@ -340,19 +341,93 @@ public class GUI {
 					completeSoFar = false;
 				}
 				current = choices.getNextChoice();
-				if (current == null){
+				if (current == null) {
 					break;
 				}
 			}
-			
-			if (current == null){
+
+			if (current == null) {
 				break;
 			}
 			current = choices.getNextChoice();
 		}
 
 		if (completeSoFar) {
-			clicked.use(choices.getChoiceList(), this.game);
+			// if targets opponent(s)
+			if (clicked.opposing) {
+				boolean reacted = false;
+				clicked.prepare(choices.getChoiceList(), this.game);
+				ArrayList<Player> targets = clicked.targets;
+				// cycles through targets
+				for (int i = 0; i < targets.size(); i++) {
+					ArrayList<Card> hand = targets.get(i).hand;
+					// cycles through hand
+					for (int j = 0; j < hand.size(); j++) {
+						Card card = hand.get(j);
+						// only runs if card is defensive
+						if (card.defense) {
+							ReactionCard react = (ReactionCard) card;
+							if (react.canReactTo(clicked)) {
+								boolean wantReact = cardReactInfo(card);
+								if (wantReact) {
+									ChoiceGroup reactChoices = react
+											.getReactChoices(this.game);
+
+									boolean completeSoFarReact = true;
+									Choice currents = reactChoices.getNextChoice();
+
+									// Asks user for choices for Reaction
+									while (currents != null) {
+										while (currents.nextChoice()) {
+											Object[] options = currents
+													.getOptions().toArray();
+											String n = (String) JOptionPane
+													.showInputDialog(
+															this.frame,
+															currents.getInstructions(),
+															react.name,
+															JOptionPane.OK_OPTION,
+															icon, options,
+															options[0]);
+											if (n != null) {
+												currents.addChoice(n);
+											} else {
+												completeSoFarReact = false;
+											}
+											currents = reactChoices.getNextChoice();
+											if (currents == null) {
+												break;
+											}
+										}
+
+										if (currents == null) {
+											break;
+										}
+										currents = reactChoices.getNextChoice();
+									}
+
+									// Uses card if you filled things out
+									if (completeSoFarReact) {
+										react.react(clicked, targets.get(i),
+												reactChoices.getChoiceList(),
+												this.game);
+										reacted = true;
+										break;
+									}
+								}
+							}
+
+						}
+					}
+				}
+				// Nobody reacted to card
+				if (!reacted) {
+					clicked.use(choices.getChoiceList(), this.game);
+				}
+				// No target
+			} else {
+				clicked.use(choices.getChoiceList(), this.game);
+			}
 		}
 
 		if (this.game.getNumber > 0) {
@@ -426,6 +501,26 @@ public class GUI {
 			this.game.clearMiniBuy();
 			newTurn();
 		}
+	}
+
+	public boolean cardReactInfo(Card card) {
+		Card clicked = card;
+		Icon icon = new ImageIcon();
+		if (clicked.imagePath != null) {
+			icon = new ImageIcon(clicked.imagePath);
+		}
+		Object[] options = { "React", "Don't React" };
+
+		Integer n = JOptionPane.showOptionDialog(this.frame, "", clicked.name,
+				JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, icon,
+				options, options[0]);
+
+		if (n == 0) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 
 }

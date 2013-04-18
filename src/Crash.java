@@ -77,7 +77,7 @@ public class Crash extends ReactionCard {
 	public void react(Card cardUsed, Player reacting, ArrayList<Choice> choices, Game game) {
 		ArrayList<Choice> cardChoices = cardUsed.getChosenEffect();
 		int gemSelected = (Integer) cardChoices.get(1).getChoice().get(0);
-		int reactGemSelected = (Integer) cardChoices.get(0).getChoice().get(0);
+		int reactGemSelected = (Integer) choices.get(0).getChoice().get(0);
 		Player opp = game.getCurrentPlayer();
 		opp.gemPile[gemSelected] = opp.gemPile[gemSelected] - 1;
 		reacting.gemPile[reactGemSelected] = reacting.gemPile[reactGemSelected] - 1;

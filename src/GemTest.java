@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -66,4 +68,10 @@ public class GemTest {
 		Assert.assertNotSame(gem2, new2);
 	}
 
+	@Test
+	public void testPrepare(){
+		Combine com = new Combine();
+		com.prepare(new ArrayList<Choice>(), new Game(3));
+		assertEquals(new ArrayList<Choice>(), com.chosenEffect);
+	}
 }

@@ -116,10 +116,6 @@ public class Game {
 		this.lastUsedCard = clicked;
 	}
 
-	public void clearTarget() {
-		this.currentTarget = null;
-	}
-
 	public void setMiniBuy(int val, int num) {
 		this.underVal = val;
 		this.getNumber = num;

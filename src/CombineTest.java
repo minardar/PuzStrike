@@ -43,5 +43,12 @@ public class CombineTest {
 		Card com2 = com.newCard();
 		assertEquals("Combine", com2.name);
 	}
+	
+	@Test
+	public void testPrepare(){
+		Combine com = new Combine();
+		com.prepare(new ArrayList<Choice>(), new Game(3));
+		assertEquals(new ArrayList<Choice>(), com.chosenEffect);
+	}
 
 }

@@ -122,19 +122,6 @@ public class GameTest {
 	}
 	
 	@Test
-	public void testClearTarget(){
-		Game game = new Game(2);
-		Player play = game.players.get(0);
-		Card card = new Crash();
-		game.setTarget(play, card);
-		assertEquals(card, game.lastUsedCard);
-		assertEquals(play, game.currentTarget);
-		game.clearTarget();
-		assertEquals(card, game.lastUsedCard);
-		assertNull(game.currentTarget);
-	}
-	
-	@Test
 	public void testUseCard(){
 		Game game = new Game(2);
 		Card card = new Crash();
@@ -164,4 +151,13 @@ public class GameTest {
 		assertEquals(0, card.amount);
 		assertEquals(1, play.discard.size());
 	}
+	
+	@Test
+	public void testTrashCard() {
+		Game game = new Game(1);
+		Player play = game.players.get(0);
+		Card card = new Gem(1);
+		game.playerTrashCard(play, card);
+	}
+	
 }

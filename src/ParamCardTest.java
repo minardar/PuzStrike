@@ -70,4 +70,11 @@ public class ParamCardTest {
 		Card testEqual = testCard.newCard();
 		assertEquals(testCard.cost, testEqual.cost);
 	}
+	
+	@Test
+	public void testPrepare(){
+		ParamCard testCard = new ParamCard();
+		testCard.prepare(new ArrayList<Choice>(), new Game(3));
+		assertEquals(new ArrayList<Choice>(), testCard.chosenEffect);
+	}
 }
