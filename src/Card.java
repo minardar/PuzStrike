@@ -18,6 +18,7 @@ public abstract class Card {
 	public String imagePath;
 	public int value;
 	public boolean defense;
+	public boolean opposing = false;
 	public ArrayList<CardColor> cardColor = new ArrayList<CardColor>();
 	public ArrayList<Integer> effects = new ArrayList<Integer>();
 	public CardType cardType;

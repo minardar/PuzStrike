@@ -21,6 +21,7 @@ public class Crash extends Card {
 		this.cardColor.add(CardColor.PURPLE);
 		this.cardType = cardType.CIRCLE;
 		this.defense = true;
+		this.opposing = true;
 		this.name = "Crash";
 		this.value = 0;
 		this.cost = 5;
