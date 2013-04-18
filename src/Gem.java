@@ -63,4 +63,10 @@ public class Gem extends Card {
 	public Card newCard(){
 		return new Gem(this.value);
 	}
+
+	@Override
+	public void prepare(ArrayList<Choice> choice, Game g) {
+		this.setChosenEffect(choice);
+		this.setTargets(new ArrayList<Player>());
+	}
 }

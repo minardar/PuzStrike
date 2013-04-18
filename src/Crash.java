@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
  * @author harrissa
  * 
  */
-public class Crash extends Card {
+public class Crash extends ReactionCard {
 	/**
 	 * default constructor for the CRASH class... It setst the appropriate
 	 * values for CRASH
@@ -59,7 +59,7 @@ public class Crash extends Card {
 		ArrayList<String> opponents = this.getOpponents(g);
 		Choice c1 = new Choice("Choose Opponent to crash!", opponents, this.objList, 1);
 		ArrayList<String> gempile = this.getGempile(g);
-		Choice c2 = new Choice("Choose gems to crash!", gempile, this.objList, 1);
+		Choice c2 = new Choice("Choose gem to crash!", gempile, this.objList, 1);
 		ChoiceGroup choices = new ChoiceGroup();
 		choices.addChoiceToGroup(c1);
 		choices.addChoiceToGroup(c2);
@@ -71,5 +71,46 @@ public class Crash extends Card {
 	 */
 	public Card newCard(){
 		return new Crash();
+	}
+
+	@Override
+	public void react(Card cardUsed, Player reacting, ArrayList<Choice> choices, Game game) {
+		ArrayList<Choice> cardChoices = cardUsed.getChosenEffect();
+		int gemSelected = (Integer) cardChoices.get(1).getChoice().get(0);
+		int reactGemSelected = (Integer) cardChoices.get(0).getChoice().get(0);
+		Player opp = game.getCurrentPlayer();
+		opp.gemPile[gemSelected] = opp.gemPile[gemSelected] - 1;
+		reacting.gemPile[reactGemSelected] = reacting.gemPile[reactGemSelected] - 1;
+		if (gemSelected > reactGemSelected){
+			reacting.gemPile[0] = reacting.gemPile[0] + (gemSelected-reactGemSelected);
+		} else {
+			opp.gemPile[0] = opp.gemPile[0] + (reactGemSelected-gemSelected);
+		}
+	
+	}
+
+	@Override
+	public boolean canReactTo(Card card) {
+		if (card instanceof Crash){
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public ChoiceGroup getReactChoices(Game g) {
+		ArrayList<String> gempile = this.getGempile(g);
+		Choice c2 = new Choice("Choose gem to crash!", gempile, this.objList, 1);
+		ChoiceGroup choices = new ChoiceGroup();
+		choices.addChoiceToGroup(c2);
+		return choices;
+	}
+	
+	@Override
+	public void prepare(ArrayList<Choice> choice, Game g){
+		this.setChosenEffect(choice);
+		ArrayList<Player> opps = new ArrayList<Player>();
+		opps.add((Player) choice.get(0).getChoice().get(0));
+		this.setTargets(opps);
 	}
 }

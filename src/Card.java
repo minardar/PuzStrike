@@ -25,6 +25,8 @@ public abstract class Card {
 	public String name;
 	public int[] input = new int[3];
 	public int amount = 1;
+	public ArrayList<Choice> chosenEffect;
+	public ArrayList<Player> targets;
 	public ArrayList<Object> objList;
 
 	public abstract ChoiceGroup getChoice(Game g);
@@ -260,4 +262,22 @@ public abstract class Card {
 				return false;
 		}
 	}
+	
+	public void setChosenEffect(ArrayList<Choice> effect){
+		this.chosenEffect = effect;
+	}
+	
+	public ArrayList<Choice> getChosenEffect(){
+		return this.chosenEffect;
+	}
+	public void setTargets(ArrayList<Player> target){
+		this.targets = target;
+	}
+	
+	public ArrayList<Player> getTargets(){
+		return this.targets;
+	}
+	
+	public abstract void prepare(ArrayList<Choice> choice, Game g);
+
 }

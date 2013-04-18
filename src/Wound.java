@@ -40,4 +40,9 @@ public class Wound extends Card{
 	public Card newCard(){
 		return new Wound();
 	}
+	@Override
+	public void prepare(ArrayList<Choice> choice, Game g) {
+		this.setChosenEffect(choice);
+		this.setTargets(new ArrayList<Player>());
+	}
 }

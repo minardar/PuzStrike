@@ -15,6 +15,7 @@ public class Game {
 	public Card lastUsedCard = null;
 	public int underVal = 0;
 	public int getNumber = 0;
+	public Card beingUsed = null;
 
 	public Game(int number) {
 		this.players = new ArrayList<Player>();

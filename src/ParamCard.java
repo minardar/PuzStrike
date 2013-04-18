@@ -144,5 +144,11 @@ public class ParamCard extends Card {
 			return super.newCard();
 		}
 	}
+
+	@Override
+	public void prepare(ArrayList<Choice> choice, Game g) {
+		this.setChosenEffect(choice);
+		this.setTargets(new ArrayList<Player>());
+	}
 	
 }
