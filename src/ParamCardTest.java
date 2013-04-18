@@ -13,12 +13,9 @@ public class ParamCardTest {
 		ParamCard testCard = new ParamCard();
 		testCard.DrawThree();
 		assertEquals(3, testCard.cost);
-		assertEquals(new ArrayList<Choice>(), testCard.getChoice(g));
-		
-		ArrayList<String> opponents = testCard.getOpponents(g);
-		Choice c1 = new Choice("Test", opponents, testCard.objList, 1);
+		assertEquals(new ChoiceGroup().choices, testCard.getChoice(g).choices);
+
 		ArrayList<Choice> choices = new ArrayList<Choice>();
-		choices.add(c1);
 		
 		testCard.use(choices, g);
 		assertEquals(8, g.players.get(0).hand.size());
@@ -41,7 +38,7 @@ public class ParamCardTest {
 	public void testRoundhouseCard() {
 		ParamCard testCard = new ParamCard();
 		testCard.RoundHouse();
-		assertEquals(4, testCard.cost);
+		assertEquals(6, testCard.cost);
 		
 		ArrayList<Choice> choices = new ArrayList<Choice>();
 		
@@ -70,6 +67,7 @@ public class ParamCardTest {
 	public void testMiscParamCardFunctions() {
 		ParamCard testCard = new ParamCard();
 		testCard.DrawThree();
-		assertEquals(testCard.cost, ParamCard.newCard().cost);
+		ParamCard testEqual = testCard.newCard();
+		assertEquals(testCard.cost, testEqual.cost);
 	}
 }

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class ParamCard extends Card {
 
-	private Player currentPlayer;
+	private Player p;
 	int blackTurns, purpleTurns, redTurns, brownTurns, blueTurns, draw, money;
 
 	public ParamCard() {
@@ -19,7 +19,7 @@ public class ParamCard extends Card {
 
 	@Override
 	public void use(ArrayList<Choice> choices, Game game) {
-		Player p = this.currentPlayer;
+		p = game.getCurrentPlayer();
 		p.blackTurns += blackTurns;
 		p.purpleTurns += purpleTurns;
 		p.redTurns += redTurns;
@@ -35,9 +35,27 @@ public class ParamCard extends Card {
 	}
 
 	@Override
-	public Card newCard() {
-		
-		return new ParamCard();
+	public ParamCard newCard() {
+		ParamCard newCard = new ParamCard();
+		newCard.setEqual(this);
+		return newCard;
+	}
+	
+	public void setEqual(ParamCard card) {
+		this.cardColor = card.cardColor;
+		this.cardType = card.cardType;
+		this.defense = card.defense;
+		this.value = card.value;
+		this.name = card.name;
+		this.imagePath = card.imagePath;
+		this.cost = card.cost;
+		this.blackTurns = card.blackTurns;
+		purpleTurns = card.purpleTurns;
+		redTurns = card.redTurns;
+		brownTurns = card.brownTurns;
+		blueTurns = card.blueTurns;
+		draw = card.draw;
+		money = card.money;
 	}
 	
 	public void DrawThree() {
@@ -69,6 +87,62 @@ public class ParamCard extends Card {
 		blackTurns += 1;
 		draw += 1;
 		money += 1;
+	}
+	
+//	-recklessness
+//	-its combo time
+//	-gem essence
+//	-knockdown
+//	-its a trap
+//	-chip damage
+//	-sneak attack
+//	-risky move
+//	-sale prices
+//	-dashing strike
+	
+	public class Recklessness extends ParamCard{
+		public Recklessness() {
+			this.name = "Recklessness";
+			this.imagePath = name + ".png";
+			this.cost = 2;
+			draw += 3;
+		}
+
+		public ChoiceGroup getChoice(Game g) {
+			return super.getChoice(g);
+		}
+
+		public void use(ArrayList<Choice> choices, Game game) {
+			super.use(choices, game);
+			p.discard.add(new Wound());
+		}
+
+		public ParamCard newCard() {
+			return super.newCard();
+		}
+	}
+	
+	public class ItsComboTime extends ParamCard{
+		public ItsComboTime() {
+			this.name = "ItsComboTime";
+			this.imagePath = name + ".png";
+			this.cost = 8;
+			draw += 4;
+			blackTurns += 1;
+		}
+
+		public ChoiceGroup getChoice(Game g) {
+			return super.getChoice(g);
+		}
+
+		public void use(ArrayList<Choice> choices, Game game) {
+			super.use(choices, game);
+			p.discard.add(new Wound());
+		}
+
+		public ParamCard newCard() {
+			return super.newCard();
+		}
 	}
 	
 }
