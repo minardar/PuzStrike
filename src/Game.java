@@ -57,6 +57,32 @@ public class Game {
 		Card combine = this.AlwaysCards.get(3);
 		combine.setAmount(20);
 		this.bank.add(combine);
+		
+		ParamCard drawThree = new ParamCard();
+		drawThree.DrawThree();
+		drawThree.setAmount(10);
+		this.bank.add(drawThree);
+		ParamCard oneTwoPunch = new ParamCard();
+		oneTwoPunch.OneTwoPunch();
+		oneTwoPunch.setAmount(10);
+		this.bank.add(oneTwoPunch);
+		ParamCard roundhouse = new ParamCard();
+		roundhouse.Roundhouse();
+		roundhouse.setAmount(10);
+		this.bank.add(roundhouse);
+		ParamCard oneOfEach = new ParamCard();
+		oneOfEach.OneOfEach();
+		oneOfEach.setAmount(10);
+		this.bank.add(oneOfEach);
+		
+		ParamCard dashingStrike = new ParamCard();
+		dashingStrike = dashingStrike.DashingStrike();
+		dashingStrike.setAmount(10);
+		this.bank.add(dashingStrike);
+		ParamCard selfImprovement = new ParamCard();
+		selfImprovement = selfImprovement.SelfImprovement();
+		selfImprovement.setAmount(10);
+		this.bank.add(selfImprovement);
 	}
 
 	public void newTurn() {
