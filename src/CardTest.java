@@ -54,11 +54,21 @@ public class CardTest {
 		
 	}
 	@Test
-	public void testGetBag(){
+	public void testGetChosenEffect(){
+		ArrayList<Choice> c = new ArrayList<Choice>();
+		Card crash = new Crash();
+		crash.setChosenEffect(c);
+		assertEquals(c, crash.getChosenEffect());
+	}
+	@Test
+	public void testGetTargets(){
 		Game g = new Game(1);
-		Card c = new Crash();
-		ArrayList<String> bag = c.getBag(g);
-		assertTrue(bag.contains("1 Gem"));
+		ArrayList<Player> pList = new ArrayList<Player>();
+		Player p = g.getCurrentPlayer();
+		pList.add(p);
+		Card crash = new Crash();
+		crash.setTargets(pList);
+		assertEquals(pList, crash.getTargets());
 	}
 
 }

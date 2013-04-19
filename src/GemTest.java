@@ -70,8 +70,8 @@ public class GemTest {
 
 	@Test
 	public void testPrepare(){
-		Combine com = new Combine();
-		com.prepare(new ArrayList<Choice>(), new Game(3));
-		assertEquals(new ArrayList<Choice>(), com.chosenEffect);
+		Gem gem = new Gem(1);
+		gem.prepare(new ArrayList<Choice>(), new Game(3));
+		assertEquals(new ArrayList<Choice>(), gem.chosenEffect);
 	}
 }

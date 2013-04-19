@@ -1,4 +1,7 @@
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
 import junit.framework.Assert;
 
 import org.junit.Test;
@@ -16,7 +19,21 @@ public class GameTest {
 		assertNull(game.currentTarget);
 		assertNull(game.lastUsedCard);
 	}
-	
+	@Test
+	public void testGetBag(){
+		Game g = new Game(1);
+		ArrayList<String> bag = g.getBag();
+		assertTrue(bag.contains("1 Gem"));
+	}
+	@Test
+	public void testGetBagObj(){
+		Game g = new Game(1);
+		Player current = g.getCurrentPlayer();
+		Object c = current.bag.get(0);
+		ArrayList<Object> bag = g.getBagObj();
+		System.out.println(bag.toString());
+		assertTrue(bag.contains(c));
+	}
 	@Test
 	public void testMakePlayers1() {
 		Game game = new Game(0);
