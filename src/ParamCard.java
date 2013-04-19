@@ -89,16 +89,6 @@ public class ParamCard extends Card {
 		money += 1;
 	}
 	
-	public ParamCard DashingStrike() {
-		//this.setEqual(new DashingStrike());
-		return new DashingStrike();
-	}
-	
-	public ParamCard SelfImprovement() {
-		//this.setEqual(new SelfImprovement());
-		return new SelfImprovement();
-	}
-	
 	public class Recklessness extends ParamCard{
 		public Recklessness() {
 			this.name = "Recklessness";
@@ -140,102 +130,6 @@ public class ParamCard extends Card {
 
 		public Card newCard() {
 			return super.newCard();
-		}
-	}
-	
-	public class DashingStrike extends ParamCard {
-		public DashingStrike() {
-			this.cardColor = new ArrayList<CardColor>();
-			cardColor.add(CardColor.RED);
-			this.cardType = cardType.PUZZLE;
-			this.defense = false;
-			this.cost = 4;
-			this.name = "DashingStrike";
-			this.imagePath = name + ".png";     
-			this.brownTurns += 1;
-		}
-		
-		public void use(ArrayList<Choice> choices, Game game) {
-			super.use(choices, game);
-			Choice oppChoice = choices.get(0);
-			Choice gemChoice = choices.get(1);
-			Player crashee = (Player) oppChoice.getChoice().get(0);
-			Player crasher = game.getCurrentPlayer();
-			int gem = (Integer) gemChoice.getChoice().get(0);
-			crasher.gemPile[gem] = crasher.gemPile[gem] - 1;
-			crashee.gemPile[0] = crashee.gemPile[0] + gem + 1;
-			crasher.money++;
-		}
-		
-		public ChoiceGroup getChoice(Game g) {
-			ArrayList<String> opponents = this.getOpponents(g);
-			Choice c1 = new Choice("Choose an opponent to ante!", opponents, this.objList, 1);
-			ArrayList<String> gempile = this.getGempile(g);
-			Choice c2 = new Choice("Choose a gem to trash!", gempile, this.objList, 1);
-			ChoiceGroup choices = new ChoiceGroup();
-			choices.addChoiceToGroup(c1);
-			choices.addChoiceToGroup(c2);
-			return choices;
-		}
-		
-		public Card newCard() {
-			ParamCard newCard = new ParamCard();
-			newCard.setEqual(this);
-			return newCard;
-		}
-		
-		public void setEqual(ParamCard card) {
-			super.setEqual(card);
-		}
-	}
-	
-	public class SelfImprovement extends ReactionCard {
-		public SelfImprovement() {
-			this.cardColor = new ArrayList<CardColor>();
-			cardColor.add(CardColor.BLUE);
-			this.cardType = cardType.PUZZLE;
-			this.defense = true;
-			this.cost = 4;
-			this.name = "SelfImprovement";
-			this.imagePath = name + ".png";     
-		}
-		
-		public void use(ArrayList<Choice> choices, Game game) {
-			super.use(choices, game);
-			Choice cardChoice = choices.get(0);
-			Card card = (Card) cardChoice.getChoice().get(0);
-			p.hand.remove(card);
-		}
-		
-		public ChoiceGroup getChoice(Game g) {
-			ArrayList<String> hand = this.getHand(g);
-			Choice c1 = new Choice("Choose a card to trash!", hand, this.objList, 1);
-			ChoiceGroup choices = new ChoiceGroup();
-			choices.addChoiceToGroup(c1);
-			return choices;
-		}
-		
-		public Card newCard() {
-			ParamCard newCard = new ParamCard();
-			newCard.setEqual(this);
-			return newCard;
-		}
-		
-		public void setEqual(ParamCard card) {
-			super.setEqual(card);
-		}
-		
-		public void react(Card card, Player reacting, ArrayList<Choice> choices, Game game) {
-			reacting.drawFromBag(3);
-		}
-
-		public boolean canReactTo(Card card) {
-			if (card.cardColor.contains(CardColor.RED)) return true;
-			else return false;
-		}
-		
-		public ChoiceGroup getReactChoices(Game g) {
-			return new ChoiceGroup();
 		}
 	}
 

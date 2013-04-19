@@ -75,12 +75,10 @@ public class Game {
 		oneOfEach.setAmount(10);
 		this.bank.add(oneOfEach);
 		
-		ParamCard dashingStrike = new ParamCard();
-		dashingStrike = dashingStrike.DashingStrike();
+		Card dashingStrike = new DashingStrike();
 		dashingStrike.setAmount(10);
 		this.bank.add(dashingStrike);
-		ParamCard selfImprovement = new ParamCard();
-		selfImprovement = selfImprovement.SelfImprovement();
+		Card selfImprovement = new SelfImprovement();
 		selfImprovement.setAmount(10);
 		this.bank.add(selfImprovement);
 	}
