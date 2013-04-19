@@ -44,15 +44,17 @@ public class TrainingDay extends TrickyCard {
 		// TODO Auto-generated method stub	
 		switch(i){
 			case 1:
-				ArrayList<String> cards = this.getHand(g);
-				Choice c1 = new Choice("Choose a card to keep.", cards, this.objList, 1);
+				ArrayList<String> cards = g.getHand();
+				ArrayList<Object> cardObj = g.getHandObj();
+				Choice c1 = new Choice("Choose a card to keep.", cards, cardObj, 1);
 				return c1;
 			case 2:
 				ArrayList<Card> excl = new ArrayList<Card>();
 				excl.add(new Crash());
-				ArrayList<String> cards2 = this.getHand(g, excl);
+				ArrayList<String> cards2 = g.getHand(excl);
+				ArrayList<Object> cardObj2 = g.getHandObj(excl);
 				cards2.remove(choice.getChoice().get(0));
-				Choice c2 = new Choice("Choose a card to trash.", cards2, this.objList, 1);
+				Choice c2 = new Choice("Choose a card to trash.", cards2, cardObj2, 1);
 				return c2;
 			default:
 				return null;

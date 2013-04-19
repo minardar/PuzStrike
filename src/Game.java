@@ -113,11 +113,11 @@ public class Game {
 		card.amount--;
 		play.addToDiscard(card.newCard());
 	}
-	
+
 	public void playerTrashCard(Player play, Card card) {
 		play.hand.remove(card);
-		for (int i = 0; i < this.bank.size(); i++){
-			if (this.bank.get(i).cardsSameKind(card)){
+		for (int i = 0; i < this.bank.size(); i++) {
+			if (this.bank.get(i).cardsSameKind(card)) {
 				this.bank.get(i).amount++;
 			}
 		}
@@ -150,6 +150,195 @@ public class Game {
 	public void clearMiniBuy() {
 		this.underVal = 0;
 		this.getNumber = 0;
+	}
+
+	/**
+	 * A method that will get a list of opponents in string format
+	 * 
+	 * @return
+	 */
+	public ArrayList<String> getOpponents() {
+		Player p = getCurrentPlayer();
+		ArrayList<Player> oppObj = players;
+		ArrayList<String> oppStrings = new ArrayList<String>();
+		int i = 1;
+		for (Player o : oppObj) {
+			if (!p.equals(o)) {
+				String name = "Player " + i;
+				oppStrings.add(name);
+			}
+			i++;
+		}
+		return oppStrings;
+	}
+
+	/**
+	 * A method that will get a list of opponents in objects
+	 * 
+	 * @return
+	 */
+	public ArrayList<Object> getOpponentsObj() {
+		ArrayList<Object> objList = new ArrayList<Object>();
+		Player p = getCurrentPlayer();
+		ArrayList<Player> oppObj = players;
+		for (Player o : oppObj) {
+			if (!p.equals(o)) {
+				objList.add(o);
+			}
+		}
+		return objList;
+	}
+
+	/**
+	 * A method that will return a list of gems in the players gempile in
+	 * strings
+	 * 
+	 * @return
+	 */
+	public ArrayList<String> getGempile() {
+		Player p = getCurrentPlayer();
+		int[] gempile = p.gemPile;
+		ArrayList<String> gemStrings = new ArrayList<String>();
+		int whichGem = 1;
+		for (int gems : gempile) {
+			for (int i = 0; i < gems; i++) {
+				gemStrings.add(Integer.toString(whichGem) + " Gem");
+			}
+			whichGem++;
+		}
+		return gemStrings;
+	}
+
+	/**
+	 * A method that will return a list of gems in the players gempile in
+	 * objects
+	 * 
+	 * @return
+	 */
+	public ArrayList<Object> getGempileObj() {
+		ArrayList<Object> objList = new ArrayList<Object>();
+		Player p = getCurrentPlayer();
+		int[] gempile = p.gemPile;
+		int whichGem = 1;
+		for (int gems : gempile) {
+			for (int i = 0; i < gems; i++) {
+				objList.add(whichGem - 1);
+			}
+			whichGem++;
+		}
+		return objList;
+	}
+
+	/**
+	 * A method that will return a list of cards in the player's hand in strings
+	 * 
+	 * @return
+	 */
+	public ArrayList<String> getHand() {
+		Player p = getCurrentPlayer();
+		ArrayList<Card> h = p.hand;
+		ArrayList<String> handStrings = new ArrayList<String>();
+		for (Card card : h) {
+			if (!card.equals(this)) {
+				handStrings.add(card.name);
+			}
+		}
+		return handStrings;
+	}
+
+	/**
+	 * A method that will return a list of cards in the player's hand in objects
+	 * 
+	 * @return
+	 */
+	public ArrayList<Object> getHandObj() {
+		ArrayList<Object> objList = new ArrayList<Object>();
+		Player p = getCurrentPlayer();
+		ArrayList<Card> h = p.hand;
+		for (Card card : h) {
+			if (!card.equals(this)) {
+				objList.add(card);
+			}
+		}
+		return objList;
+	}
+
+	/**
+	 * A method that will return a list of cards in the player's hand in Strings
+	 * excluding the cards in excluding
+	 * 
+	 * @param ArrayList
+	 *            <Card> excluding
+	 * @return
+	 */
+	public ArrayList<String> getHand(ArrayList<Card> excluding) {
+		Player p = getCurrentPlayer();
+		ArrayList<Card> h = p.hand;
+		ArrayList<String> handStrings = new ArrayList<String>();
+		for (Card card : h) {
+			if (!card.equals(this)) {
+				for (Card excl : excluding) {
+					if (!card.cardsSameKind(excl)) {
+						handStrings.add(card.name);
+					}
+				}
+			}
+		}
+		return handStrings;
+	}
+
+	/**
+	 * A method that will return a list of cards in the player's hand in objects
+	 * excluding the cards in excluding
+	 * 
+	 * @param ArrayList
+	 *            <Card> excluding
+	 * @return
+	 */
+	public ArrayList<Object> getHandObj(ArrayList<Card> excluding) {
+		ArrayList<Object> objList = new ArrayList<Object>();
+		Player p = getCurrentPlayer();
+		ArrayList<Card> h = p.hand;
+		for (Card card : h) {
+			if (!card.equals(this)) {
+				for (Card excl : excluding) {
+					if (!card.cardsSameKind(excl)) {
+						objList.add(card);
+					}
+				}
+			}
+		}
+		return objList;
+	}
+
+	/**
+	 * A method that will return a list of cards in the player's bag in strings
+	 * 
+	 * @return
+	 */
+	public ArrayList<String> getBag() {
+		Player p = getCurrentPlayer();
+		ArrayList<Card> b = p.bag;
+		ArrayList<String> bagStrings = new ArrayList<String>();
+		for (Card card : b) {
+			bagStrings.add(card.name);
+		}
+		return bagStrings;
+	}
+
+	/**
+	 * A method that will return a list of cards in the player's bag in objects
+	 * 
+	 * @return
+	 */
+	public ArrayList<Object> getBagObj() {
+		ArrayList<Object> objList = new ArrayList<Object>();
+		Player p = getCurrentPlayer();
+		ArrayList<Card> b = p.bag;
+		for (Card card : b) {
+			objList.add(card);
+		}
+		return objList;
 	}
 
 }
