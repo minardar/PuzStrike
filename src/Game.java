@@ -37,7 +37,7 @@ public class Game {
 
 		makePlayers(number);
 		makeBank();
-		this.currentLocale = new Locale("en", "US");
+		this.currentLocale = new Locale("fr", "FR");
 		this.names = ResourceBundle.getBundle("Names", currentLocale);
 	}
 
@@ -63,7 +63,7 @@ public class Game {
 		Card combine = this.AlwaysCards.get(3);
 		combine.setAmount(20);
 		this.bank.add(combine);
-		
+
 		ParamCard drawThree = new ParamCard();
 		drawThree.DrawThree();
 		drawThree.setAmount(10);
@@ -80,7 +80,7 @@ public class Game {
 		oneOfEach.OneOfEach();
 		oneOfEach.setAmount(10);
 		this.bank.add(oneOfEach);
-		
+
 		Card dashingStrike = new DashingStrike();
 		dashingStrike.setAmount(10);
 		this.bank.add(dashingStrike);
@@ -244,7 +244,7 @@ public class Game {
 		ArrayList<String> handStrings = new ArrayList<String>();
 		for (Card card : h) {
 			if (!card.equals(this)) {
-				handStrings.add(card.name);
+				handStrings.add(card.getName(this));
 			}
 		}
 		return handStrings;
@@ -283,7 +283,7 @@ public class Game {
 			if (!card.equals(this)) {
 				for (Card excl : excluding) {
 					if (!card.cardsSameKind(excl)) {
-						handStrings.add(card.name);
+						handStrings.add(card.getName(this));
 					}
 				}
 			}
@@ -325,7 +325,7 @@ public class Game {
 		ArrayList<Card> b = p.bag;
 		ArrayList<String> bagStrings = new ArrayList<String>();
 		for (Card card : b) {
-			bagStrings.add(card.name);
+			bagStrings.add(card.getName(this));
 		}
 		return bagStrings;
 	}
@@ -343,6 +343,16 @@ public class Game {
 			objList.add(card);
 		}
 		return objList;
+	}
+
+	public void setLocale(String lang) {
+		String target = lang.toLowerCase();
+		if (target.equals("french")) {
+			this.currentLocale = new Locale("fr", "FR");
+		}
+		if (target.equals("english")) {
+			this.currentLocale = new Locale("en", "US");
+		}
 	}
 
 }
