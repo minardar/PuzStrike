@@ -30,7 +30,7 @@ public class Gem extends Card {
 		this.cardColor.add(CardColor.GREEN);
 		this.cardType = cardType.CIRCLE;
 		this.defense = false;
-		this.name = ""+i+" Gem";
+		this.name = ""+i+"gem";
 		this.value = i;
 		this.cost = 2*(i-1)+1;
 

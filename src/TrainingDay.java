@@ -9,7 +9,7 @@ public class TrainingDay extends TrickyCard {
 		this.cardColor.add(CardColor.BROWN);
 		this.cardType = cardType.PUZZLE;
 		this.defense = false;
-		this.name = "Training Day";
+		this.name = "TrainingDay";
 		this.value = 0;
 		this.cost = 2;
 	}
