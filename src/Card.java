@@ -62,6 +62,9 @@ public abstract class Card {
 	public ArrayList<Player> getTargets(){
 		return this.targets;
 	}
+	public String getName(Game g){
+		return g.names.getString(this.name);
+	}
 	
 	public abstract void prepare(ArrayList<Choice> choice, Game g);
 

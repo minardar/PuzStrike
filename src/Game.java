@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Random;
+import java.util.ResourceBundle;
 
 public class Game {
 
@@ -16,6 +18,8 @@ public class Game {
 	public int underVal = 0;
 	public int getNumber = 0;
 	public Card beingUsed = null;
+	public ResourceBundle names;
+	public Locale currentLocale;
 
 	public Game(int number) {
 		this.players = new ArrayList<Player>();
@@ -33,6 +37,8 @@ public class Game {
 
 		makePlayers(number);
 		makeBank();
+		this.currentLocale = new Locale("en", "US");
+		this.names = ResourceBundle.getBundle("Names", currentLocale);
 	}
 
 	public void makePlayers(int number) {
