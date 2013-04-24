@@ -9,13 +9,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.ButtonGroup;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButtonMenuItem;
 
 public class GUI {
 
@@ -42,7 +46,47 @@ public class GUI {
 		this.frame.setVisible(true);
 		this.frame.setResizable(false);
 		this.game = new Game(3);
+		
+		
+		class ChangeLanguage implements ActionListener {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				changeGameLanguage((JRadioButtonMenuItem) e.getSource());
+			}
+		}
+		
+		
+		//Create the menu bar.
+		JMenuBar menuBar = new JMenuBar();
+
+		//Build the first menu.
+		JMenu menu = new JMenu("Language Options");
+		menu.getAccessibleContext().setAccessibleDescription(
+		        "The only menu in this program that has menu items");
+		menuBar.add(menu);
+		
+		ButtonGroup group = new ButtonGroup();
+		JRadioButtonMenuItem rbMenuItem = new JRadioButtonMenuItem("English");
+		rbMenuItem.setSelected(true);
+		rbMenuItem.setName("english");
+		rbMenuItem.addActionListener(new ChangeLanguage());
+		group.add(rbMenuItem);
+		menu.add(rbMenuItem);
+
+		rbMenuItem = new JRadioButtonMenuItem("French");
+		rbMenuItem.setName("french");
+		rbMenuItem.addActionListener(new ChangeLanguage());
+		group.add(rbMenuItem);
+		menu.add(rbMenuItem);
+		
+		frame.setJMenuBar(menuBar);
+		
 		setUp();
+	}
+
+	public void changeGameLanguage(JRadioButtonMenuItem source) {
+		String lang = source.getName();
+		this.game.setLocale(lang);
 	}
 
 	public class JBackgroundPanel extends JPanel {
@@ -105,7 +149,7 @@ public class GUI {
 		for (int i = 0; i < this.game.bank.size(); i++) {
 			JButton card = new JBackgroundButton();
 			card.setName("" + i);
-			card.add(new JLabel(this.game.bank.get(i).name));
+			card.add(new JLabel(this.game.bank.get(i).getName(this.game)));
 			card.setPreferredSize(new Dimension(BUT_WIDTH, BUT_HEIGHT));
 			card.addActionListener(new CardShopListener());
 			this.shopCards.add(card);
@@ -141,7 +185,7 @@ public class GUI {
 		hand.setPreferredSize(new Dimension(FRAME_WIDTH, 2 * FRAME_HEIGHT / 8));
 		for (int i = 0; i < this.game.players.get(this.game.turn).hand.size(); i++) {
 			JButton card = new JBackgroundButton();
-			card.add(new JLabel(this.game.getCurrentPlayer().hand.get(i).name));
+			card.add(new JLabel(this.game.getCurrentPlayer().hand.get(i).getName(this.game)));
 			card.setName("" + i);
 			card.addActionListener(new CardListener());
 			card.setPreferredSize(new Dimension(BUT_WIDTH, BUT_HEIGHT));
@@ -247,7 +291,7 @@ public class GUI {
 			Object[] options = { "Use Card" };
 
 			Integer n = JOptionPane.showOptionDialog(this.frame, "",
-					clicked.name, JOptionPane.OK_OPTION,
+					clicked.getName(this.game), JOptionPane.OK_OPTION,
 					JOptionPane.QUESTION_MESSAGE, icon, options, options[0]);
 
 			if (n == 0) {
@@ -256,7 +300,7 @@ public class GUI {
 			}
 		} else {
 			Object[] options = {};
-			JOptionPane.showOptionDialog(this.frame, "", clicked.name,
+			JOptionPane.showOptionDialog(this.frame, "", clicked.getName(this.game),
 					JOptionPane.DEFAULT_OPTION,
 					JOptionPane.INFORMATION_MESSAGE, icon, options, null);
 		}
@@ -276,7 +320,7 @@ public class GUI {
 		if (this.game.canBuy(clicked)) {
 			Object[] options = { "Buy Card" };
 			Integer n = JOptionPane.showOptionDialog(this.frame, "Amount: "
-					+ clicked.amount, clicked.name, JOptionPane.OK_OPTION,
+					+ clicked.amount, clicked.getName(this.game), JOptionPane.OK_OPTION,
 					JOptionPane.QUESTION_MESSAGE, icon, options, options[0]);
 
 			if (n == 0) {
@@ -285,7 +329,7 @@ public class GUI {
 		} else {
 			Object[] options = {};
 			JOptionPane.showOptionDialog(this.frame, "Amount: "
-					+ clicked.amount, clicked.name, JOptionPane.DEFAULT_OPTION,
+					+ clicked.amount, clicked.getName(this.game), JOptionPane.DEFAULT_OPTION,
 					JOptionPane.INFORMATION_MESSAGE, icon, options, null);
 		}
 
@@ -303,7 +347,7 @@ public class GUI {
 
 		Object[] options = { "Get Card" };
 		Integer n = JOptionPane.showOptionDialog(this.frame, "Amount: "
-				+ clicked.amount, clicked.name, JOptionPane.OK_OPTION,
+				+ clicked.amount, clicked.getName(this.game), JOptionPane.OK_OPTION,
 				JOptionPane.QUESTION_MESSAGE, icon, options, options[0]);
 
 		if (n == 0) {
@@ -333,7 +377,7 @@ public class GUI {
 			while (current.nextChoice()) {
 				Object[] options = current.getOptions().toArray();
 				String n = (String) JOptionPane.showInputDialog(this.frame,
-						current.getInstructions(), clicked.name,
+						current.getInstructions(), clicked.getName(this.game),
 						JOptionPane.OK_OPTION, icon, options, options[0]);
 				if (n != null) {
 					current.addChoice(n);
@@ -385,7 +429,7 @@ public class GUI {
 													.showInputDialog(
 															this.frame,
 															currents.getInstructions(),
-															react.name,
+															react.getName(this.game),
 															JOptionPane.OK_OPTION,
 															icon, options,
 															options[0]);
@@ -472,7 +516,7 @@ public class GUI {
 				if (this.game.bank.get(i).cost <= val) {
 					JButton card = new JBackgroundButton();
 					card.setName("" + i);
-					card.add(new JLabel(this.game.bank.get(i).name));
+					card.add(new JLabel(this.game.bank.get(i).getName(this.game)));
 					card.setPreferredSize(new Dimension(BUT_WIDTH, BUT_HEIGHT));
 					card.addActionListener(new CardShopListener());
 					quickCards.add(card);
@@ -511,7 +555,7 @@ public class GUI {
 		}
 		Object[] options = { "React", "Don't React" };
 
-		Integer n = JOptionPane.showOptionDialog(this.frame, "", clicked.name,
+		Integer n = JOptionPane.showOptionDialog(this.frame, "", clicked.getName(this.game),
 				JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, icon,
 				options, options[0]);
 
