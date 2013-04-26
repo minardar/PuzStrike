@@ -30,12 +30,6 @@ public class StrengthOfEarth extends ParamCard{
 	}
 	
 	public Card newCard() {
-		ParamCard newCard = new ParamCard();
-		newCard.setEqual(this);
-		return newCard;
-	}
-	
-	public void setEqual(ParamCard card) {
-		super.setEqual(card);
+		return new StrengthOfEarth();
 	}
 }
