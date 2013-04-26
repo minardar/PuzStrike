@@ -352,6 +352,7 @@ public class Game {
 		if (target.equals("english")) {
 			this.currentLocale = new Locale("en", "US");
 		}
+		this.names = ResourceBundle.getBundle("Names", this.currentLocale);
 	}
 
 }
