@@ -291,7 +291,7 @@ public class GUI {
 		Card clicked = this.game.getCurrentPlayer().hand.get(num);
 		Icon icon = new ImageIcon();
 		if (clicked.imagePath != null) {
-			icon = new ImageIcon(clicked.imagePath);
+			icon = new ImageIcon(this.game.names.getString("Path")+clicked.imagePath);
 		}
 		if (this.game.getCurrentPlayer().canUseCard(clicked)) {
 			Object[] options = { this.game.names.getString("Use") };
@@ -320,7 +320,7 @@ public class GUI {
 		Card clicked = this.game.bank.get(num);
 		Icon icon = new ImageIcon();
 		if (clicked.imagePath != null) {
-			icon = new ImageIcon(clicked.imagePath);
+			icon = new ImageIcon(this.game.names.getString("Path")+clicked.imagePath);
 		}
 
 		if (this.game.canBuy(clicked)) {
@@ -350,7 +350,7 @@ public class GUI {
 		Card clicked = this.game.bank.get(num);
 		Icon icon = new ImageIcon();
 		if (clicked.imagePath != null) {
-			icon = new ImageIcon(clicked.imagePath);
+			icon = new ImageIcon(this.game.names.getString("Path")+clicked.imagePath);
 		}
 
 		Object[] options = { this.game.names.getString("Get") };
