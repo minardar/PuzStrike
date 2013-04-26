@@ -33,9 +33,7 @@ public class NoMoreLies extends ParamCard{
 	}
 	
 	public Card newCard() {
-		ParamCard newCard = new ParamCard();
-		newCard.setEqual(this);
-		return newCard;
+		return new NoMoreLies();
 	}
 	
 	public void setEqual(ParamCard card) {

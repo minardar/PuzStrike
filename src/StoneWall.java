@@ -24,9 +24,7 @@ public class StoneWall extends ParamCard{
 	}
 	
 	public Card newCard() {
-		ParamCard newCard = new ParamCard();
-		newCard.setEqual(this);
-		return newCard;
+		return new StoneWall();
 	}
 	
 	public void setEqual(ParamCard card) {

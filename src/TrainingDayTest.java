@@ -24,8 +24,8 @@ public class TrainingDayTest {
 		ArrayList<Object> cardObj = game.getHandObj();
 		Choice c1 = new Choice("Choose card to keep.", cards, cardObj, 1);
 		Choice c2 = new Choice("Choose card to trash.", cards, cardObj, 1);
-		c1.addChoice(game.getCurrentPlayer().hand.get(0).name);
-		c2.addChoice(game.getCurrentPlayer().hand.get(1).name);
+		c1.addChoice(game.getCurrentPlayer().hand.get(0).getName(game));
+		c2.addChoice(game.getCurrentPlayer().hand.get(1).getName(game));
 		ArrayList<Choice> choices = new ArrayList<Choice>();
 		choices.add(c1);
 		choices.add(c2);

@@ -32,7 +32,7 @@ public class NoMoreLiesTest {
 		ChoiceGroup choice = new ChoiceGroup();
 		choice.addChoiceToGroup(c1);
 		card.use(choice.getChoiceList(), g);
-		assertEquals(3, curr.hand.size());
+		assertEquals(5, curr.hand.size());
 	}
 
 	@Test

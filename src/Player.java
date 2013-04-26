@@ -27,10 +27,6 @@ public class Player {
 			this.bag.add(new TrainingDay());
 		}
 		this.bag.add(new Crash());
-		Card attack = new DashingStrike();
-		Card defend = new SelfImprovement();
-		this.bag.add(attack);
-		this.bag.add(defend);
 		
 		this.gemPile[0] += 1;
 		this.drawFromBag(5);

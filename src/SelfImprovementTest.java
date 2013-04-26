@@ -15,16 +15,18 @@ public class SelfImprovementTest {
 
 		Player p = g.getCurrentPlayer();
 		
+		p.hand.add(new Wound());
+		
 		ArrayList<String> a = new ArrayList<String>();
 		a = g.getHand();
 		ArrayList<Object> o = new ArrayList<Object>();
-		o.equals(p.hand);
+		o = g.getHandObj();
 		Choice c1 = new Choice("blah", a, o, 1);
-		c1.addChoice("Wound");
+		c1.addChoice(new Wound().getName(g));
 		ArrayList<Choice> choices = new ArrayList<Choice>();
 		choices.add(c1);
 		card.use(choices, g);
-		assertEquals(4, p.hand.size());
+		assertEquals(5, p.hand.size());
 		assertEquals(0, p.discard.size());
 	}
 	
