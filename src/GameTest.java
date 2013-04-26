@@ -23,7 +23,8 @@ public class GameTest {
 	public void testGetBag(){
 		Game g = new Game(1);
 		ArrayList<String> bag = g.getBag();
-		assertTrue(bag.contains("1 Gem"));
+		Card card = new Gem(1);
+		assertTrue(bag.contains(card.getName(g)));
 	}
 	@Test
 	public void testGetBagObj(){

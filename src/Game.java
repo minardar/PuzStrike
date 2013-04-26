@@ -32,9 +32,26 @@ public class Game {
 		this.AlwaysCards.add(new Crash());
 		this.AlwaysCards.add(new Wound());
 		this.AlwaysCards.add(new Combine());
-
+		
 		// add Cards to All Cards
+		ParamCard drawThree = new ParamCard();
+		drawThree.DrawThree();
+		this.AllCards.add(drawThree);
+		ParamCard oneTwoPunch = new ParamCard();
+		oneTwoPunch.OneTwoPunch();
+		this.AllCards.add(oneTwoPunch);
+		ParamCard roundhouse = new ParamCard();
+		roundhouse.Roundhouse();
+		this.AllCards.add(roundhouse);
+		ParamCard oneOfEach = new ParamCard();
+		oneOfEach.OneOfEach();
+		this.AllCards.add(oneOfEach);
+		Card dashingStrike = new DashingStrike();
+		this.AllCards.add(dashingStrike);
+		Card selfImprovement = new SelfImprovement();
+		this.AllCards.add(selfImprovement);
 
+		// done with cards
 		makePlayers(number);
 		makeBank();
 		this.currentLocale = new Locale("fr", "FR");
@@ -64,29 +81,11 @@ public class Game {
 		combine.setAmount(20);
 		this.bank.add(combine);
 
-		ParamCard drawThree = new ParamCard();
-		drawThree.DrawThree();
-		drawThree.setAmount(10);
-		this.bank.add(drawThree);
-		ParamCard oneTwoPunch = new ParamCard();
-		oneTwoPunch.OneTwoPunch();
-		oneTwoPunch.setAmount(10);
-		this.bank.add(oneTwoPunch);
-		ParamCard roundhouse = new ParamCard();
-		roundhouse.Roundhouse();
-		roundhouse.setAmount(10);
-		this.bank.add(roundhouse);
-		ParamCard oneOfEach = new ParamCard();
-		oneOfEach.OneOfEach();
-		oneOfEach.setAmount(10);
-		this.bank.add(oneOfEach);
-
-		Card dashingStrike = new DashingStrike();
-		dashingStrike.setAmount(10);
-		this.bank.add(dashingStrike);
-		Card selfImprovement = new SelfImprovement();
-		selfImprovement.setAmount(10);
-		this.bank.add(selfImprovement);
+		for (Card card : this.AllCards){
+			card.setAmount(5);
+			this.bank.add(card);
+		}
+		
 	}
 
 	public void newTurn() {
