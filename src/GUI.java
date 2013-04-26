@@ -39,54 +39,22 @@ public class GUI {
 	private int quickBuyNum;
 
 	public GUI() {
-		this.frame = new JFrame("Puzzle Strike: Deck of Cards");
+		this.game = new Game(3);
+		this.frame = new JFrame(this.game.names.getString("Title"));
 		this.frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.setResizable(false);
 		this.frame.setVisible(true);
 		this.frame.setResizable(false);
-		this.game = new Game(3);
-		
-		
-		class ChangeLanguage implements ActionListener {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				changeGameLanguage((JRadioButtonMenuItem) e.getSource());
-			}
-		}
-		
-		
-		//Create the menu bar.
-		JMenuBar menuBar = new JMenuBar();
 
-		//Build the first menu.
-		JMenu menu = new JMenu("Language Options");
-		menu.getAccessibleContext().setAccessibleDescription(
-		        "The only menu in this program that has menu items");
-		menuBar.add(menu);
-		
-		ButtonGroup group = new ButtonGroup();
-		JRadioButtonMenuItem rbMenuItem = new JRadioButtonMenuItem("English");
-		rbMenuItem.setSelected(true);
-		rbMenuItem.setName("english");
-		rbMenuItem.addActionListener(new ChangeLanguage());
-		group.add(rbMenuItem);
-		menu.add(rbMenuItem);
-
-		rbMenuItem = new JRadioButtonMenuItem("French");
-		rbMenuItem.setName("french");
-		rbMenuItem.addActionListener(new ChangeLanguage());
-		group.add(rbMenuItem);
-		menu.add(rbMenuItem);
-		
-		frame.setJMenuBar(menuBar);
-		
 		setUp();
 	}
 
 	public void changeGameLanguage(JRadioButtonMenuItem source) {
 		String lang = source.getName();
 		this.game.setLocale(lang);
+		JOptionPane.setDefaultLocale(this.game.currentLocale);
+		newTurn();
 	}
 
 	public class JBackgroundPanel extends JPanel {
@@ -162,7 +130,7 @@ public class GUI {
 			}
 		}
 
-		JButton endPhase = new JButton("End Phase");
+		JButton endPhase = new JButton(this.game.names.getString("EndPhase"));
 		endPhase.addActionListener(new EndShopListener());
 		this.shopPhase.add(this.shopCards);
 		this.shopPhase.add(endPhase);
@@ -170,6 +138,42 @@ public class GUI {
 	}
 
 	private void newTurn() {
+
+		class ChangeLanguage implements ActionListener {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				changeGameLanguage((JRadioButtonMenuItem) e.getSource());
+				newTurn();
+			}
+		}
+
+		// Create the menu bar.
+		JMenuBar menuBar = new JMenuBar();
+
+		// Build the first menu.
+		JMenu menu = new JMenu(this.game.names.getString("LangOption"));
+		menu.getAccessibleContext().setAccessibleDescription(
+				"The only menu in this program that has menu items");
+		menuBar.add(menu);
+
+		ButtonGroup group = new ButtonGroup();
+		JRadioButtonMenuItem rbMenuItem = new JRadioButtonMenuItem(
+				this.game.names.getString("English"));
+		rbMenuItem.setSelected(true);
+		rbMenuItem.setName("english");
+		rbMenuItem.addActionListener(new ChangeLanguage());
+		group.add(rbMenuItem);
+		menu.add(rbMenuItem);
+
+		rbMenuItem = new JRadioButtonMenuItem(
+				this.game.names.getString("French"));
+		rbMenuItem.setName("french");
+		rbMenuItem.addActionListener(new ChangeLanguage());
+		group.add(rbMenuItem);
+		menu.add(rbMenuItem);
+
+		frame.setJMenuBar(menuBar);
+
 		class CardListener implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -185,13 +189,14 @@ public class GUI {
 		hand.setPreferredSize(new Dimension(FRAME_WIDTH, 2 * FRAME_HEIGHT / 8));
 		for (int i = 0; i < this.game.players.get(this.game.turn).hand.size(); i++) {
 			JButton card = new JBackgroundButton();
-			card.add(new JLabel(this.game.getCurrentPlayer().hand.get(i).getName(this.game)));
+			card.add(new JLabel(this.game.getCurrentPlayer().hand.get(i)
+					.getName(this.game)));
 			card.setName("" + i);
 			card.addActionListener(new CardListener());
 			card.setPreferredSize(new Dimension(BUT_WIDTH, BUT_HEIGHT));
 			hand.add(card);
 		}
-		JButton endPhase = new JButton("End Phase");
+		JButton endPhase = new JButton(this.game.names.getString("EndPhase"));
 		class EndListener implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -206,7 +211,8 @@ public class GUI {
 		this.gemPileStuff = new JPanel();
 
 		for (int i = 0; i < this.game.playerNum; i++) {
-			JLabel name = new JLabel("Player " + (i + 1));
+			JLabel name = new JLabel(this.game.names.getString("Player") + " "
+					+ (i + 1));
 			JPanel gemPileMargins = new JPanel();
 			JPanel gemPile = new JPanel();
 			gemPileMargins.setPreferredSize(new Dimension(FRAME_WIDTH
@@ -214,16 +220,16 @@ public class GUI {
 			gemPileMargins.setBackground(this.trans);
 			gemPile.setPreferredSize(new Dimension(100, 400));
 			gemPile.setBackground(this.trans);
-			JLabel gem1 = new JLabel("1 gem(s): "
-					+ this.game.players.get(i).gemPile[0]);
-			JLabel gem2 = new JLabel("2 gem(s): "
-					+ this.game.players.get(i).gemPile[1]);
-			JLabel gem3 = new JLabel("3 gem(s): "
-					+ this.game.players.get(i).gemPile[2]);
-			JLabel gem4 = new JLabel("4 gem(s): "
-					+ this.game.players.get(i).gemPile[3]);
-			JLabel totalVal = new JLabel("Total: "
-					+ this.game.players.get(i).totalGemValue());
+			JLabel gem1 = new JLabel("1 " + this.game.names.getString("Gems")
+					+ ": " + this.game.players.get(i).gemPile[0]);
+			JLabel gem2 = new JLabel("2 " + this.game.names.getString("Gems")
+					+ ": " + this.game.players.get(i).gemPile[1]);
+			JLabel gem3 = new JLabel("3 " + this.game.names.getString("Gems")
+					+ ": " + this.game.players.get(i).gemPile[2]);
+			JLabel gem4 = new JLabel("4 " + this.game.names.getString("Gems")
+					+ ": " + this.game.players.get(i).gemPile[3]);
+			JLabel totalVal = new JLabel(this.game.names.getString("Total")
+					+ ": " + this.game.players.get(i).totalGemValue());
 			gemPile.add(gem1);
 			gemPile.add(gem2);
 			gemPile.add(gem3);
@@ -288,7 +294,7 @@ public class GUI {
 			icon = new ImageIcon(clicked.imagePath);
 		}
 		if (this.game.getCurrentPlayer().canUseCard(clicked)) {
-			Object[] options = { "Use Card" };
+			Object[] options = { this.game.names.getString("Use") };
 
 			Integer n = JOptionPane.showOptionDialog(this.frame, "",
 					clicked.getName(this.game), JOptionPane.OK_OPTION,
@@ -300,8 +306,8 @@ public class GUI {
 			}
 		} else {
 			Object[] options = {};
-			JOptionPane.showOptionDialog(this.frame, "", clicked.getName(this.game),
-					JOptionPane.DEFAULT_OPTION,
+			JOptionPane.showOptionDialog(this.frame, "",
+					clicked.getName(this.game), JOptionPane.DEFAULT_OPTION,
 					JOptionPane.INFORMATION_MESSAGE, icon, options, null);
 		}
 
@@ -318,9 +324,10 @@ public class GUI {
 		}
 
 		if (this.game.canBuy(clicked)) {
-			Object[] options = { "Buy Card" };
-			Integer n = JOptionPane.showOptionDialog(this.frame, "Amount: "
-					+ clicked.amount, clicked.getName(this.game), JOptionPane.OK_OPTION,
+			Object[] options = { this.game.names.getString("Buy") };
+			Integer n = JOptionPane.showOptionDialog(this.frame,
+					this.game.names.getString("Amount") + " " + clicked.amount,
+					clicked.getName(this.game), JOptionPane.OK_OPTION,
 					JOptionPane.QUESTION_MESSAGE, icon, options, options[0]);
 
 			if (n == 0) {
@@ -328,8 +335,9 @@ public class GUI {
 			}
 		} else {
 			Object[] options = {};
-			JOptionPane.showOptionDialog(this.frame, "Amount: "
-					+ clicked.amount, clicked.getName(this.game), JOptionPane.DEFAULT_OPTION,
+			JOptionPane.showOptionDialog(this.frame,
+					this.game.names.getString("Amount") + " " + clicked.amount,
+					clicked.getName(this.game), JOptionPane.DEFAULT_OPTION,
 					JOptionPane.INFORMATION_MESSAGE, icon, options, null);
 		}
 
@@ -345,9 +353,10 @@ public class GUI {
 			icon = new ImageIcon(clicked.imagePath);
 		}
 
-		Object[] options = { "Get Card" };
-		Integer n = JOptionPane.showOptionDialog(this.frame, "Amount: "
-				+ clicked.amount, clicked.getName(this.game), JOptionPane.OK_OPTION,
+		Object[] options = { this.game.names.getString("Get") };
+		Integer n = JOptionPane.showOptionDialog(this.frame,
+				this.game.names.getString("Amount") + " " + clicked.amount,
+				clicked.getName(this.game), JOptionPane.OK_OPTION,
 				JOptionPane.QUESTION_MESSAGE, icon, options, options[0]);
 
 		if (n == 0) {
@@ -418,7 +427,8 @@ public class GUI {
 											.getReactChoices(this.game);
 
 									boolean completeSoFarReact = true;
-									Choice currents = reactChoices.getNextChoice();
+									Choice currents = reactChoices
+											.getNextChoice();
 
 									// Asks user for choices for Reaction
 									while (currents != null) {
@@ -438,7 +448,8 @@ public class GUI {
 											} else {
 												completeSoFarReact = false;
 											}
-											currents = reactChoices.getNextChoice();
+											currents = reactChoices
+													.getNextChoice();
 											if (currents == null) {
 												break;
 											}
@@ -516,7 +527,8 @@ public class GUI {
 				if (this.game.bank.get(i).cost <= val) {
 					JButton card = new JBackgroundButton();
 					card.setName("" + i);
-					card.add(new JLabel(this.game.bank.get(i).getName(this.game)));
+					card.add(new JLabel(this.game.bank.get(i)
+							.getName(this.game)));
 					card.setPreferredSize(new Dimension(BUT_WIDTH, BUT_HEIGHT));
 					card.addActionListener(new CardShopListener());
 					quickCards.add(card);
@@ -530,7 +542,8 @@ public class GUI {
 				}
 			}
 
-			JButton endPhase = new JButton("End Phase");
+			JButton endPhase = new JButton(
+					this.game.names.getString("EndPhase"));
 			endPhase.addActionListener(new EndShopListener());
 			quickBuy.add(quickCards);
 			quickBuy.add(endPhase);
@@ -553,11 +566,12 @@ public class GUI {
 		if (clicked.imagePath != null) {
 			icon = new ImageIcon(clicked.imagePath);
 		}
-		Object[] options = { "React", "Don't React" };
+		Object[] options = { this.game.names.getString("React"),
+				this.game.names.getString("Dont") };
 
-		Integer n = JOptionPane.showOptionDialog(this.frame, "", clicked.getName(this.game),
-				JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, icon,
-				options, options[0]);
+		Integer n = JOptionPane.showOptionDialog(this.frame, "",
+				clicked.getName(this.game), JOptionPane.OK_OPTION,
+				JOptionPane.QUESTION_MESSAGE, icon, options, options[0]);
 
 		if (n == 0) {
 			return true;
