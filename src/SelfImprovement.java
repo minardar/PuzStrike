@@ -10,7 +10,7 @@ import java.util.ArrayList;
 			this.opposing = false;
 			this.cost = 4;
 			this.name = "SelfImprovement";
-			this.imagePath = name + ".png";     
+			this.imagePath = name + ".png";
 		}
 		
 		public void use(ArrayList<Choice> choices, Game game) {
@@ -43,7 +43,7 @@ import java.util.ArrayList;
 		}
 
 		public boolean canReactTo(Card card) {
-			return card instanceof DashingStrike;
+			return card.cardColor.contains(CardColor.RED);
 		}
 		
 		public ChoiceGroup getReactChoices(Game g) {

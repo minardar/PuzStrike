@@ -9,7 +9,7 @@ public class DashingStrike extends ParamCard {
 			this.opposing = true;
 			this.cost = 4;
 			this.name = "DashingStrike";
-			this.imagePath = name + ".png";     
+			this.imagePath = name + ".png";
 			this.brownTurns += 1;
 		}
 		
