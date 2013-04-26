@@ -159,7 +159,9 @@ public class GUI {
 		ButtonGroup group = new ButtonGroup();
 		JRadioButtonMenuItem rbMenuItem = new JRadioButtonMenuItem(
 				this.game.names.getString("English"));
-		rbMenuItem.setSelected(true);
+		if (this.game.currentLocale.getCountry().equals("US")){
+			rbMenuItem.setSelected(true);	
+		}
 		rbMenuItem.setName("english");
 		rbMenuItem.addActionListener(new ChangeLanguage());
 		group.add(rbMenuItem);
@@ -168,6 +170,9 @@ public class GUI {
 		rbMenuItem = new JRadioButtonMenuItem(
 				this.game.names.getString("French"));
 		rbMenuItem.setName("french");
+		if (this.game.currentLocale.getCountry().equals("FR")){
+			rbMenuItem.setSelected(true);	
+		}
 		rbMenuItem.addActionListener(new ChangeLanguage());
 		group.add(rbMenuItem);
 		menu.add(rbMenuItem);
