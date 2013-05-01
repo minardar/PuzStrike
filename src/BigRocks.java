@@ -28,8 +28,8 @@ public class BigRocks extends ParamCard{
 	}
 	
 	public ChoiceGroup getChoice(Game g) {
-		ArrayList<String> hand = g.getHand();
-		Choice c1 = new Choice("Choose a gem to trash!", hand, g.getHandObj(), 1);
+		ArrayList<String> hand = g.getHand(this);
+		Choice c1 = new Choice("Choose a gem to trash!", hand, g.getHandObj(this), 1);
 		ChoiceGroup choice = new ChoiceGroup();
 		choice.addChoiceToGroup(c1);
 		return choice;

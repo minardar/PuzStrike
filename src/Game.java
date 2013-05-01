@@ -237,12 +237,12 @@ public class Game {
 	 * 
 	 * @return
 	 */
-	public ArrayList<String> getHand() {
+	public ArrayList<String> getHand(Card usedCard) {
 		Player p = getCurrentPlayer();
 		ArrayList<Card> h = p.hand;
 		ArrayList<String> handStrings = new ArrayList<String>();
 		for (Card card : h) {
-			if (!card.equals(this)) {
+			if (!card.equals(usedCard)) {
 				handStrings.add(card.getName(this));
 			}
 		}
@@ -254,12 +254,12 @@ public class Game {
 	 * 
 	 * @return
 	 */
-	public ArrayList<Object> getHandObj() {
+	public ArrayList<Object> getHandObj(Card usedCard) {
 		ArrayList<Object> objList = new ArrayList<Object>();
 		Player p = getCurrentPlayer();
 		ArrayList<Card> h = p.hand;
 		for (Card card : h) {
-			if (!card.equals(this)) {
+			if (!card.equals(usedCard)) {
 				objList.add(card);
 			}
 		}
@@ -274,12 +274,12 @@ public class Game {
 	 *            <Card> excluding
 	 * @return
 	 */
-	public ArrayList<String> getHand(ArrayList<Card> excluding) {
+	public ArrayList<String> getHand(ArrayList<Card> excluding, Card usedCard) {
 		Player p = getCurrentPlayer();
 		ArrayList<Card> h = p.hand;
 		ArrayList<String> handStrings = new ArrayList<String>();
 		for (Card card : h) {
-			if (!card.equals(this)) {
+			if (!card.equals(usedCard)) {
 				for (Card excl : excluding) {
 					if (!card.cardsSameKind(excl)) {
 						handStrings.add(card.getName(this));
@@ -298,12 +298,12 @@ public class Game {
 	 *            <Card> excluding
 	 * @return
 	 */
-	public ArrayList<Object> getHandObj(ArrayList<Card> excluding) {
+	public ArrayList<Object> getHandObj(ArrayList<Card> excluding, Card usedCard) {
 		ArrayList<Object> objList = new ArrayList<Object>();
 		Player p = getCurrentPlayer();
 		ArrayList<Card> h = p.hand;
 		for (Card card : h) {
-			if (!card.equals(this)) {
+			if (!card.equals(usedCard)) {
 				for (Card excl : excluding) {
 					if (!card.cardsSameKind(excl)) {
 						objList.add(card);

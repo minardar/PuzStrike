@@ -25,8 +25,8 @@ public class NoMoreLiesTest {
 		Card card = new NoMoreLies();
 		Game g = new Game(3);
 		Player curr = g.getCurrentPlayer();
-		ArrayList<String> hand = g.getHand();
-		Choice c1 = new Choice("Choose a card to trash!", hand, g.getHandObj(), 2);
+		ArrayList<String> hand = g.getHand(card);
+		Choice c1 = new Choice("Choose a card to trash!", hand, g.getHandObj(card), 2);
 		c1.addChoice(curr.hand.get(0).getName(g));
 		c1.addChoice(curr.hand.get(1).getName(g));
 		ChoiceGroup choice = new ChoiceGroup();

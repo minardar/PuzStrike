@@ -25,8 +25,8 @@ public class NoMoreLies extends ParamCard{
 	}
 	
 	public ChoiceGroup getChoice(Game g) {
-		ArrayList<String> hand = g.getHand();
-		Choice c1 = new Choice("Choose a card to trash!", hand, g.getHandObj(), 2);
+		ArrayList<String> hand = g.getHand(this);
+		Choice c1 = new Choice("Choose a card to trash!", hand, g.getHandObj(this), 2);
 		ChoiceGroup choices = new ChoiceGroup();
 		choices.addChoiceToGroup(c1);
 		return choices;

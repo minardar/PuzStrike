@@ -18,9 +18,9 @@ public class SelfImprovementTest {
 		p.hand.add(new Wound());
 		
 		ArrayList<String> a = new ArrayList<String>();
-		a = g.getHand();
+		a = g.getHand(card);
 		ArrayList<Object> o = new ArrayList<Object>();
-		o = g.getHandObj();
+		o = g.getHandObj(card);
 		Choice c1 = new Choice("blah", a, o, 1);
 		c1.addChoice(new Wound().getName(g));
 		ArrayList<Choice> choices = new ArrayList<Choice>();

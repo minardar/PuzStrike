@@ -20,8 +20,8 @@ public class TrainingDayTest {
 	public void testUse(){
 		Game game = new Game(3);
 		TrainingDay tDay = new TrainingDay();
-		ArrayList<String> cards = game.getHand();
-		ArrayList<Object> cardObj = game.getHandObj();
+		ArrayList<String> cards = game.getHand(tDay);
+		ArrayList<Object> cardObj = game.getHandObj(tDay);
 		Choice c1 = new Choice("Choose card to keep.", cards, cardObj, 1);
 		Choice c2 = new Choice("Choose card to trash.", cards, cardObj, 1);
 		c1.addChoice(game.getCurrentPlayer().hand.get(0).getName(game));

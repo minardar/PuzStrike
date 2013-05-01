@@ -34,8 +34,8 @@ public class BigRocksTest {
 		ArrayList<Card> fake = new ArrayList<Card>();
 		fake.add(new Gem(1));
 		curr.hand = fake;
-		ArrayList<String> hand = g.getHand();
-		Choice c1 = new Choice("Choose a gem to trash!", hand, g.getHandObj(), 1);
+		ArrayList<String> hand = g.getHand(card);
+		Choice c1 = new Choice("Choose a gem to trash!", hand, g.getHandObj(card), 1);
 		c1.addChoice(curr.hand.get(0).getName(g));
 		ChoiceGroup choice = new ChoiceGroup();
 		choice.addChoiceToGroup(c1);

@@ -23,7 +23,7 @@ public class TrickyChoiceGroupTest {
 		tcg.getNextChoice();
 		tcg.getNextChoice();
 		assertEquals(1, tcg.choices.size());
-		tcg.getChoiceList().get(0).addChoice(g.getHand().get(0));
+		tcg.getChoiceList().get(0).addChoice(g.getHand(card).get(0));
 		tcg.getNextChoice();
 		assertEquals(2, tcg.choices.size());
 		tcg.getChoiceList().get(1).addChoice(new Gem(1).getName(g));
