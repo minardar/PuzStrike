@@ -28,8 +28,6 @@ public class GUI {
 	private final int FRAME_HEIGHT = 900;
 	private final int BUT_HEIGHT = 100;
 	private final int BUT_WIDTH = 100;
-	public JPanel shopPhase = new JPanel();
-	public JPanel shopCards = new JPanel();
 	public JPanel panel;
 	public JPanel gemPileStuff;
 	public JPanel playerStuff;
@@ -37,6 +35,7 @@ public class GUI {
 	public Color trans = new Color(255, 255, 255, 0);
 	private int quickBuyVal;
 	private int quickBuyNum;
+	public boolean buyPhase = false;
 
 	public GUI() {
 		this.game = new Game(3);
@@ -47,14 +46,28 @@ public class GUI {
 		this.frame.setVisible(true);
 		this.frame.setResizable(false);
 
-		setUp();
+		this.panel = new JBackgroundPanel();
+		this.frame.setContentPane(this.panel);
+		updateFrame();
+		firstSetUp();
+		newTurn();
 	}
 
-	public void changeGameLanguage(JRadioButtonMenuItem source) {
-		String lang = source.getName();
+	public void changeGameLanguage(String lang) {
 		this.game.setLocale(lang);
 		JOptionPane.setDefaultLocale(this.game.currentLocale);
-		newTurn();
+		if (buyPhase) {
+			newTurn();
+			setUp();
+		} else {
+			setUp();
+			newTurn();
+		}
+
+		if (this.game.getNumber > 0) {
+			quickBuy(this.game.underVal, this.game.getNumber);
+			updateFrame();
+		}
 	}
 
 	public class JBackgroundPanel extends JPanel {
@@ -97,10 +110,10 @@ public class GUI {
 		}
 	}
 
-	private void setUp() {
-		this.panel = new JBackgroundPanel();
-		this.frame.setContentPane(this.panel);
-		updateFrame();
+	public void firstSetUp() {
+		JPanel shopPhase = new JPanel();
+		shopPhase.setName("Shopping");
+		JPanel shopCards = new JPanel();
 
 		class CardShopListener implements ActionListener {
 			@Override
@@ -108,11 +121,10 @@ public class GUI {
 				cardShopInfo((JButton) e.getSource());
 			}
 		}
-		this.shopPhase.setBackground(this.trans);
-		this.shopPhase
-				.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
-		this.shopCards.setBackground(this.trans);
-		this.shopCards.setPreferredSize(new Dimension(FRAME_WIDTH,
+		shopPhase.setBackground(this.trans);
+		shopPhase.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
+		shopCards.setBackground(this.trans);
+		shopCards.setPreferredSize(new Dimension(FRAME_WIDTH,
 				14 * FRAME_HEIGHT / 16));
 		for (int i = 0; i < this.game.bank.size(); i++) {
 			JButton card = new JBackgroundButton();
@@ -120,7 +132,7 @@ public class GUI {
 			card.add(new JLabel(this.game.bank.get(i).getName(this.game)));
 			card.setPreferredSize(new Dimension(BUT_WIDTH, BUT_HEIGHT));
 			card.addActionListener(new CardShopListener());
-			this.shopCards.add(card);
+			shopCards.add(card);
 		}
 
 		class EndShopListener implements ActionListener {
@@ -132,20 +144,21 @@ public class GUI {
 
 		JButton endPhase = new JButton(this.game.names.getString("EndPhase"));
 		endPhase.addActionListener(new EndShopListener());
-		this.shopPhase.add(this.shopCards);
-		this.shopPhase.add(endPhase);
-		newTurn();
+		shopPhase.add(shopCards);
+		shopPhase.add(endPhase);
+		if (this.panel.getComponentCount() != 0) {
+			this.panel.removeAll();
+		}
+		this.panel.add(shopPhase);
 	}
 
-	private void newTurn() {
+	public void setUp() {
+		firstSetUp();
+		updateFrame();
 
-		class ChangeLanguage implements ActionListener {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				changeGameLanguage((JRadioButtonMenuItem) e.getSource());
-				newTurn();
-			}
-		}
+	}
+
+	public void newTurn() {
 
 		// Create the menu bar.
 		JMenuBar menuBar = new JMenuBar();
@@ -156,26 +169,11 @@ public class GUI {
 				"The only menu in this program that has menu items");
 		menuBar.add(menu);
 
-		ButtonGroup group = new ButtonGroup();
-		JRadioButtonMenuItem rbMenuItem = new JRadioButtonMenuItem(
-				this.game.names.getString("English"));
-		if (this.game.currentLocale.getCountry().equals("US")){
-			rbMenuItem.setSelected(true);	
-		}
-		rbMenuItem.setName("english");
-		rbMenuItem.addActionListener(new ChangeLanguage());
-		group.add(rbMenuItem);
-		menu.add(rbMenuItem);
+		String[] langs = { "English", "French" };
+		String[] country = { "US", "FR" };
+		String[] keys = { "english", "french" };
 
-		rbMenuItem = new JRadioButtonMenuItem(
-				this.game.names.getString("French"));
-		rbMenuItem.setName("french");
-		if (this.game.currentLocale.getCountry().equals("FR")){
-			rbMenuItem.setSelected(true);	
-		}
-		rbMenuItem.addActionListener(new ChangeLanguage());
-		group.add(rbMenuItem);
-		menu.add(rbMenuItem);
+		makeLangOptions(langs, country, keys, menu);
 
 		frame.setJMenuBar(menuBar);
 
@@ -205,7 +203,7 @@ public class GUI {
 		class EndListener implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				endActionPhase();
+				newShopPhase();
 			}
 		}
 
@@ -225,21 +223,9 @@ public class GUI {
 			gemPileMargins.setBackground(this.trans);
 			gemPile.setPreferredSize(new Dimension(100, 400));
 			gemPile.setBackground(this.trans);
-			JLabel gem1 = new JLabel("1 " + this.game.names.getString("Gems")
-					+ ": " + this.game.players.get(i).gemPile[0]);
-			JLabel gem2 = new JLabel("2 " + this.game.names.getString("Gems")
-					+ ": " + this.game.players.get(i).gemPile[1]);
-			JLabel gem3 = new JLabel("3 " + this.game.names.getString("Gems")
-					+ ": " + this.game.players.get(i).gemPile[2]);
-			JLabel gem4 = new JLabel("4 " + this.game.names.getString("Gems")
-					+ ": " + this.game.players.get(i).gemPile[3]);
-			JLabel totalVal = new JLabel(this.game.names.getString("Total")
-					+ ": " + this.game.players.get(i).totalGemValue());
-			gemPile.add(gem1);
-			gemPile.add(gem2);
-			gemPile.add(gem3);
-			gemPile.add(gem4);
-			gemPile.add(totalVal);
+
+			addGemPile(i, gemPile);
+
 			gemPileMargins.add(gemPile);
 			if (this.game.turn == i) {
 				name.setForeground(Color.YELLOW);
@@ -268,13 +254,9 @@ public class GUI {
 		if (this.panel.getComponentCount() != 0) {
 			this.panel.removeAll();
 		}
+		mostPhases.setName("Playing");
 		this.panel.add(mostPhases);
-
 		updateFrame();
-	}
-
-	public void endActionPhase() {
-		newShopPhase();
 	}
 
 	public void endQuickBuy() {
@@ -284,131 +266,29 @@ public class GUI {
 
 	public void endShopPhase() {
 		if (this.game.boughtSomething) {
+			this.buyPhase = false;
 			this.game.getCurrentPlayer().endTurn();
 			this.game.newTurn();
 			newTurn();
 		}
 	}
 
-	public void cardInfo(JButton card) {
-		String numString = card.getName();
-		int num = Integer.parseInt(numString);
-		Card clicked = this.game.getCurrentPlayer().hand.get(num);
-		Icon icon = new ImageIcon();
-		if (clicked.imagePath != null) {
-			icon = new ImageIcon(this.game.names.getString("Path")+clicked.imagePath);
-		}
-		if (this.game.getCurrentPlayer().canUseCard(clicked)) {
-			Object[] options = { this.game.names.getString("Use") };
-
-			Integer n = JOptionPane.showOptionDialog(this.frame, "",
-					clicked.getName(this.game), JOptionPane.OK_OPTION,
-					JOptionPane.QUESTION_MESSAGE, icon, options, options[0]);
-
-			if (n == 0) {
-				newTurn();
-				useCard(clicked);
-			}
-		} else {
-			Object[] options = {};
-			JOptionPane.showOptionDialog(this.frame, "",
-					clicked.getName(this.game), JOptionPane.DEFAULT_OPTION,
-					JOptionPane.INFORMATION_MESSAGE, icon, options, null);
-		}
-
-		updateFrame();
-	}
-
-	public void cardShopInfo(JButton card) {
-		String numString = card.getName();
-		int num = Integer.parseInt(numString);
-		Card clicked = this.game.bank.get(num);
-		Icon icon = new ImageIcon();
-		if (clicked.imagePath != null) {
-			icon = new ImageIcon(this.game.names.getString("Path")+clicked.imagePath);
-		}
-
-		if (this.game.canBuy(clicked)) {
-			Object[] options = { this.game.names.getString("Buy") };
-			Integer n = JOptionPane.showOptionDialog(this.frame,
-					this.game.names.getString("Amount") + " " + clicked.amount,
-					clicked.getName(this.game), JOptionPane.OK_OPTION,
-					JOptionPane.QUESTION_MESSAGE, icon, options, options[0]);
-
-			if (n == 0) {
-				this.game.playerBuyCard(this.game.getCurrentPlayer(), clicked);
-			}
-		} else {
-			Object[] options = {};
-			JOptionPane.showOptionDialog(this.frame,
-					this.game.names.getString("Amount") + " " + clicked.amount,
-					clicked.getName(this.game), JOptionPane.DEFAULT_OPTION,
-					JOptionPane.INFORMATION_MESSAGE, icon, options, null);
-		}
-
-		updateFrame();
-	}
-
-	public void cardGetInfo(JButton card) {
-		String numString = card.getName();
-		int num = Integer.parseInt(numString);
-		Card clicked = this.game.bank.get(num);
-		Icon icon = new ImageIcon();
-		if (clicked.imagePath != null) {
-			icon = new ImageIcon(this.game.names.getString("Path")+clicked.imagePath);
-		}
-
-		Object[] options = { this.game.names.getString("Get") };
-		Integer n = JOptionPane.showOptionDialog(this.frame,
-				this.game.names.getString("Amount") + " " + clicked.amount,
-				clicked.getName(this.game), JOptionPane.OK_OPTION,
-				JOptionPane.QUESTION_MESSAGE, icon, options, options[0]);
-
-		if (n == 0) {
-			this.game.playerGetCard(this.game.getCurrentPlayer(), clicked);
-			quickBuy(this.quickBuyVal, this.quickBuyNum - 1);
-		}
-
-		updateFrame();
-	}
-
-	private void newShopPhase() {
+	public void newShopPhase() {
+		this.buyPhase = true;
 		this.game.totalMoney();
 		if (this.panel.getComponentCount() != 0) {
 			this.panel.removeAll();
 		}
-		this.panel.add(this.shopPhase);
-
-		updateFrame();
+		setUp();
 	}
 
 	private void useCard(Card clicked) {
 		ChoiceGroup choices = clicked.getChoice(this.game);
 		Icon icon = new ImageIcon();
-		boolean completeSoFar = true;
 		Choice current = choices.getNextChoice();
-		while (current != null) {
-			while (current.nextChoice()) {
-				Object[] options = current.getOptions().toArray();
-				String n = (String) JOptionPane.showInputDialog(this.frame,
-						current.getInstructions(), clicked.getName(this.game),
-						JOptionPane.OK_OPTION, icon, options, options[0]);
-				if (n != null) {
-					current.addChoice(n);
-				} else {
-					completeSoFar = false;
-				}
-				current = choices.getNextChoice();
-				if (current == null) {
-					break;
-				}
-			}
 
-			if (current == null) {
-				break;
-			}
-			current = choices.getNextChoice();
-		}
+		boolean completeSoFar = cycleChoices(choices, current, clicked,
+				this.game.turn);
 
 		if (completeSoFar) {
 			// if targets opponent(s)
@@ -416,67 +296,34 @@ public class GUI {
 				boolean reacted = false;
 				clicked.prepare(choices.getChoiceList(), this.game);
 				ArrayList<Player> targets = clicked.targets;
+				ArrayList<ArrayList<Card>> defends = getDefensiveCards(targets,
+						clicked);
 				// cycles through targets
 				for (int i = 0; i < targets.size(); i++) {
-					ArrayList<Card> hand = targets.get(i).hand;
+					ArrayList<Card> playersDefs = defends.get(i);
 					// cycles through hand
-					for (int j = 0; j < hand.size(); j++) {
-						Card card = hand.get(j);
+					for (int j = 0; j < playersDefs.size(); j++) {
+						Card card = playersDefs.get(j);
 						// only runs if card is defensive
-						if (card.defense) {
-							ReactionCard react = (ReactionCard) card;
-							if (react.canReactTo(clicked)) {
-								boolean wantReact = cardReactInfo(card);
-								if (wantReact) {
-									ChoiceGroup reactChoices = react
-											.getReactChoices(this.game);
+						ReactionCard react = (ReactionCard) card;
+						boolean wantReact = cardReactInfo(card);
+						if (wantReact) {
+							ChoiceGroup reactChoices = react
+									.getReactChoices(this.game);
 
-									boolean completeSoFarReact = true;
-									Choice currents = reactChoices
-											.getNextChoice();
+							Choice currents = reactChoices.getNextChoice();
 
-									// Asks user for choices for Reaction
-									while (currents != null) {
-										while (currents.nextChoice()) {
-											Object[] options = currents
-													.getOptions().toArray();
-											String n = (String) JOptionPane
-													.showInputDialog(
-															this.frame,
-															currents.getInstructions(),
-															react.getName(this.game),
-															JOptionPane.OK_OPTION,
-															icon, options,
-															options[0]);
-											if (n != null) {
-												currents.addChoice(n);
-											} else {
-												completeSoFarReact = false;
-											}
-											currents = reactChoices
-													.getNextChoice();
-											if (currents == null) {
-												break;
-											}
-										}
+							boolean completeSoFarReact = cycleChoices(
+									reactChoices, currents, react,
+									this.game.players.indexOf(targets.get(i)));
 
-										if (currents == null) {
-											break;
-										}
-										currents = reactChoices.getNextChoice();
-									}
-
-									// Uses card if you filled things out
-									if (completeSoFarReact) {
-										react.react(clicked, targets.get(i),
-												reactChoices.getChoiceList(),
-												this.game);
-										reacted = true;
-										break;
-									}
-								}
+							// Uses card if you filled things out
+							if (completeSoFarReact) {
+								react.react(clicked, targets.get(i),
+										reactChoices.getChoiceList(), this.game);
+								reacted = true;
+								break;
 							}
-
 						}
 					}
 				}
@@ -488,14 +335,15 @@ public class GUI {
 			} else {
 				clicked.use(choices.getChoiceList(), this.game);
 			}
-		}
 
-		if (this.game.getNumber > 0) {
-			this.game.useCard(clicked);
-			quickBuy(this.game.underVal, this.game.getNumber);
-		} else {
-			this.game.useCard(clicked);
-			newTurn();
+			if (this.game.getNumber > 0) {
+				this.game.useCard(clicked);
+				quickBuy(this.game.underVal, this.game.getNumber);
+			} else {
+				this.game.useCard(clicked);
+				newTurn();
+			}
+
 		}
 
 	}
@@ -565,25 +413,196 @@ public class GUI {
 		}
 	}
 
-	public boolean cardReactInfo(Card card) {
+	public void cardInfo(JButton card) {
+		String numString = card.getName();
+		int num = Integer.parseInt(numString);
+		Card clicked = this.game.getCurrentPlayer().hand.get(num);
+
+		Object[] options = { this.game.names.getString("Use") };
+
+		int decision = cardMakeInfo(
+				this.game.getCurrentPlayer().canUseCard(clicked), "", clicked,
+				options);
+
+		if (decision == 0) {
+			newTurn();
+			useCard(clicked);
+		}
+		updateFrame();
+	}
+
+	public int cardMakeInfo(Boolean condition, String description, Card card,
+			Object[] options) {
 		Card clicked = card;
 		Icon icon = new ImageIcon();
 		if (clicked.imagePath != null) {
-			icon = new ImageIcon(clicked.imagePath);
+			icon = new ImageIcon(this.game.names.getString("Path")
+					+ clicked.imagePath);
 		}
+		if (condition) {
+
+			Integer n = JOptionPane.showOptionDialog(this.frame, description,
+					clicked.getName(this.game), JOptionPane.OK_OPTION,
+					JOptionPane.QUESTION_MESSAGE, icon, options, options[0]);
+
+			if (n == 0) {
+				updateFrame();
+				return n;
+			} else {
+				updateFrame();
+				return -1;
+			}
+		} else {
+			Object[] noOptions = {};
+			JOptionPane.showOptionDialog(this.frame, description,
+					clicked.getName(this.game), JOptionPane.DEFAULT_OPTION,
+					JOptionPane.INFORMATION_MESSAGE, icon, noOptions, null);
+			updateFrame();
+			return -1;
+		}
+	}
+
+	public void cardShopInfo(JButton card) {
+
+		String numString = card.getName();
+		int num = Integer.parseInt(numString);
+		Card clicked = this.game.bank.get(num);
+
+		Object[] options = { this.game.names.getString("Buy") };
+
+		int decision = cardMakeInfo(this.game.canBuy(clicked),
+				this.game.names.getString("Amount") + " " + clicked.amount,
+				clicked, options);
+
+		if (decision == 0) {
+			this.game.playerBuyCard(this.game.getCurrentPlayer(), clicked);
+		}
+
+		updateFrame();
+	}
+
+	public void cardGetInfo(JButton card) {
+		String numString = card.getName();
+		int num = Integer.parseInt(numString);
+		Card clicked = this.game.bank.get(num);
+
+		Object[] options = { this.game.names.getString("Get") };
+
+		int decision = cardMakeInfo(true, this.game.names.getString("Amount")
+				+ " " + clicked.amount, clicked, options);
+
+		if (decision == 0) {
+			this.game.playerGetCard(this.game.getCurrentPlayer(), clicked);
+			quickBuy(this.quickBuyVal, this.quickBuyNum - 1);
+		}
+
+		updateFrame();
+	}
+
+	public boolean cardReactInfo(Card card) {
+		Card clicked = card;
+
 		Object[] options = { this.game.names.getString("React"),
 				this.game.names.getString("Dont") };
 
-		Integer n = JOptionPane.showOptionDialog(this.frame, "",
-				clicked.getName(this.game), JOptionPane.OK_OPTION,
-				JOptionPane.QUESTION_MESSAGE, icon, options, options[0]);
+		int decision = cardMakeInfo(true, "", clicked, options);
 
-		if (n == 0) {
+		if (decision == 0) {
 			return true;
 		} else {
 			return false;
 		}
 
+	}
+
+	public void addGemPile(int i, JPanel pane) {
+		for (int j = 0; j < 4; j++) {
+			JLabel gem = new JLabel("" + (j + 1) + " "
+					+ this.game.names.getString("Gems") + ": "
+					+ this.game.players.get(i).gemPile[j]);
+			pane.add(gem);
+		}
+
+		JLabel totalVal = new JLabel(this.game.names.getString("Total") + ": "
+				+ this.game.players.get(i).totalGemValue());
+		pane.add(totalVal);
+	}
+
+	public boolean cycleChoices(ChoiceGroup choices, Choice current,
+			Card clicked, int player) {
+		Icon icon = new ImageIcon();
+		while (current != null) {
+			while (current.nextChoice()) {
+				Object[] options = current.getOptions().toArray();
+				String n = (String) JOptionPane.showInputDialog(
+						this.frame,
+						current.getInstructions(),
+						this.game.names.getString("Player") + " "
+								+ (player + 1) + ":  "
+								+ clicked.getName(this.game),
+						JOptionPane.OK_OPTION, icon, options, options[0]);
+				System.out.println(n);
+				if (n != null) {
+					current.addChoice(n);
+				} else {
+					return false;
+				}
+				current = choices.getNextChoice();
+				if (current == null) {
+					return true;
+				}
+			}
+
+			current = choices.getNextChoice();
+		}
+		return true;
+	}
+
+	public void makeLangOptions(String[] langs, String[] counts, String[] keys,
+			JMenu menu) {
+		ButtonGroup group = new ButtonGroup();
+
+		class ChangeLanguage implements ActionListener {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				changeGameLanguage(((JRadioButtonMenuItem) e.getSource()).getName());
+			}
+		}
+
+		for (int i = 0; i < langs.length; i++) {
+			JRadioButtonMenuItem rbMenuItem = new JRadioButtonMenuItem(
+					this.game.names.getString(langs[i]));
+			if (this.game.currentLocale.getCountry().equals(counts[i])) {
+				rbMenuItem.setSelected(true);
+			}
+			rbMenuItem.setName(keys[i]);
+			rbMenuItem.addActionListener(new ChangeLanguage());
+			group.add(rbMenuItem);
+			menu.add(rbMenuItem);
+		}
+
+	}
+
+	public ArrayList<ArrayList<Card>> getDefensiveCards(
+			ArrayList<Player> targets, Card clicked) {
+		ArrayList<ArrayList<Card>> playersReacts = new ArrayList<ArrayList<Card>>();
+		// cycles through targets
+		for (int i = 0; i < targets.size(); i++) {
+			ArrayList<Card> defends = new ArrayList<Card>();
+			ArrayList<Card> hand = targets.get(i).hand;
+			// cycles through hand
+			for (int j = 0; j < hand.size(); j++) {
+				Card card = hand.get(j);
+				// only runs if card is defensive
+				if (card.defense) {
+					if (((ReactionCard) card).canReactTo(clicked)) {
+						defends.add(card);
+					}
+				}
+			}
+			playersReacts.add(defends);
+		}
+		return playersReacts;
 	}
 
 }
