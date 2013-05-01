@@ -290,49 +290,15 @@ public class GUI {
 		boolean completeSoFar = cycleChoices(choices, current, clicked,
 				this.game.turn);
 
-		if (completeSoFar) {
+		if (completeSoFar && clicked.opposing) {
 			// if targets opponent(s)
-			if (clicked.opposing) {
-				boolean reacted = false;
-				clicked.prepare(choices.getChoiceList(), this.game);
-				ArrayList<Player> targets = clicked.targets;
-				ArrayList<ArrayList<Card>> defends = getDefensiveCards(targets,
-						clicked);
-				// cycles through targets
-				for (int i = 0; i < targets.size(); i++) {
-					ArrayList<Card> playersDefs = defends.get(i);
-					// cycles through hand
-					for (int j = 0; j < playersDefs.size(); j++) {
-						Card card = playersDefs.get(j);
-						// only runs if card is defensive
-						ReactionCard react = (ReactionCard) card;
-						boolean wantReact = cardReactInfo(card);
-						if (wantReact) {
-							ChoiceGroup reactChoices = react
-									.getReactChoices(this.game);
-
-							Choice currents = reactChoices.getNextChoice();
-
-							boolean completeSoFarReact = cycleChoices(
-									reactChoices, currents, react,
-									this.game.players.indexOf(targets.get(i)));
-
-							// Uses card if you filled things out
-							if (completeSoFarReact) {
-								react.react(clicked, targets.get(i),
-										reactChoices.getChoiceList(), this.game);
-								reacted = true;
-								break;
-							}
-						}
-					}
-				}
+				boolean reacted = reactToPlay(clicked, choices);
 				// Nobody reacted to card
 				if (!reacted) {
 					clicked.use(choices.getChoiceList(), this.game);
 				}
 				// No target
-			} else {
+			} else if (completeSoFar){
 				clicked.use(choices.getChoiceList(), this.game);
 			}
 
@@ -343,8 +309,6 @@ public class GUI {
 				this.game.useCard(clicked);
 				newTurn();
 			}
-
-		}
 
 	}
 
@@ -565,7 +529,8 @@ public class GUI {
 		class ChangeLanguage implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				changeGameLanguage(((JRadioButtonMenuItem) e.getSource()).getName());
+				changeGameLanguage(((JRadioButtonMenuItem) e.getSource())
+						.getName());
 			}
 		}
 
@@ -604,6 +569,41 @@ public class GUI {
 		}
 		return playersReacts;
 	}
+	
+	public boolean reactToPlay(Card clicked, ChoiceGroup choices){
+		clicked.prepare(choices.getChoiceList(), this.game);
+		ArrayList<Player> targets = clicked.targets;
+		ArrayList<ArrayList<Card>> defends = getDefensiveCards(targets,
+				clicked);
+		// cycles through targets
+		for (int i = 0; i < targets.size(); i++) {
+			ArrayList<Card> playersDefs = defends.get(i);
+			// cycles through hand
+			for (int j = 0; j < playersDefs.size(); j++) {
+				Card card = playersDefs.get(j);
+				// only runs if card is defensive
+				ReactionCard react = (ReactionCard) card;
+				boolean wantReact = cardReactInfo(card);
+				if (wantReact) {
+					ChoiceGroup reactChoices = react
+							.getReactChoices(this.game);
 
+					Choice currents = reactChoices.getNextChoice();
+
+					boolean completeSoFarReact = cycleChoices(
+							reactChoices, currents, react,
+							this.game.players.indexOf(targets.get(i)));
+
+					// Uses card if you filled things out
+					if (completeSoFarReact) {
+						react.react(clicked, targets.get(i),
+								reactChoices.getChoiceList(), this.game);
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
 
 }
