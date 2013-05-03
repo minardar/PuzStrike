@@ -44,5 +44,12 @@ public class ChromaticOrbTest {
 		Card newC = c.newCard();
 		assertEquals(newC.name, "ChromaticOrb");
 	}
+	@Test
+	public void TestChoiceChromaticOrb(){
+		Game g = new Game(2);
+		Card c = new ChromaticOrb();
+		ChoiceGroup cg = c.getChoice(g);
+		assertEquals(cg.choices.size(), 2);
+	}
 
 }

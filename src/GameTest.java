@@ -27,6 +27,48 @@ public class GameTest {
 		assertTrue(bag.contains(card.getName(g)));
 	}
 	@Test
+	public void testGetHand(){
+		Game g = new Game(2);
+		Card c = new Crash();
+		g.getCurrentPlayer().hand.add(c);
+		ArrayList<String> hand = g.getHand(c);
+		assertEquals(hand.size(), 0);
+	}
+	@Test
+	public void testGetHandObj(){
+		Game g = new Game(2);
+		Card c = new Crash();
+		g.getCurrentPlayer().hand.add(c);
+		ArrayList<Object> hand = g.getHandObj(c);
+		assertEquals(hand.size(), 0);
+	}
+	@Test
+	public void testGetHandExcl(){
+		Game g = new Game(2);
+		Card c1 = new Crash();
+		Card c2 = new Crash();
+		ArrayList<Card> excl = new ArrayList<Card>();
+		g.getCurrentPlayer().hand.add(c1);
+		g.getCurrentPlayer().hand.add(c2);
+		excl.add(c1);
+		ArrayList<String> hand = g.getHand(excl, c2);
+		assertEquals(0, hand.size());
+		
+	}
+	@Test
+	public void testGetHandObjExcl(){
+		Game g = new Game(2);
+		Card c1 = new Crash();
+		Card c2 = new Crash();
+		ArrayList<Card> excl = new ArrayList<Card>();
+		g.getCurrentPlayer().hand.add(c1);
+		g.getCurrentPlayer().hand.add(c2);
+		excl.add(c1);
+		ArrayList<Object> hand = g.getHandObj(excl, c2);
+		assertEquals(0, hand.size());
+		
+	}
+	@Test
 	public void testGetBagObj(){
 		Game g = new Game(1);
 		Player current = g.getCurrentPlayer();
