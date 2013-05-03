@@ -22,7 +22,7 @@ import java.util.ArrayList;
 		
 		public ChoiceGroup getChoice(Game g) {
 			ArrayList<String> hand = g.getHand(this);
-			Choice c1 = new Choice("Choose a card to trash!", hand, g.getHandObj(this), 1);
+			Choice c1 = new Choice(g.choices.getString("cardTrash"), hand, g.getHandObj(this), 1);
 			ChoiceGroup choices = new ChoiceGroup();
 			choices.addChoiceToGroup(c1);
 			return choices;

@@ -20,6 +20,7 @@ public class Game {
 	public int getNumber = 0;
 	public Card beingUsed = null;
 	public ResourceBundle names;
+	public ResourceBundle choices;
 	public Locale currentLocale;
 
 	public Game(int number) {
@@ -57,6 +58,7 @@ public class Game {
 		makeBank();
 		this.currentLocale = new Locale("fr", "FR");
 		this.names = ResourceBundle.getBundle("Names", currentLocale);
+		this.choices = ResourceBundle.getBundle("Choices", currentLocale);
 	}
 
 	public void makePlayers(int number) {
@@ -166,9 +168,10 @@ public class Game {
 		ArrayList<Player> oppObj = players;
 		ArrayList<String> oppStrings = new ArrayList<String>();
 		int i = 1;
+		String name;
 		for (Player o : oppObj) {
 			if (!p.equals(o)) {
-				String name = "Player " + i;
+				name = choices.getString("player") + i;
 				oppStrings.add(name);
 			}
 			i++;
@@ -206,8 +209,8 @@ public class Game {
 		int whichGem = 1;
 		for (int gems : gempile) {
 			for (int i = 0; i < gems; i++) {
-				gemStrings.add(Integer.toString(whichGem) + " Gem");
-			}
+				gemStrings.add(Integer.toString(whichGem) +" "+ choices.getString("gem"));
+				}
 			whichGem++;
 		}
 		return gemStrings;

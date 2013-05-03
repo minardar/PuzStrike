@@ -58,7 +58,7 @@ public class GUI {
 
 		Object[] options = { 2, 3, 4 };
 		Integer n = JOptionPane.showOptionDialog(this.frame,
-				"How many players will be playing?", "New Game",
+				"How many players will be playing?\nCombien de joueurs vont jouer?", "New Game",
 				JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, icon,
 				options, options[0]);
 
@@ -66,7 +66,7 @@ public class GUI {
 
 		Object[] options2 = { "English", "French" };
 		String m = (String) JOptionPane.showInputDialog(this.frame,
-				"Choose Default Language", "Language", JOptionPane.OK_OPTION,
+				"Choose Default Language\nChoisir la Langue par Défaut", "Language", JOptionPane.OK_OPTION,
 				icon, options2, options2[0]);
 
 		this.game.setLocale(m);
@@ -635,7 +635,7 @@ public class GUI {
 			Icon icon = new ImageIcon();
 			Object[] options2 = this.game.Characters;
 			int m =  JOptionPane.showOptionDialog(this.frame,
-					"Choose Your Character!", this.game.names.getObject("Player")+": "+(i+1), JOptionPane.OK_OPTION,
+					this.game.choices.getString("char"), this.game.names.getObject("Player")+": "+(i+1), JOptionPane.OK_OPTION,
 					JOptionPane.QUESTION_MESSAGE,icon, options2, options2[0]);
 			
 			this.game.setCharacter(i, m);

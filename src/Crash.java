@@ -58,10 +58,10 @@ public class Crash extends ReactionCard {
 	public ChoiceGroup getChoice(Game g) {
 		ArrayList<String> opponents = g.getOpponents();
 		ArrayList<Object> oppObj = g.getOpponentsObj();
-		Choice c1 = new Choice("Choose Opponent to crash!", opponents, oppObj, 1);
+		Choice c1 = new Choice(g.choices.getString("opponents"), opponents, oppObj, 1);
 		ArrayList<String> gempile = g.getGempile();
 		ArrayList<Object> gemObj = g.getGempileObj();
-		Choice c2 = new Choice("Choose gem to crash!", gempile, gemObj, 1);
+		Choice c2 = new Choice(g.choices.getString("useGem"), gempile, gemObj, 1);
 		ChoiceGroup choices = new ChoiceGroup();
 		choices.addChoiceToGroup(c1);
 		choices.addChoiceToGroup(c2);
@@ -103,7 +103,7 @@ public class Crash extends ReactionCard {
 	public ChoiceGroup getReactChoices(Game g) {
 		ArrayList<String> gempile = g.getGempile();
 		ArrayList<Object> gemObj = g.getGempileObj();
-		Choice c2 = new Choice("Choose gem to crash!", gempile, gemObj, 1);
+		Choice c2 = new Choice(g.choices.getString("useGem"), gempile, gemObj, 1);
 		ChoiceGroup choices = new ChoiceGroup();
 		choices.addChoiceToGroup(c2);
 		return choices;
