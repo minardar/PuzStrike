@@ -10,7 +10,7 @@ public class DoubleTake extends ParamCard{
 		this.opposing = false;
 		this.cost = 0;
 		this.name = "DoubleTake";
-		this.imagePath = name + ".png";
+		this.imagePath = "/Setsuki/" + name + ".png";
 	}
 	
 	public void use(ArrayList<Choice> choices, Game game) {

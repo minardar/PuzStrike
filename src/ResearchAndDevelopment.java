@@ -10,7 +10,7 @@ public class ResearchAndDevelopment extends ParamCard{
 		this.opposing = false;
 		this.cost = 0;
 		this.name = "ResearchAndDevelopment";
-		this.imagePath = name + ".png";
+		this.imagePath = "/Max/" + name + ".png";
 	}
 	
 	public void use(ArrayList<Choice> choices, Game game) {

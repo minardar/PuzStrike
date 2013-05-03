@@ -104,7 +104,7 @@ public class ParamCard extends Card {
 	}
 	
 	public void SpeedOfTheFox() {
-		this.name = "BagOfTricks";
+		this.name = "SpeedOfTheFox";
 		this.imagePath = "/Setsuki/" + name + ".png";
 		brownTurns += 2;
 		draw += 1;
