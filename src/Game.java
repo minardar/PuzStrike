@@ -7,6 +7,7 @@ public class Game {
 
 	public ArrayList<Card> AllCards;
 	public ArrayList<Card> AlwaysCards;
+	public Object[] Characters = { "Rook", "Valerie", "Setsuki", "Max", "Grave" };
 	public ArrayList<Player> players;
 	public ArrayList<Card> bank;
 	public int turn = 0;
@@ -32,7 +33,7 @@ public class Game {
 		this.AlwaysCards.add(new Crash());
 		this.AlwaysCards.add(new Wound());
 		this.AlwaysCards.add(new Combine());
-		
+
 		// add Cards to All Cards
 		ParamCard drawThree = new ParamCard();
 		drawThree.DrawThree();
@@ -81,11 +82,11 @@ public class Game {
 		combine.setAmount(20);
 		this.bank.add(combine);
 
-		for (Card card : this.AllCards){
+		for (Card card : this.AllCards) {
 			card.setAmount(5);
 			this.bank.add(card);
 		}
-		
+
 	}
 
 	public void newTurn() {
@@ -355,4 +356,15 @@ public class Game {
 		this.names = ResourceBundle.getBundle("Names", this.currentLocale);
 	}
 
+	public ArrayList<Card> getPlayerCards(int i) {
+		return null;
+	}
+
+	public void setCharacter(int player, int character) {
+		ArrayList<Card> cards = getPlayerCards(character);
+
+		for (int i = 0; i < 3; i++) {
+			this.players.get(player).bag.add(cards.get(i));
+		}
+	}
 }

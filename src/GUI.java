@@ -38,7 +38,7 @@ public class GUI {
 	public boolean buyPhase = false;
 
 	public GUI() {
-		this.game = new Game(3);
+		this.game = new Game(1);
 		this.frame = new JFrame(this.game.names.getString("Title"));
 		this.frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,6 +49,30 @@ public class GUI {
 		this.panel = new JBackgroundPanel();
 		this.frame.setContentPane(this.panel);
 		updateFrame();
+		StartGUI();
+	}
+
+	public void StartGUI() {
+
+		Icon icon = new ImageIcon();
+
+		Object[] options = { 2, 3, 4 };
+		Integer n = JOptionPane.showOptionDialog(this.frame,
+				"How many players will be playing?", "New Game",
+				JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, icon,
+				options, options[0]);
+
+		this.game = new Game(n + 2);
+
+		Object[] options2 = { "English", "French" };
+		String m = (String) JOptionPane.showInputDialog(this.frame,
+				"Choose Default Language", "Language", JOptionPane.OK_OPTION,
+				icon, options2, options2[0]);
+
+		this.game.setLocale(m);
+
+		chooseCharacters(this.game.playerNum);
+
 		firstSetUp();
 		newTurn();
 	}
@@ -292,23 +316,23 @@ public class GUI {
 
 		if (completeSoFar && clicked.opposing) {
 			// if targets opponent(s)
-				boolean reacted = reactToPlay(clicked, choices);
-				// Nobody reacted to card
-				if (!reacted) {
-					clicked.use(choices.getChoiceList(), this.game);
-				}
-				// No target
-			} else if (completeSoFar){
+			boolean reacted = reactToPlay(clicked, choices);
+			// Nobody reacted to card
+			if (!reacted) {
 				clicked.use(choices.getChoiceList(), this.game);
 			}
+			// No target
+		} else if (completeSoFar) {
+			clicked.use(choices.getChoiceList(), this.game);
+		}
 
-			if (this.game.getNumber > 0) {
-				this.game.useCard(clicked);
-				quickBuy(this.game.underVal, this.game.getNumber);
-			} else {
-				this.game.useCard(clicked);
-				newTurn();
-			}
+		if (this.game.getNumber > 0) {
+			this.game.useCard(clicked);
+			quickBuy(this.game.underVal, this.game.getNumber);
+		} else {
+			this.game.useCard(clicked);
+			newTurn();
+		}
 
 	}
 
@@ -569,12 +593,11 @@ public class GUI {
 		}
 		return playersReacts;
 	}
-	
-	public boolean reactToPlay(Card clicked, ChoiceGroup choices){
+
+	public boolean reactToPlay(Card clicked, ChoiceGroup choices) {
 		clicked.prepare(choices.getChoiceList(), this.game);
 		ArrayList<Player> targets = clicked.targets;
-		ArrayList<ArrayList<Card>> defends = getDefensiveCards(targets,
-				clicked);
+		ArrayList<ArrayList<Card>> defends = getDefensiveCards(targets, clicked);
 		// cycles through targets
 		for (int i = 0; i < targets.size(); i++) {
 			ArrayList<Card> playersDefs = defends.get(i);
@@ -585,13 +608,12 @@ public class GUI {
 				ReactionCard react = (ReactionCard) card;
 				boolean wantReact = cardReactInfo(card);
 				if (wantReact) {
-					ChoiceGroup reactChoices = react
-							.getReactChoices(this.game);
+					ChoiceGroup reactChoices = react.getReactChoices(this.game);
 
 					Choice currents = reactChoices.getNextChoice();
 
-					boolean completeSoFarReact = cycleChoices(
-							reactChoices, currents, react,
+					boolean completeSoFarReact = cycleChoices(reactChoices,
+							currents, react,
 							this.game.players.indexOf(targets.get(i)));
 
 					// Uses card if you filled things out
@@ -604,6 +626,20 @@ public class GUI {
 			}
 		}
 		return false;
+	}
+
+	public void chooseCharacters(int num) {
+
+		for (int i = 0; i < num; i++) {
+			Icon icon = new ImageIcon();
+			Object[] options2 = this.game.Characters;
+			int m =  JOptionPane.showOptionDialog(this.frame,
+					"Choose Default Language", this.game.names.getObject("Player")+": "+(i+1), JOptionPane.OK_OPTION,
+					JOptionPane.QUESTION_MESSAGE,icon, options2, options2[0]);
+			
+			this.game.setCharacter(i, m);
+		}
+
 	}
 
 }
