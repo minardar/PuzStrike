@@ -31,7 +31,7 @@ public class SelfImprovementTest {
 	}
 	
 	@Test
-	public void TestNewDashingStrike(){
+	public void TestNewSelfImprovement(){
 		Card testCard = new SelfImprovement();
 		Card newCard = testCard.newCard();
 		assertEquals("SelfImprovement", newCard.name);

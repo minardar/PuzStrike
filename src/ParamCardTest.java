@@ -64,6 +64,20 @@ public class ParamCardTest {
 	}
 	
 	@Test
+	public void testThreeColors() {
+		ParamCard testCard = new ParamCard();
+		testCard.ThreeColors();
+		
+		ArrayList<Choice> choices = new ArrayList<Choice>();
+		
+		testCard.getChoice(g);
+		testCard.use(choices, g);
+		assertEquals(1, g.players.get(0).brownTurns);
+		assertEquals(1, g.players.get(0).redTurns);
+		assertEquals(1, g.players.get(0).blueTurns);
+	}
+	
+	@Test
 	public void testMiscParamCardFunctions() {
 		ParamCard testCard = new ParamCard();
 		testCard.DrawThree();

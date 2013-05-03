@@ -96,6 +96,26 @@ public class ParamCard extends Card {
 		money += 1;
 	}
 	
+	public void BagOfTricks() {
+		this.name = "BagOfTricks";
+		this.imagePath = "/Setsuki/" + name + ".png";
+		brownTurns += 1;
+		draw += 1;
+	}
+	
+	public void SpeedOfTheFox() {
+		this.name = "BagOfTricks";
+		this.imagePath = "/Setsuki/" + name + ".png";
+		brownTurns += 2;
+		draw += 1;
+	}
+	
+	public void FutureSight() {
+		this.name = "FutureSight";
+		this.imagePath = "/Max/" + name + ".png";
+		draw += 2;
+	}
+	
 	public class Recklessness extends ParamCard{
 		public Recklessness() {
 			this.name = "Recklessness";

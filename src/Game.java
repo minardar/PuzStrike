@@ -7,7 +7,7 @@ public class Game {
 
 	public ArrayList<Card> AllCards;
 	public ArrayList<Card> AlwaysCards;
-	public Object[] Characters = { "Rook", "Valerie", "Setsuki", "Max", "Grave" };
+	public Object[] Characters = { "Rook", "Valerie", "Setsuki", "Max" };
 	public ArrayList<Player> players;
 	public ArrayList<Card> bank;
 	public int turn = 0;
@@ -347,6 +347,36 @@ public class Game {
 		}
 		return objList;
 	}
+	
+	/**
+	 * A method that will return a list of cards in the player's hand in strings
+	 * 
+	 * @return
+	 */
+	public ArrayList<String> getDiscard(Card usedCard) {
+		Player p = getCurrentPlayer();
+		ArrayList<Card> h = p.discard;
+		ArrayList<String> discardStrings = new ArrayList<String>();
+		for (Card card : h) {
+			discardStrings.add(card.getName(this));
+		}
+		return discardStrings;
+	}
+
+	/**
+	 * A method that will return a list of cards in the player's hand in objects
+	 * 
+	 * @return
+	 */
+	public ArrayList<Object> getDiscardObj(Card usedCard) {
+		ArrayList<Object> objList = new ArrayList<Object>();
+		Player p = getCurrentPlayer();
+		ArrayList<Card> h = p.discard;
+		for (Card card : h) {
+			objList.add(card);
+		}
+		return objList;
+	}
 
 	public void setLocale(String lang) {
 		String target = lang.toLowerCase();
@@ -374,18 +404,20 @@ public class Game {
 			threeColors.ThreeColors();
 			playerCards.add(threeColors);
 			break;
-		// case 2: playerCards.add(new SpeedOfTheFox());
-		// playerCards.add(new BagOfTricks());
-		// playerCards.add(new DoubleTake());
-		// break;
-		// case 3: playerCards.add(new Research&Development());
-		// playerCards.add(new FutureSight());
-		// playerCards.add(new ItsTimeForThePast());
-		// break;
-		// case 4: playerCards.add(new Reversal());
-		// playerCards.add(new MartialMastery());
-		// playerCards.add(new VersatileStyle());
-		// break;
+		 case 2: playerCards.add(new DoubleTake());
+		 	ParamCard bagOfTricks = new ParamCard();
+		 	bagOfTricks.BagOfTricks();
+			playerCards.add(bagOfTricks);
+			ParamCard speedOfTheFox = new ParamCard();
+			speedOfTheFox.SpeedOfTheFox();
+			playerCards.add(speedOfTheFox);
+		 break;
+		 case 3: playerCards.add(new ResearchAndDevelopment());
+		 	playerCards.add(new ItsTimeForThePast());
+		 	ParamCard futureSight = new ParamCard();
+		 	futureSight.FutureSight();
+		 	playerCards.add(futureSight);
+		 break;
 		default:
 			playerCards.add(new StoneWall());
 			playerCards.add(new StrengthOfEarth());
