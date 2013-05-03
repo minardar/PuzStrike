@@ -10,7 +10,7 @@ public class StrengthOfEarth extends ParamCard{
 		this.opposing = false;
 		this.cost = 0;
 		this.name = "StrengthOfEarth";
-		this.imagePath = name + ".png";
+		this.imagePath = "Rook" + name + ".png";
 	}
 	
 	public void use(ArrayList<Choice> choices, Game game) {

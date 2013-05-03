@@ -64,6 +64,13 @@ public class ParamCard extends Card {
 		this.cost = 3;
 		draw += 3;
 	}
+	public void ThreeColors() {
+		this.name = "ThreeColors";
+		this.imagePath= "/Valerie/"+name+".png";
+		this.redTurns+=1;
+		this.blueTurns+=1;
+		this.brownTurns+=1;
+	}
 	
 	public void OneTwoPunch() {
 		this.name = "OneTwoPunch";

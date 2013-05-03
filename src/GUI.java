@@ -216,6 +216,7 @@ public class GUI {
 		hand.setPreferredSize(new Dimension(FRAME_WIDTH, 2 * FRAME_HEIGHT / 8));
 		for (int i = 0; i < this.game.players.get(this.game.turn).hand.size(); i++) {
 			JButton card = new JBackgroundButton();
+			System.out.println(this.game.getCurrentPlayer().hand.get(i));
 			card.add(new JLabel(this.game.getCurrentPlayer().hand.get(i)
 					.getName(this.game)));
 			card.setName("" + i);
@@ -634,7 +635,7 @@ public class GUI {
 			Icon icon = new ImageIcon();
 			Object[] options2 = this.game.Characters;
 			int m =  JOptionPane.showOptionDialog(this.frame,
-					"Choose Default Language", this.game.names.getObject("Player")+": "+(i+1), JOptionPane.OK_OPTION,
+					"Choose Your Character!", this.game.names.getObject("Player")+": "+(i+1), JOptionPane.OK_OPTION,
 					JOptionPane.QUESTION_MESSAGE,icon, options2, options2[0]);
 			
 			this.game.setCharacter(i, m);

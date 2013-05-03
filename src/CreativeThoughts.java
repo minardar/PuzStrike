@@ -10,7 +10,7 @@ public class CreativeThoughts extends ParamCard {
 		this.opposing = false;
 		this.cost = 0;
 		this.name = "CreativeThoughts";
-		this.imagePath = name + ".png";
+		this.imagePath ="/Valerie/"+ name + ".png";
 	}
 	
 	public void use(ArrayList<Choice> choices, Game game) {

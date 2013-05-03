@@ -357,7 +357,40 @@ public class Game {
 	}
 
 	public ArrayList<Card> getPlayerCards(int i) {
-		return null;
+		ArrayList<Card> playerCards = new ArrayList<Card>();
+		switch (i) {
+		case 0:
+			playerCards.add(new StoneWall());
+			playerCards.add(new StrengthOfEarth());
+			playerCards.add(new BigRocks());
+			break;
+		case 1:
+			playerCards.add(new ChromaticOrb());
+			playerCards.add(new CreativeThoughts());
+			ParamCard threeColors = new ParamCard();
+			threeColors.ThreeColors();
+			playerCards.add(threeColors);
+			break;
+		// case 2: playerCards.add(new SpeedOfTheFox());
+		// playerCards.add(new BagOfTricks());
+		// playerCards.add(new DoubleTake());
+		// break;
+		// case 3: playerCards.add(new Research&Development());
+		// playerCards.add(new FutureSight());
+		// playerCards.add(new ItsTimeForThePast());
+		// break;
+		// case 4: playerCards.add(new Reversal());
+		// playerCards.add(new MartialMastery());
+		// playerCards.add(new VersatileStyle());
+		// break;
+		default:
+			playerCards.add(new StoneWall());
+			playerCards.add(new StrengthOfEarth());
+			playerCards.add(new BigRocks());
+			break;
+		}
+		return playerCards;
+
 	}
 
 	public void setCharacter(int player, int character) {
@@ -366,5 +399,6 @@ public class Game {
 		for (int i = 0; i < 3; i++) {
 			this.players.get(player).bag.add(cards.get(i));
 		}
+		this.players.get(player).drawFromBag(5);
 	}
 }

@@ -13,7 +13,7 @@ public class ChromaticOrb extends ParamCard {
 		this.opposing = true;
 		this.cost = 0;
 		this.name = "ChromaticOrb";
-		this.imagePath = name + ".png";
+		this.imagePath = "/Valerie/"+name + ".png";
 	}
 	
 	public void use(ArrayList<Choice> choices, Game game) {
