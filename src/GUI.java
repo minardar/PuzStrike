@@ -47,6 +47,7 @@ public class GUI {
 
 	public GUI() {
 		this.game = new Game(1);
+		this.game.setLocale("English");
 		this.frame = new JFrame(this.game.names.getString("Title"));
 		this.frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -94,6 +95,7 @@ public class GUI {
 				"Choose Default Language\nChoisir la Langue par Défaut",
 				"Language", JOptionPane.OK_OPTION, icon, options2, options2[0]);
 		this.game.setLocale(this.lang);
+		this.frame.setTitle(this.game.names.getString("Title"));
 
 		this.playerNum = n + 2;
 		
@@ -187,7 +189,8 @@ public class GUI {
 	public void changeGameLanguage(String lang) {
 		this.game.setLocale(lang);
 		JOptionPane.setDefaultLocale(this.game.currentLocale);
-
+		this.frame.setTitle(this.game.names.getString("Title"));
+		
 		if (this.chooseCharPhase) {
 			this.chooseCharsScreen();
 			return;
