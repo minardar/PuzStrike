@@ -20,6 +20,16 @@ public class GUITest {
 	}
 	
 	@Test
+	public void testChoosingChars() {
+		ArrayList<Integer> nums = new ArrayList<Integer>();
+		nums.add(0);
+		nums.add(2);
+		GUI goo = new GUI(2, nums);
+		goo.chooseCharsScreen();
+		assertEquals("Choosing", goo.panel.getComponents()[0].getName());
+	}
+	
+	@Test
 	public void testFirstSetUp() {
 		ArrayList<Integer> nums = new ArrayList<Integer>();
 		nums.add(0);

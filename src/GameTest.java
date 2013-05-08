@@ -136,6 +136,7 @@ public class GameTest {
 	public void testTotalMoney() {
 		Game game = new Game(1);
 		assertEquals(0, game.playerMoney);
+		game.getCurrentPlayer().hand.add(new Gem(1));
 		game.totalMoney();
 		assertTrue(game.playerMoney > 0);
 	}
@@ -144,6 +145,7 @@ public class GameTest {
 	public void testCanBuy() {
 		Game game = new Game(1);
 		assertFalse(game.canBuy(new Gem(1)));
+		game.getCurrentPlayer().hand.add(new Gem(1));
 		game.totalMoney();
 		assertTrue(game.canBuy(new Gem(1)));
 	}
@@ -162,6 +164,7 @@ public class GameTest {
 		game.playerBuyCard(play, card);
 		assertEquals(1, card.amount);
 		assertEquals(0, play.discard.size());
+		game.getCurrentPlayer().hand.add(new Gem(1));
 		game.totalMoney();
 		game.playerBuyCard(play, card);
 		assertEquals(0, card.amount);
