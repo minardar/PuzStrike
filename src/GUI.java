@@ -58,7 +58,8 @@ public class GUI {
 		this.panel = new JBackgroundPanel();
 		this.frame.setContentPane(this.panel);
 		updateFrame();
-		StartGUI();
+//		StartGUI();
+		titleScreen();
 	}
 	
 	public GUI(int i, ArrayList<Integer> chtrs) {
@@ -129,6 +130,35 @@ public class GUI {
 		
 	}
 
+	public void titleScreen() {
+
+		JPanel titleStuff = new JPanel();
+		titleStuff.setBackground(this.trans);
+		titleStuff.setPreferredSize(new Dimension(FRAME_WIDTH,
+				FRAME_HEIGHT));
+		JLabel picLabel = new JLabel(new ImageIcon("titlescreen.png"));
+		picLabel.setBackground(this.trans);
+		titleStuff.add(picLabel);
+		JButton startGameUp = new JButton("Start Game");
+		class StartListener implements ActionListener {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				StartGUI();
+			}
+		}
+
+		startGameUp.addActionListener(new StartListener());
+
+		titleStuff.add(startGameUp);
+
+		if (this.panel.getComponentCount() != 0) {
+			this.panel.removeAll();
+		}
+		titleStuff.setName("Title");
+		this.panel.add(titleStuff);
+		updateFrame();
+	}
+	
 	public void chooseCharsScreen() {
 		this.chooseCharPhase = true;
 		addMenuBar();
