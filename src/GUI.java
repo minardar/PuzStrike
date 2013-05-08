@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -21,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
 
+
 public class GUI {
 
 	public JFrame frame;
@@ -36,6 +38,12 @@ public class GUI {
 	private int quickBuyVal;
 	private int quickBuyNum;
 	public boolean buyPhase = false;
+	public boolean chooseCharPhase = false;
+	public int playerNum;
+	public int selectedChar = 0;
+	public String lang = "English";
+	public JPanel charChoices = new JPanel();
+	public ArrayList<Integer> charsSoFar = new ArrayList<Integer>();
 
 	public GUI() {
 		this.game = new Game(1);
@@ -51,27 +59,126 @@ public class GUI {
 		updateFrame();
 		StartGUI();
 	}
+	
+	public GUI(int i, ArrayList<Integer> chtrs) {
+		this.playerNum = i;
+		this.charsSoFar = chtrs;
+		this.game = new Game(1);
+		this.frame = new JFrame(this.game.names.getString("Title"));
+		this.frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.frame.setResizable(false);
+		this.frame.setVisible(true);
+		this.frame.setResizable(false);
+
+		this.panel = new JBackgroundPanel();
+		this.frame.setContentPane(this.panel);
+		updateFrame();
+		this.startGameWithPlaysAndChars();
+	}
 
 	public void StartGUI() {
 
 		Icon icon = new ImageIcon();
 
 		Object[] options = { 2, 3, 4 };
-		Integer n = JOptionPane.showOptionDialog(this.frame,
-				"How many players will be playing?\nCombien de joueurs vont jouer?", "New Game",
-				JOptionPane.OK_OPTION, JOptionPane.QUESTION_MESSAGE, icon,
-				options, options[0]);
-
-		this.game = new Game(n + 2);
+		Integer n = JOptionPane
+				.showOptionDialog(
+						this.frame,
+						"How many players will be playing?\nCombien de joueurs vont jouer?",
+						"New Game", JOptionPane.OK_OPTION,
+						JOptionPane.QUESTION_MESSAGE, icon, options, options[0]);
 
 		Object[] options2 = { "English", "French" };
-		String m = (String) JOptionPane.showInputDialog(this.frame,
-				"Choose Default Language\nChoisir la Langue par Défaut", "Language", JOptionPane.OK_OPTION,
-				icon, options2, options2[0]);
+		this.lang = (String) JOptionPane.showInputDialog(this.frame,
+				"Choose Default Language\nChoisir la Langue par Défaut",
+				"Language", JOptionPane.OK_OPTION, icon, options2, options2[0]);
+		this.game.setLocale(this.lang);
 
-		this.game.setLocale(m);
+		this.playerNum = n + 2;
+		
+		setUpCharChoicePanel();
+		
+		chooseCharsScreen();
 
-		chooseCharacters(this.game.playerNum);
+	}
+
+	private void setUpCharChoicePanel() {
+		class ChangeCharListener implements ActionListener {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				changeSelectedChar((JButton) e.getSource());
+			}
+
+		}
+		
+		this.charChoices = new JPanel();
+		this.charChoices.setPreferredSize(new Dimension(FRAME_WIDTH, 200));
+		this.charChoices.setBackground(this.trans);
+
+		for (int i = 0; i < this.game.Characters.length; i++) {
+			JButton character = new JBackgroundButton();
+			character.setName("" + i);
+			character.add(new JLabel((String) this.game.Characters[i]));
+			character.setPreferredSize(new Dimension(BUT_WIDTH, BUT_HEIGHT));
+			character.addActionListener(new ChangeCharListener());
+			this.charChoices.add(character);
+		}
+		
+	}
+
+	public void chooseCharsScreen() {
+		this.chooseCharPhase = true;
+		addMenuBar();
+
+		JPanel chardsStuff = new JPanel();
+		chardsStuff.setBackground(this.trans);
+		chardsStuff.setPreferredSize(new Dimension(FRAME_WIDTH,
+				FRAME_HEIGHT / 3));
+		JPanel hand = new JPanel();
+		hand.setPreferredSize(new Dimension(FRAME_WIDTH, 500));
+		hand.setBackground(this.trans);
+		for (int i = 0; i < 3; i++) {
+			Card card = this.game.getPlayerCards(this.selectedChar).get(i);
+			JLabel picLabel = new JLabel(new ImageIcon(
+					this.game.names.getString("Path") + card.imagePath));
+			picLabel.setBackground(this.trans);
+			hand.add(picLabel);
+		}
+		JButton selectBut = new JButton(this.game.names.getString("Select"));
+		class SelectListener implements ActionListener {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				selectChar((JButton) e.getSource());
+			}
+		}
+
+		selectBut.addActionListener(new SelectListener());
+		JPanel screen = new JPanel();
+		screen.setBackground(this.trans);
+		screen.add(hand);
+
+
+		JPanel mostPhases = new JPanel();
+		mostPhases.setBackground(this.trans);
+		mostPhases.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
+		mostPhases.add(screen);
+		mostPhases.add(selectBut);
+		mostPhases.add(this.charChoices);
+
+		if (this.panel.getComponentCount() != 0) {
+			this.panel.removeAll();
+		}
+		mostPhases.setName("Choosing");
+		this.panel.add(mostPhases);
+		updateFrame();
+	}
+
+	public void startGameWithPlaysAndChars() {
+
+		this.game = new Game(this.playerNum);
+		this.game.setLocale(this.lang);
+		chooseCharacters(this.playerNum, this.charsSoFar);
 
 		firstSetUp();
 		newTurn();
@@ -80,6 +187,12 @@ public class GUI {
 	public void changeGameLanguage(String lang) {
 		this.game.setLocale(lang);
 		JOptionPane.setDefaultLocale(this.game.currentLocale);
+
+		if (this.chooseCharPhase) {
+			this.chooseCharsScreen();
+			return;
+		}
+
 		if (buyPhase) {
 			newTurn();
 			setUp();
@@ -92,6 +205,11 @@ public class GUI {
 			quickBuy(this.game.underVal, this.game.getNumber);
 			updateFrame();
 		}
+	}
+
+	private void changeSelectedChar(JButton chars) {
+		this.selectedChar = Integer.parseInt(chars.getName());
+		chooseCharsScreen();
 	}
 
 	public class JBackgroundPanel extends JPanel {
@@ -184,22 +302,7 @@ public class GUI {
 
 	public void newTurn() {
 
-		// Create the menu bar.
-		JMenuBar menuBar = new JMenuBar();
-
-		// Build the first menu.
-		JMenu menu = new JMenu(this.game.names.getString("LangOption"));
-		menu.getAccessibleContext().setAccessibleDescription(
-				"The only menu in this program that has menu items");
-		menuBar.add(menu);
-
-		String[] langs = { "English", "French" };
-		String[] country = { "US", "FR" };
-		String[] keys = { "english", "french" };
-
-		makeLangOptions(langs, country, keys, menu);
-
-		frame.setJMenuBar(menuBar);
+		addMenuBar();
 
 		class CardListener implements ActionListener {
 			@Override
@@ -216,7 +319,6 @@ public class GUI {
 		hand.setPreferredSize(new Dimension(FRAME_WIDTH, 2 * FRAME_HEIGHT / 8));
 		for (int i = 0; i < this.game.players.get(this.game.turn).hand.size(); i++) {
 			JButton card = new JBackgroundButton();
-			System.out.println(this.game.getCurrentPlayer().hand.get(i));
 			card.add(new JLabel(this.game.getCurrentPlayer().hand.get(i)
 					.getName(this.game)));
 			card.setName("" + i);
@@ -287,6 +389,28 @@ public class GUI {
 	public void endQuickBuy() {
 		this.game.clearMiniBuy();
 		newTurn();
+	}
+
+	public void selectChar(JButton source) {
+		JButton selected = findSelectedChar();
+		this.charChoices.remove(selected);
+		this.charsSoFar.add(Integer.parseInt(selected.getName()));
+		if (this.charsSoFar.size() == this.playerNum) {
+			this.chooseCharPhase = false;
+			startGameWithPlaysAndChars();
+		} else {
+			chooseCharsScreen();
+		}
+	}
+	
+	public JButton findSelectedChar(){
+		Component[] things = this.charChoices.getComponents();
+		for (int i = 0; i < things.length; i++){
+			if (Integer.parseInt(things[i].getName()) == this.selectedChar){
+				return (JButton) things[i];
+			}
+		}
+		return null;
 	}
 
 	public void endShopPhase() {
@@ -530,7 +654,6 @@ public class GUI {
 								+ (player + 1) + ":  "
 								+ clicked.getName(this.game),
 						JOptionPane.OK_OPTION, icon, options, options[0]);
-				System.out.println(n);
 				if (n != null) {
 					current.addChoice(n);
 				} else {
@@ -629,18 +752,29 @@ public class GUI {
 		return false;
 	}
 
-	public void chooseCharacters(int num) {
+	public void chooseCharacters(int num, ArrayList<Integer> chtrs) {
 
 		for (int i = 0; i < num; i++) {
-			Icon icon = new ImageIcon();
-			Object[] options2 = this.game.Characters;
-			int m =  JOptionPane.showOptionDialog(this.frame,
-					this.game.choices.getString("char"), this.game.names.getObject("Player")+": "+(i+1), JOptionPane.OK_OPTION,
-					JOptionPane.QUESTION_MESSAGE,icon, options2, options2[0]);
-			
+			int m = chtrs.get(i);
 			this.game.setCharacter(i, m);
 		}
 
+	}
+
+	public void addMenuBar() {
+		// Create the menu bar.
+		JMenuBar menuBar = new JMenuBar();
+
+		// Build the first menu.
+		JMenu menu = new JMenu(this.game.names.getString("LangOption"));
+		menu.getAccessibleContext().setAccessibleDescription(
+				"The only menu in this program that has menu items");
+		menuBar.add(menu);
+		String[] langs = { "English", "French" };
+		String[] country = { "US", "FR" };
+		String[] keys = { "english", "french" };
+		makeLangOptions(langs, country, keys, menu);
+		frame.setJMenuBar(menuBar);
 	}
 
 }

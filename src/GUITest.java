@@ -8,15 +8,23 @@ import org.junit.Test;
 
 public class GUITest {
 
+	
+	
 	@Test
-	public void testGUI() {
-		GUI goo = new GUI();
+	public void testAlternateGUI() {
+		ArrayList<Integer> nums = new ArrayList<Integer>();
+		nums.add(0);
+		nums.add(2);
+		GUI goo = new GUI(2, nums);
 		assertEquals("Playing", goo.panel.getComponents()[0].getName());
 	}
 	
 	@Test
 	public void testFirstSetUp() {
-		GUI goo = new GUI();
+		ArrayList<Integer> nums = new ArrayList<Integer>();
+		nums.add(0);
+		nums.add(2);
+		GUI goo = new GUI(2, nums);
 		goo.firstSetUp();
 		assertEquals(false, goo.buyPhase);
 		assertEquals("Shopping", goo.panel.getComponents()[0].getName());
@@ -24,7 +32,10 @@ public class GUITest {
 	
 	@Test
 	public void testNewTurn() {
-		GUI goo = new GUI();
+		ArrayList<Integer> nums = new ArrayList<Integer>();
+		nums.add(0);
+		nums.add(2);
+		GUI goo = new GUI(2, nums);
 		goo.firstSetUp();
 		goo.newTurn();
 		assertEquals(false, goo.buyPhase);
@@ -33,7 +44,10 @@ public class GUITest {
 	
 	@Test
 	public void testNewShop() {
-		GUI goo = new GUI();
+		ArrayList<Integer> nums = new ArrayList<Integer>();
+		nums.add(0);
+		nums.add(2);
+		GUI goo = new GUI(2, nums);
 		goo.newShopPhase();
 		assertEquals(true, goo.buyPhase);
 		assertEquals("Shopping", goo.panel.getComponents()[0].getName());
@@ -41,7 +55,10 @@ public class GUITest {
 	
 	@Test
 	public void testEndShop() {
-		GUI goo = new GUI();
+		ArrayList<Integer> nums = new ArrayList<Integer>();
+		nums.add(0);
+		nums.add(2);
+		GUI goo = new GUI(2, nums);
 		goo.newShopPhase();
 		assertFalse(goo.game.boughtSomething);
 		goo.endShopPhase();
@@ -55,7 +72,10 @@ public class GUITest {
 	
 	@Test
 	public void testGetDefensiveCards(){
-		GUI goo = new GUI();
+		ArrayList<Integer> nums = new ArrayList<Integer>();
+		nums.add(0);
+		nums.add(2);
+		GUI goo = new GUI(2, nums);
 		goo.game = new Game(4);
 		Game g = goo.game;
 		Card card = new Crash();
@@ -92,7 +112,11 @@ public class GUITest {
 	
 	@Test
 	public void testChangeLang(){
-		GUI goo = new GUI();
+		ArrayList<Integer> nums = new ArrayList<Integer>();
+		nums.add(0);
+		nums.add(2);
+		GUI goo = new GUI(2, nums);
+		goo.chooseCharPhase = false;
 		goo.changeGameLanguage("english");
 		assertEquals(Locale.US, goo.game.currentLocale);
 		goo.changeGameLanguage("french");
