@@ -278,12 +278,12 @@ public class Game {
 	 *            <Card> excluding
 	 * @return
 	 */
-	public ArrayList<String> getHand(ArrayList<Card> excluding, Card usedCard) {
+	public ArrayList<String> getHand(ArrayList<Card> excluding, Card usedCard, boolean canChar) {
 		Player p = getCurrentPlayer();
 		ArrayList<Card> h = p.hand;
 		ArrayList<String> handStrings = new ArrayList<String>();
 		for (Card card : h) {
-			if (!card.equals(usedCard)) {
+			if (!card.equals(usedCard) && (canChar || !card.cardType.equals(CardType.STAR))) {
 				for (Card excl : excluding) {
 					if (!card.cardsSameKind(excl)) {
 						handStrings.add(card.getName(this));
@@ -302,12 +302,12 @@ public class Game {
 	 *            <Card> excluding
 	 * @return
 	 */
-	public ArrayList<Object> getHandObj(ArrayList<Card> excluding, Card usedCard) {
+	public ArrayList<Object> getHandObj(ArrayList<Card> excluding, Card usedCard, boolean canChar) {
 		ArrayList<Object> objList = new ArrayList<Object>();
 		Player p = getCurrentPlayer();
 		ArrayList<Card> h = p.hand;
 		for (Card card : h) {
-			if (!card.equals(usedCard)) {
+			if (!card.equals(usedCard) && (canChar || !card.cardType.equals(CardType.STAR))) {
 				for (Card excl : excluding) {
 					if (!card.cardsSameKind(excl)) {
 						objList.add(card);
