@@ -387,6 +387,7 @@ public class Game {
 			this.currentLocale = new Locale("en", "US");
 		}
 		this.names = ResourceBundle.getBundle("Names", this.currentLocale);
+		this.choices = ResourceBundle.getBundle("Choices", this.currentLocale);
 	}
 
 	public ArrayList<Card> getPlayerCards(int i) {
