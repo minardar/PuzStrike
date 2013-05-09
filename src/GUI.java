@@ -432,6 +432,8 @@ public class GUI {
 			this.chooseCharPhase = false;
 			startGameWithPlaysAndChars();
 		} else {
+			JButton charsThing = (JButton) this.charChoices.getComponent(0);
+			this.selectedChar = Integer.parseInt(charsThing.getName());
 			chooseCharsScreen();
 		}
 	}
