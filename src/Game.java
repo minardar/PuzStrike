@@ -110,6 +110,12 @@ public class Game {
 	public void ante(){
 		getCurrentPlayer().gemPile[0]++;		
 	}
+	public boolean isGameWon(){
+		if(this.players.size()==1){
+			return true;
+		}
+		return false;
+	}
 
 	public Player getCurrentPlayer() {
 		return this.players.get(this.turn);
