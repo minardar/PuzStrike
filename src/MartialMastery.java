@@ -34,22 +34,14 @@ public class MartialMastery extends TrickyCard {
 	
 	public Choice getTrickyChoice(int i, Choice choice, Game g) {
 		switch(i){
-			case 1:
-				ArrayList<String> cards = g.getHand(this);
-				ArrayList<Object> cardObj = g.getHandObj(this);
-				Choice c1 = new Choice(g.choices.getString("cardKeep"), cards, cardObj, 1);
-				return c1;
-			case 2:
+		case 1:
 				ArrayList<Card> excl = new ArrayList<Card>();
 				excl.add(new Crash());
 				ArrayList<String> cards2 = g.getHand(excl, this, false);
 				ArrayList<Object> cardObj2 = g.getHandObj(excl, this, false);
-				Card magic = (Card) choice.getChoice().get(0);
-				cards2.remove(magic.getName(g));
-				cardObj2.remove(magic);
 				Choice c2 = new Choice(g.choices.getString("cardTrash"), cards2, cardObj2, 1);
 				return c2;
-			default:
+		default:
 				return null;
 		}
 	}

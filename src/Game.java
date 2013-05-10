@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Random;
 import java.util.ResourceBundle;
 
 public class Game {
 
 	public ArrayList<Card> AllCards;
 	public ArrayList<Card> AlwaysCards;
-	public Object[] Characters = { "Rook", "Valerie", "Setsuki", "Max" };
+	public Object[] Characters = { "Rook", "Valerie", "Setsuki", "Max", "Grave", "Jaina", "DeGray" };
 	public ArrayList<Player> players;
 	public ArrayList<Card> bank;
 	public int turn = 0;
@@ -69,6 +70,7 @@ public class Game {
 			this.players.add(toAdd);
 			this.players.get(i).setup();
 		}
+		
 		ante();
 	}
 
@@ -364,7 +366,7 @@ public class Game {
 		}
 		return objList;
 	}
-
+	
 	/**
 	 * A method that will return a list of cards in the player's hand in strings
 	 * 
@@ -436,6 +438,22 @@ public class Game {
 		 	futureSight.FutureSight();
 		 	playerCards.add(futureSight);
 		 break;
+		 case 4: playerCards.add(new MartialMastery());
+		 	playerCards.add(new Reversal());
+		 	ParamCard versatileStyle = new ParamCard();
+		 	versatileStyle.VersatileStyle();
+		 	playerCards.add(versatileStyle);
+		 break;
+		 case 5: playerCards.add(new PlayingWithFire());
+		 	playerCards.add(new UnstablePower());
+		 	playerCards.add(new BurningVigor());
+		 break;
+		 case 6: playerCards.add(new NoMoreLies());
+		 	playerCards.add(new PileBunker());
+		 	ParamCard troublesomeRhetoric = new ParamCard();
+		 	troublesomeRhetoric.TroublesomeRhetoric();
+		 	playerCards.add(troublesomeRhetoric);
+		 break;
 		default:
 			playerCards.add(new StoneWall());
 			playerCards.add(new StrengthOfEarth());
@@ -459,7 +477,8 @@ public class Game {
 		clicked.use(choiceList, this);
 		this.getCurrentPlayer().useTurn(clicked);
 		this.getCurrentPlayer().cardWasUsed(clicked);
-
+		
 	}
 }
+
 
