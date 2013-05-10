@@ -31,7 +31,7 @@ public class PlayerTest {
 	public void testPlayerSetup() {
 		Player player = new Player();
 		player.setup();
-		
+		player.drawFromBag(5);
 		assertEquals(5, player.hand.size());
 		assertEquals(4, player.bag.size());
 		assertEquals(0, player.discard.size());
@@ -75,7 +75,7 @@ public class PlayerTest {
 		player.gemPile[1] += 1;
 		player.gemPile[2] += 1;
 		player.gemPile[3] += 1;
-		assertEquals(10, player.totalGemValue());
+		assertEquals(9, player.totalGemValue());
 	}
 	
 	@Test
@@ -190,7 +190,7 @@ public class PlayerTest {
 		Player player = new Player();
 		player.setup();
 		
-		assertTrue(player.totalMoney() > 0);
+		assertTrue(player.totalMoney() == 0);
 	}
 	
 	@Test

@@ -31,6 +31,7 @@ public class ResearchAndDevelopmentTest {
 		Card card = new ResearchAndDevelopment();
 		Game g = new Game(3);
 		Player current = g.getCurrentPlayer();
+		current.drawFromBag(5);
 		Card testCard = new Wound();
 		current.hand.add(testCard);
 		Card testCard2 = new Crash();

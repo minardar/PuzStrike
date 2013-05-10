@@ -28,7 +28,7 @@ public class CrashTest {
 		c3.add(c2);
 		Crash cra = new Crash();
 		cra.use(c3, g);
-		assertEquals(2, crashee.gemPile[0]);
+		assertEquals(1, crashee.gemPile[0]);
 		assertEquals(0, crasher.gemPile[0]);
 	}
 	@Test
@@ -51,7 +51,7 @@ public class CrashTest {
 		ChoiceGroup c2 = c.getChoice(g);
 		c2.choices.get(0).getChoice().add(1);
 		c.react(c, p, c2.choices, g);
-		assertEquals(1, p.gemPile[0]);
+		assertEquals(0, p.gemPile[0]);
 		
 	}
 	@Test

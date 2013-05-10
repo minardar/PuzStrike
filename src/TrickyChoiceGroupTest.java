@@ -18,6 +18,7 @@ public class TrickyChoiceGroupTest {
 	@Test
 	public void testTrickyChoiceGroupGetsChoicesIntegrationTest() {
 		Game g = new Game(3);
+		g.getCurrentPlayer().drawFromBag(5);
 		TrickyCard card = new TrainingDay();
 		TrickyChoiceGroup tcg = new TrickyChoiceGroup(card, g);
 		tcg.getNextChoice();

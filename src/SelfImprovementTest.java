@@ -14,6 +14,7 @@ public class SelfImprovementTest {
 		ChoiceGroup c = card.getChoice(g);
 
 		Player p = g.getCurrentPlayer();
+		p.drawFromBag(4);
 		
 		p.hand.add(new Wound());
 		
@@ -26,7 +27,7 @@ public class SelfImprovementTest {
 		ArrayList<Choice> choices = new ArrayList<Choice>();
 		choices.add(c1);
 		card.use(choices, g);
-		assertEquals(5, p.hand.size());
+		assertEquals(4, p.hand.size());
 		assertEquals(0, p.discard.size());
 	}
 	

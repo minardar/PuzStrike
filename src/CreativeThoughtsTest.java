@@ -28,7 +28,7 @@ public class CreativeThoughtsTest {
 		card.use(new ArrayList<Choice>(), g);
 		assertEquals(2, current.blackTurns);
 		assertEquals(1, current.money);
-		assertEquals(6, current.hand.size());
+		assertEquals(1, current.hand.size());
 	}
 
 	@Test

@@ -20,6 +20,7 @@ public class TrainingDayTest {
 	public void testUse(){
 		Game game = new Game(3);
 		TrainingDay tDay = new TrainingDay();
+		game.getCurrentPlayer().drawFromBag(5);
 		ArrayList<String> cards = game.getHand(tDay);
 		ArrayList<Object> cardObj = game.getHandObj(tDay);
 		Choice c1 = new Choice("Choose card to keep.", cards, cardObj, 1);

@@ -46,6 +46,6 @@ public class ItsTimeForThePastTest {
 		
 		card.use(choice, g);
 		assertEquals(0, current.discard.size());
-		assertEquals(6, current.hand.size());
+		assertEquals(1, current.hand.size());
 	}
 }

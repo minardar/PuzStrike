@@ -56,7 +56,7 @@ public class Game {
 		// done with cards
 		makePlayers(number);
 		makeBank();
-		this.currentLocale = new Locale("fr", "FR");
+		this.currentLocale = new Locale("en", "US");
 		this.names = ResourceBundle.getBundle("Names", currentLocale);
 		this.choices = ResourceBundle.getBundle("Choices", currentLocale);
 	}

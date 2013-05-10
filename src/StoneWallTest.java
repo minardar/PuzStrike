@@ -32,6 +32,6 @@ public class StoneWallTest {
 		Game g = new Game(3);
 		Player current = g.getCurrentPlayer();
 		card.use(new ArrayList<Choice>(), g);
-		assertEquals(6, current.hand.size());
+		assertEquals(1, current.hand.size());
 	}
 }

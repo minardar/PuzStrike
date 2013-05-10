@@ -35,7 +35,7 @@ public class ChromaticOrbTest {
 		c3.add(c2);
 		Card testCard = new ChromaticOrb();
 		testCard.use(c3, g);
-		assertEquals(2, crashee.gemPile[0]);
+		assertEquals(1, crashee.gemPile[0]);
 		assertEquals(0, crasher.gemPile[0]);
 	}
 	@Test

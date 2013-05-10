@@ -18,7 +18,7 @@ public class ParamCardTest {
 		ArrayList<Choice> choices = new ArrayList<Choice>();
 		
 		testCard.use(choices, g);
-		assertEquals(8, g.players.get(0).hand.size());
+		assertEquals(3, g.players.get(0).hand.size());
 	}
 	
 	@Test
@@ -45,7 +45,7 @@ public class ParamCardTest {
 		testCard.getChoice(g);
 		testCard.use(choices, g);
 		assertEquals(2, g.players.get(0).blackTurns);
-		assertEquals(7, g.players.get(0).hand.size());
+		assertEquals(2, g.players.get(0).hand.size());
 	}
 	
 	@Test
@@ -59,7 +59,7 @@ public class ParamCardTest {
 		testCard.getChoice(g);
 		testCard.use(choices, g);
 		assertEquals(2, g.players.get(0).blackTurns);
-		assertEquals(6, g.players.get(0).hand.size());
+		assertEquals(1, g.players.get(0).hand.size());
 		assertEquals(1, g.players.get(0).money);
 	}
 	

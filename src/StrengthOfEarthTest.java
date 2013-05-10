@@ -32,6 +32,7 @@ public class StrengthOfEarthTest {
 		Game g = new Game(3);
 		ArrayList<String> gempile = g.getGempile();
 		Choice c1 = new Choice("Choose the gem to add to!", gempile, g.getGempileObj(), 1);
+		System.out.println(c1.getOptions());
 		c1.addChoice("1 Gem");
 		ChoiceGroup choice = new ChoiceGroup();
 		choice.addChoiceToGroup(c1);

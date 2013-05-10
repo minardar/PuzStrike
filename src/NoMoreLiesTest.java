@@ -24,15 +24,21 @@ public class NoMoreLiesTest {
 	public void testUseNoMoreLies() {
 		Card card = new NoMoreLies();
 		Game g = new Game(3);
+		g.newTurn();
 		Player curr = g.getCurrentPlayer();
+		curr.drawFromBag(5);
 		ArrayList<String> hand = g.getHand(card);
-		Choice c1 = new Choice("Choose a card to trash!", hand, g.getHandObj(card), 2);
+		System.out.println(hand);
+		Choice c1 = new Choice("Choose a card to trash!", hand, g.getHandObj(card), 1);
 		c1.addChoice(curr.hand.get(0).getName(g));
-		c1.addChoice(curr.hand.get(1).getName(g));
+		Choice c2 = new Choice("Choose a card to trash!", hand, g.getHandObj(card), 1);
+		c2.addChoice(curr.hand.get(1).getName(g));
 		ChoiceGroup choice = new ChoiceGroup();
 		choice.addChoiceToGroup(c1);
+		choice.addChoiceToGroup(c2);
 		card.use(choice.getChoiceList(), g);
-		assertEquals(5, curr.hand.size());
+		System.out.println(curr.hand);
+		assertEquals(4, curr.hand.size());
 	}
 
 	@Test

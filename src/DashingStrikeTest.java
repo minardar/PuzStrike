@@ -31,7 +31,7 @@ public class DashingStrikeTest {
 		choices.add(c1);
 		choices.add(c2);
 		card.use(choices, g);
-		assertEquals(2, defender.gemPile[0]);
+		assertEquals(1, defender.gemPile[0]);
 		assertEquals(0, attacker.gemPile[0]);
 	}
 	
