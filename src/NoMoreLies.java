@@ -10,7 +10,7 @@ public class NoMoreLies extends ParamCard{
 		this.opposing = false;
 		this.cost = 0;
 		this.name = "NoMoreLies";
-		this.imagePath = name + ".png";
+		this.imagePath = "/DeGray/" + name + ".png";
 		this.redTurns += 1;
 	}
 	

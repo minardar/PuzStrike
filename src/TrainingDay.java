@@ -41,7 +41,6 @@ public class TrainingDay extends TrickyCard {
 
 	@Override
 	public Choice getTrickyChoice(int i, Choice choice, Game g) {
-		// TODO Auto-generated method stub	
 		switch(i){
 			case 1:
 				ArrayList<String> cards = g.getHand(this);

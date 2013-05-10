@@ -533,10 +533,10 @@ public class GUI {
 				updateFrame();
 				newTurn();
 			}
-		}
-
-		updateFrame();
-		newTurn();
+		} else {
+			updateFrame();
+			newTurn();
+		}	
 	}
 
 	private void updateFrame() {

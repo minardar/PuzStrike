@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 
-public class StoneWall extends ParamCard{
+public class StoneWall extends ReactionCard{
 	
 	public StoneWall() {
 		this.cardColor = new ArrayList<CardColor>();
