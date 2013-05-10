@@ -30,6 +30,26 @@ public class GUITest {
 	}
 	
 	@Test
+	public void testTitle() {
+		ArrayList<Integer> nums = new ArrayList<Integer>();
+		nums.add(0);
+		nums.add(2);
+		GUI goo = new GUI(2, nums);
+		goo.titleScreen();
+		assertEquals("Title", goo.panel.getComponents()[0].getName());
+	}
+	
+	@Test
+	public void testWinScreen() {
+		ArrayList<Integer> nums = new ArrayList<Integer>();
+		nums.add(0);
+		nums.add(2);
+		GUI goo = new GUI(2, nums);
+		goo.WinScreen();
+		assertEquals("Won", goo.panel.getComponents()[0].getName());
+	}
+	
+	@Test
 	public void testFirstSetUp() {
 		ArrayList<Integer> nums = new ArrayList<Integer>();
 		nums.add(0);

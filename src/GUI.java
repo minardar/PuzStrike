@@ -39,10 +39,10 @@ public class GUI {
 	public boolean buyPhase = false;
 	public boolean chooseCharPhase = false;
 	public int playerNum;
-	public int selectedChar;
+	public int selectedChar = 0;
 	public String lang = "English";
-	public JPanel charChoices;
-	public ArrayList<Integer> charsSoFar;
+	public JPanel charChoices = new JPanel();
+	public ArrayList<Integer> charsSoFar = new ArrayList<Integer>();
 
 	public GUI() {
 		this.game = new Game(1);
@@ -57,7 +57,6 @@ public class GUI {
 		this.panel = new JBackgroundPanel();
 		this.frame.setContentPane(this.panel);
 		updateFrame();
-		// StartGUI();
 		titleScreen();
 	}
 
@@ -468,7 +467,7 @@ public class GUI {
 		}
 	}
 
-	private void WinScreen() {
+	public void WinScreen() {
 
 		JPanel winStuff = new JPanel();
 		winStuff.setBackground(this.trans);
