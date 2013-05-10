@@ -28,7 +28,7 @@ public class Player {
 		}
 		this.bag.add(new Crash());
 		
-		this.gemPile[0] += 1;
+		
 	}
 
 	public void newTurn() {

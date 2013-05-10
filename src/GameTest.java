@@ -51,7 +51,7 @@ public class GameTest {
 		g.getCurrentPlayer().hand.add(c1);
 		g.getCurrentPlayer().hand.add(c2);
 		excl.add(c1);
-		ArrayList<String> hand = g.getHand(excl, c2);
+		ArrayList<String> hand = g.getHand(excl, c2, false);
 		assertEquals(0, hand.size());
 		
 	}
@@ -64,7 +64,7 @@ public class GameTest {
 		g.getCurrentPlayer().hand.add(c1);
 		g.getCurrentPlayer().hand.add(c2);
 		excl.add(c1);
-		ArrayList<Object> hand = g.getHandObj(excl, c2);
+		ArrayList<Object> hand = g.getHandObj(excl, c2, false);
 		assertEquals(0, hand.size());
 		
 	}

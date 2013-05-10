@@ -68,6 +68,7 @@ public class Game {
 			this.players.add(new Player());
 			this.players.get(i).setup();
 		}
+		ante();
 	}
 
 	public void makeBank() {
@@ -95,11 +96,19 @@ public class Game {
 		this.boughtSomething = false;
 		this.playerMoney = 0;
 		this.players.get(this.turn).newTurn();
+		if(getCurrentPlayer().totalGemValue()>9){
+			this.players.remove(this.turn);
+			this.playerNum--;
+		}
 		if (this.turn == (this.playerNum - 1)) {
 			this.turn = 0;
 		} else {
 			this.turn++;
 		}
+		ante();
+	}
+	public void ante(){
+		getCurrentPlayer().gemPile[0]++;		
 	}
 
 	public Player getCurrentPlayer() {
