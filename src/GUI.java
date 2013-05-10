@@ -22,7 +22,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
 
-
 public class GUI {
 
 	public JFrame frame;
@@ -58,10 +57,10 @@ public class GUI {
 		this.panel = new JBackgroundPanel();
 		this.frame.setContentPane(this.panel);
 		updateFrame();
-//		StartGUI();
+		// StartGUI();
 		titleScreen();
 	}
-	
+
 	public GUI(int i, ArrayList<Integer> chtrs) {
 		this.playerNum = i;
 		this.charsSoFar = chtrs;
@@ -99,9 +98,9 @@ public class GUI {
 		this.frame.setTitle(this.game.names.getString("Title"));
 
 		this.playerNum = n + 2;
-		
+
 		setUpCharChoicePanel();
-		
+
 		chooseCharsScreen();
 
 	}
@@ -114,7 +113,7 @@ public class GUI {
 			}
 
 		}
-		
+
 		this.charChoices = new JPanel();
 		this.charChoices.setPreferredSize(new Dimension(FRAME_WIDTH, 200));
 		this.charChoices.setBackground(this.trans);
@@ -127,15 +126,14 @@ public class GUI {
 			character.addActionListener(new ChangeCharListener());
 			this.charChoices.add(character);
 		}
-		
+
 	}
 
 	public void titleScreen() {
 
 		JPanel titleStuff = new JPanel();
 		titleStuff.setBackground(this.trans);
-		titleStuff.setPreferredSize(new Dimension(FRAME_WIDTH,
-				FRAME_HEIGHT));
+		titleStuff.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		JLabel picLabel = new JLabel(new ImageIcon("titlescreen.png"));
 		picLabel.setBackground(this.trans);
 		titleStuff.add(picLabel);
@@ -158,7 +156,7 @@ public class GUI {
 		this.panel.add(titleStuff);
 		updateFrame();
 	}
-	
+
 	public void chooseCharsScreen() {
 		this.chooseCharPhase = true;
 		addMenuBar();
@@ -190,7 +188,6 @@ public class GUI {
 		screen.setBackground(this.trans);
 		screen.add(hand);
 
-
 		JPanel mostPhases = new JPanel();
 		mostPhases.setBackground(this.trans);
 		mostPhases.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
@@ -220,7 +217,11 @@ public class GUI {
 		this.game.setLocale(lang);
 		JOptionPane.setDefaultLocale(this.game.currentLocale);
 		this.frame.setTitle(this.game.names.getString("Title"));
-		
+
+		if (this.game.isGameWon()){
+			WinScreen();
+			return;
+		}
 		if (this.chooseCharPhase) {
 			this.chooseCharsScreen();
 			return;
@@ -437,11 +438,11 @@ public class GUI {
 			chooseCharsScreen();
 		}
 	}
-	
-	public JButton findSelectedChar(){
+
+	public JButton findSelectedChar() {
 		Component[] things = this.charChoices.getComponents();
-		for (int i = 0; i < things.length; i++){
-			if (Integer.parseInt(things[i].getName()) == this.selectedChar){
+		for (int i = 0; i < things.length; i++) {
+			if (Integer.parseInt(things[i].getName()) == this.selectedChar) {
 				return (JButton) things[i];
 			}
 		}
@@ -453,8 +454,41 @@ public class GUI {
 			this.buyPhase = false;
 			this.game.getCurrentPlayer().endTurn();
 			this.game.newTurn();
-			newTurn();
+
+			if (this.game.isGameWon()) {
+				WinScreen();
+			} else {
+				newTurn();
+			}
 		}
+	}
+
+	private void WinScreen() {
+
+		JPanel winStuff = new JPanel();
+		winStuff.setBackground(this.trans);
+		winStuff.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
+		JLabel picLabel = new JLabel(new ImageIcon(this.game.names.getString("Path")+"won.png"));
+		picLabel.setBackground(this.trans);
+		winStuff.add(picLabel);
+		JButton startGameUp = new JButton(this.game.names.getString("Again"));
+		class StartListener implements ActionListener {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				StartGUI();
+			}
+		}
+
+		startGameUp.addActionListener(new StartListener());
+
+		winStuff.add(startGameUp);
+
+		if (this.panel.getComponentCount() != 0) {
+			this.panel.removeAll();
+		}
+		winStuff.setName("Won");
+		this.panel.add(winStuff);
+		updateFrame();
 	}
 
 	public void newShopPhase() {
@@ -484,7 +518,7 @@ public class GUI {
 			// No target
 		} else if (completeSoFar) {
 			clicked.use(choices.getChoiceList(), this.game);
-		
+
 			if (this.game.getNumber > 0) {
 				this.game.useCard(clicked);
 				quickBuy(this.game.underVal, this.game.getNumber);
@@ -494,6 +528,8 @@ public class GUI {
 			}
 		}
 
+		updateFrame();
+		newTurn();
 	}
 
 	private void updateFrame() {
