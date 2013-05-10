@@ -233,4 +233,31 @@ public class GameTest {
 		assertEquals(2, game.players.size());
 		assertEquals(2, game.playerNum);
 	}
+	@Test
+	public void testWinning(){
+		Game game = new Game(2);
+		Player p1 = game.getCurrentPlayer();
+		p1.gemPile[0]=10;
+		p1.newTurn();
+		p1.endTurn();
+		game.newTurn();
+		assertTrue(game.isGameWon());
+	}
+	@Test
+	public void testAnteByItself(){
+		Game game = new Game(2);
+		Player p1 = game.getCurrentPlayer();
+		assertEquals(1, p1.gemPile[0]);
+		game.ante();
+		assertEquals(2, p1.gemPile[0]);
+	}
+	@Test
+	public void testAnteInGame(){
+		Game game = new Game(2);
+		Player p2 = game.players.get(1);
+		assertEquals(0, p2.gemPile[0]);
+		game.newTurn();
+		p2.newTurn();
+		assertEquals(1, p2.gemPile[0]);
+	}
 }
