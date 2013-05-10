@@ -39,10 +39,10 @@ public class GUI {
 	public boolean buyPhase = false;
 	public boolean chooseCharPhase = false;
 	public int playerNum;
-	public int selectedChar = 0;
+	public int selectedChar;
 	public String lang = "English";
-	public JPanel charChoices = new JPanel();
-	public ArrayList<Integer> charsSoFar = new ArrayList<Integer>();
+	public JPanel charChoices;
+	public ArrayList<Integer> charsSoFar;
 
 	public GUI() {
 		this.game = new Game(1);
@@ -106,6 +106,11 @@ public class GUI {
 	}
 
 	private void setUpCharChoicePanel() {
+		
+		this.selectedChar = 0;
+		this.charChoices = new JPanel();
+		this.charsSoFar = new ArrayList<Integer>();
+		
 		class ChangeCharListener implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
