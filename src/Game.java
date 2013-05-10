@@ -65,9 +65,7 @@ public class Game {
 		this.playerNum = number;
 		this.players = new ArrayList<Player>();
 		for (int i = 0; i < number; i++) {
-			Player toAdd = new Player();
-			toAdd.setName("" + (i+1));
-			this.players.add(toAdd);
+			this.players.add(new Player());
 			this.players.get(i).setup();
 		}
 		ante();
@@ -189,7 +187,7 @@ public class Game {
 		String name;
 		for (Player o : oppObj) {
 			if (!p.equals(o)) {
-				name = choices.getString("player") + o.getName();
+				name = choices.getString("player") + i;
 				oppStrings.add(name);
 			}
 			i++;
@@ -454,6 +452,13 @@ public class Game {
 			this.players.get(player).bag.add(cards.get(i));
 		}
 		this.players.get(player).drawFromBag(5);
+	}
+
+	public void useCardNotReactedTo(Card clicked, ArrayList<Choice> choiceList) {
+		clicked.use(choiceList, this);
+		this.getCurrentPlayer().useTurn(clicked);
+		this.getCurrentPlayer().cardWasUsed(clicked);
+		
 	}
 }
 

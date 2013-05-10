@@ -518,7 +518,9 @@ public class GUI {
 			boolean reacted = reactToPlay(clicked, choices);
 			// Nobody reacted to card
 			if (!reacted) {
-				clicked.use(choices.getChoiceList(), this.game);
+				this.game.useCardNotReactedTo(clicked, choices.getChoiceList());
+				updateFrame();
+				newTurn();
 			}
 			// No target
 		} else if (completeSoFar) {
@@ -529,6 +531,7 @@ public class GUI {
 				quickBuy(this.game.underVal, this.game.getNumber);
 			} else {
 				this.game.useCard(clicked);
+				updateFrame();
 				newTurn();
 			}
 		}

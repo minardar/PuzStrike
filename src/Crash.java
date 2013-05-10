@@ -91,7 +91,6 @@ public class Crash extends ReactionCard {
 		opp.useTurn(cardUsed);
 		opp.cardWasUsed(cardUsed);
 		reacting.cardWasUsed(this);
-	
 	}
 
 	@Override
