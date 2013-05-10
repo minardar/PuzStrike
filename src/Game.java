@@ -96,9 +96,10 @@ public class Game {
 		this.boughtSomething = false;
 		this.playerMoney = 0;
 		this.players.get(this.turn).newTurn();
-		if(getCurrentPlayer().totalGemValue()>9){
+		if(getCurrentPlayer().totalGemValue()>1){
 			this.players.remove(this.turn);
 			this.playerNum--;
+			this.turn--;
 		}
 		if (this.turn == (this.playerNum - 1)) {
 			this.turn = 0;
