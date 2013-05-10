@@ -52,6 +52,10 @@ public class Game {
 		this.AllCards.add(dashingStrike);
 		Card selfImprovement = new SelfImprovement();
 		this.AllCards.add(selfImprovement);
+		Card reallyAnnoying = new ReallyAnnoying();
+		this.AllCards.add(reallyAnnoying);
+		Card sneakAttack = new SneakAttack();
+		this.AllCards.add(sneakAttack);
 
 		// done with cards
 		makePlayers(number);
