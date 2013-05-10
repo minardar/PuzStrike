@@ -116,6 +116,22 @@ public class ParamCard extends Card {
 		draw += 2;
 	}
 	
+	public void TroublesomeRhetoric() {
+		this.name = "TroublesomeRhetoric";
+		this.imagePath = "/DeGray/" + name + ".png";
+		blackTurns += 1;
+		draw += 1;
+		money += 2;
+	}
+	
+	public void VersatileStyle () {
+		this.name = "VersatileStyle";
+		this.imagePath = "/Grave/" + name + ".png";
+		blackTurns += 1;
+		draw += 2;
+		money += 2;
+	}
+	
 	public class Recklessness extends ParamCard{
 		public Recklessness() {
 			this.name = "Recklessness";

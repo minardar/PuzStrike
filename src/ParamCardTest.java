@@ -78,6 +78,32 @@ public class ParamCardTest {
 	}
 	
 	@Test
+	public void testTroublesomeRhetoric() {
+		ParamCard testCard = new ParamCard();
+		testCard.TroublesomeRhetoric();
+		
+		ArrayList<Choice> choices = new ArrayList<Choice>();
+		
+		testCard.getChoice(g);
+		testCard.use(choices, g);
+		assertEquals(2, g.players.get(0).blackTurns);
+		assertEquals(2, g.players.get(0).money);
+	}
+	
+	@Test
+	public void testVersatileStyle() {
+		ParamCard testCard = new ParamCard();
+		testCard.VersatileStyle();
+		
+		ArrayList<Choice> choices = new ArrayList<Choice>();
+		
+		testCard.getChoice(g);
+		testCard.use(choices, g);
+		assertEquals(2, g.players.get(0).hand.size());
+		assertEquals(2, g.players.get(0).money);
+	}
+	
+	@Test
 	public void testMiscParamCardFunctions() {
 		ParamCard testCard = new ParamCard();
 		testCard.DrawThree();

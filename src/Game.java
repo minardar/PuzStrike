@@ -7,7 +7,7 @@ public class Game {
 
 	public ArrayList<Card> AllCards;
 	public ArrayList<Card> AlwaysCards;
-	public Object[] Characters = { "Rook", "Valerie", "Setsuki", "Max" };
+	public Object[] Characters = { "Rook", "Valerie", "Setsuki", "Max", "Grave", "Jaina", "DeGray" };
 	public ArrayList<Player> players;
 	public ArrayList<Card> bank;
 	public int turn = 0;
@@ -434,6 +434,22 @@ public class Game {
 		 	ParamCard futureSight = new ParamCard();
 		 	futureSight.FutureSight();
 		 	playerCards.add(futureSight);
+		 break;
+		 case 4: playerCards.add(new MartialMastery());
+		 	playerCards.add(new Reversal());
+		 	ParamCard versatileStyle = new ParamCard();
+		 	versatileStyle.VersatileStyle();
+		 	playerCards.add(versatileStyle);
+		 break;
+		 case 5: playerCards.add(new PlayingWithFire());
+		 	playerCards.add(new UnstablePower());
+		 	playerCards.add(new BurningVigor());
+		 break;
+		 case 6: playerCards.add(new NoMoreLies());
+		 	playerCards.add(new PileBunker());
+		 	ParamCard troublesomeRhetoric = new ParamCard();
+		 	troublesomeRhetoric.TroublesomeRhetoric();
+		 	playerCards.add(troublesomeRhetoric);
 		 break;
 		default:
 			playerCards.add(new StoneWall());
