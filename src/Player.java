@@ -7,7 +7,7 @@ public class Player {
 	public ArrayList<Integer> toUse;
 	public int[] gemPile;
 	public int money, total, blackTurns, redTurns, blueTurns, purpleTurns, brownTurns;
-	
+	public String name;
 	public Player(){
 		this.gemPile = new int[4];
 		this.hand = new ArrayList<Card>();
@@ -67,6 +67,12 @@ public class Player {
 				this.hand.add(this.bag.remove(nextCard));
 			}
 		}
+	}
+	public void setName(String n){
+		this.name=n;
+	}
+	public String getName(){
+		return this.name;
 	}
 	
 	public int totalGemValue() {

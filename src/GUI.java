@@ -381,7 +381,7 @@ public class GUI {
 
 		for (int i = 0; i < this.game.playerNum; i++) {
 			JLabel name = new JLabel(this.game.names.getString("Player") + " "
-					+ (i + 1));
+					+ this.game.players.get(i).getName());
 			JPanel gemPileMargins = new JPanel();
 			JPanel gemPile = new JPanel();
 			gemPileMargins.setPreferredSize(new Dimension(FRAME_WIDTH

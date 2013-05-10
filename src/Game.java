@@ -65,7 +65,9 @@ public class Game {
 		this.playerNum = number;
 		this.players = new ArrayList<Player>();
 		for (int i = 0; i < number; i++) {
-			this.players.add(new Player());
+			Player toAdd = new Player();
+			toAdd.setName("" + (i+1));
+			this.players.add(toAdd);
 			this.players.get(i).setup();
 		}
 		ante();
@@ -187,7 +189,7 @@ public class Game {
 		String name;
 		for (Player o : oppObj) {
 			if (!p.equals(o)) {
-				name = choices.getString("player") + i;
+				name = choices.getString("player") + o.getName();
 				oppStrings.add(name);
 			}
 			i++;
