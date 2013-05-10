@@ -11,7 +11,7 @@ public class GameTest {
 
 	@Test
 	public void testNewGame() {
-		Game game = new Game(0);
+		Game game = new Game(1);
 		assertNotNull(game);
 		assertNotNull(game.bank);
 		assertNotNull(game.players);
@@ -79,28 +79,28 @@ public class GameTest {
 	}
 	@Test
 	public void testMakePlayers1() {
-		Game game = new Game(0);
+		Game game = new Game(1);
 		game.makePlayers(1);
 		assertEquals(1, game.players.size());
 	}
 	
 	@Test
 	public void testMakePlayers2() {
-		Game game = new Game(0);
+		Game game = new Game(1);
 		game.makePlayers(2);
 		assertEquals(2, game.players.size());
 	}
 	
 	@Test
 	public void testMakePlayers4() {
-		Game game = new Game(0);
+		Game game = new Game(1);
 		game.makePlayers(4);
 		assertEquals(4, game.players.size());
 	}
 	
 	@Test
 	public void testNewTurn() {
-		Game game = new Game(0);
+		Game game = new Game(1);
 		game.makePlayers(2);
 		game.boughtSomething = true;
 		game.newTurn();
@@ -110,7 +110,7 @@ public class GameTest {
 	
 	@Test
 	public void testNewTurnCycle() {
-		Game game = new Game(0);
+		Game game = new Game(1);
 		game.makePlayers(4);
 		game.newTurn();
 		assertEquals(1,game.turn);
@@ -222,5 +222,42 @@ public class GameTest {
 		Card card = new Gem(1);
 		game.playerTrashCard(play, card);
 	}
-	
+	@Test
+	public void testLosing(){
+		Game game = new Game(3);
+		Player p1 = game.getCurrentPlayer();
+		p1.gemPile[0]=10;
+		p1.newTurn();
+		p1.endTurn();
+		game.newTurn();
+		assertEquals(2, game.players.size());
+		assertEquals(2, game.playerNum);
+	}
+	@Test
+	public void testWinning(){
+		Game game = new Game(2);
+		Player p1 = game.getCurrentPlayer();
+		p1.gemPile[0]=10;
+		p1.newTurn();
+		p1.endTurn();
+		game.newTurn();
+		assertTrue(game.isGameWon());
+	}
+	@Test
+	public void testAnteByItself(){
+		Game game = new Game(2);
+		Player p1 = game.getCurrentPlayer();
+		assertEquals(1, p1.gemPile[0]);
+		game.ante();
+		assertEquals(2, p1.gemPile[0]);
+	}
+	@Test
+	public void testAnteInGame(){
+		Game game = new Game(2);
+		Player p2 = game.players.get(1);
+		assertEquals(0, p2.gemPile[0]);
+		game.newTurn();
+		p2.newTurn();
+		assertEquals(1, p2.gemPile[0]);
+	}
 }
