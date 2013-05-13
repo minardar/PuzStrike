@@ -38,8 +38,12 @@ import java.util.ArrayList;
 			super.setEqual(card);
 		}
 		
-		public void react(Card card, Player reacting, ArrayList<Choice> choices, Game game) {
+		public void react(Card cardUsed, Player reacting, ArrayList<Choice> choices, Game game) {
 			reacting.drawFromBag(3);
+			Player opp = game.getCurrentPlayer();
+			opp.useTurn(cardUsed);
+			opp.cardWasUsed(cardUsed);
+			reacting.cardWasUsed(this);
 		}
 
 		public boolean canReactTo(Card card) {
