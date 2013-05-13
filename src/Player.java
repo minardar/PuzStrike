@@ -45,8 +45,8 @@ public class Player {
 		for (int i = 0; i < num; i++) {
 			this.discard.add(this.hand.remove(0));
 		}
-		
-		this.drawFromBag(5);
+		int gemHeight = (int) this.totalGemValue()/3;
+		this.drawFromBag(5+gemHeight);
 	}
 	
 	public void drawFromBag(int n) {
