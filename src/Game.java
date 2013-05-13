@@ -591,9 +591,10 @@ public class Game {
 	 * @param choiceList
 	 */
 	public void useCardNotReactedTo(Card clicked, ArrayList<Choice> choiceList) {
-		clicked.use(choiceList, this);
 		this.getCurrentPlayer().useTurn(clicked);
 		this.getCurrentPlayer().cardWasUsed(clicked);
+		clicked.use(choiceList, this);
+		this.lastUsedCard = clicked;
 
 	}
 }

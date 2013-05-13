@@ -88,9 +88,6 @@ public class Crash extends ReactionCard {
 		} else {
 			opp.gemPile[0] = opp.gemPile[0] + (reactGemSelected-gemSelected);
 		}
-		opp.useTurn(cardUsed);
-		opp.cardWasUsed(cardUsed);
-		reacting.cardWasUsed(this);
 	}
 
 	@Override

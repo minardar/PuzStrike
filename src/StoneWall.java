@@ -32,9 +32,13 @@ public class StoneWall extends ReactionCard{
 	}
 	
 	public void react(Card cardUsed, Player reacting, ArrayList<Choice> choices, Game game) {
+		Player opp = game.getCurrentPlayer();
 		ArrayList<Choice> cardChoices = cardUsed.getChosenEffect();
 		int gemSelected = (Integer) cardChoices.get(1).getChoice().get(0);
 		reacting.gemPile[gemSelected] = reacting.gemPile[gemSelected] - 1;
+		opp.useTurn(cardUsed);
+		opp.cardWasUsed(cardUsed);
+		reacting.cardWasUsed(this);
 	}
 	
 	public boolean canReactTo(Card card) {

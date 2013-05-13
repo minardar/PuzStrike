@@ -574,6 +574,9 @@ public class GUI {
 				this.game.useCardNotReactedTo(clicked, choices.getChoiceList());
 				updateFrame();
 				newTurn();
+			} else {
+				updateFrame();
+				newTurn();
 			}
 			// No target
 		} else if (completeSoFar) {
