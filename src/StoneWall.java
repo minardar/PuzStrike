@@ -47,4 +47,10 @@ public class StoneWall extends ReactionCard{
 	public ChoiceGroup getReactChoices(Game g) {
 		return new ChoiceGroup();
 	}
+
+	@Override
+	public Choice getTrickyChoice(int i, Choice choice, Game g) {
+		// ignore
+		return null;
+	}
 }

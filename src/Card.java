@@ -28,44 +28,74 @@ public abstract class Card {
 	public ArrayList<Choice> chosenEffect;
 	public ArrayList<Player> targets;
 
+	/**
+	 * gets the proper choiceGroup for this card. Needs to know the gamestate
+	 * 
+	 * @param g
+	 * @return
+	 */
 	public abstract ChoiceGroup getChoice(Game g);
 
+	/**
+	 * uses the current card. Needs any choices and the gamestate
+	 * 
+	 * @param choices
+	 * @param game
+	 */
 	public abstract void use(ArrayList<Choice> choices, Game game);
 
+	/**
+	 * Creates a new version of this card and returns it
+	 * 
+	 * @return
+	 */
 	public abstract Card newCard();
-	
+
+	/**
+	 * Sets the amount of this card left in the bank
+	 * 
+	 * @param num
+	 */
 	public void setAmount(int num) {
 		this.amount = num;
 	}
 
+	/**
+	 * Checks to see if the given card1 is the same kind as this card
+	 * 
+	 * @param card1
+	 * @return
+	 */
 	public boolean cardsSameKind(Card card1) {
-			if (this.imagePath.equals(card1.imagePath) && this.cost == card1.cost
-					&& this.name.equals(card1.name) && this.value == card1.value
-					&& this.cardColor.equals(card1.cardColor)) {
-				return true;
-			} else {
-				return false;
+		if (this.imagePath.equals(card1.imagePath) && this.cost == card1.cost
+				&& this.name.equals(card1.name) && this.value == card1.value
+				&& this.cardColor.equals(card1.cardColor)) {
+			return true;
+		} else {
+			return false;
 		}
 	}
-	
-	public void setChosenEffect(ArrayList<Choice> effect){
+
+	public void setChosenEffect(ArrayList<Choice> effect) {
 		this.chosenEffect = effect;
 	}
-	
-	public ArrayList<Choice> getChosenEffect(){
+
+	public ArrayList<Choice> getChosenEffect() {
 		return this.chosenEffect;
 	}
-	public void setTargets(ArrayList<Player> target){
+
+	public void setTargets(ArrayList<Player> target) {
 		this.targets = target;
 	}
-	
-	public ArrayList<Player> getTargets(){
+
+	public ArrayList<Player> getTargets() {
 		return this.targets;
 	}
-	public String getName(Game g){
+
+	public String getName(Game g) {
 		return g.names.getString(this.name);
 	}
-	
+
 	public abstract void prepare(ArrayList<Choice> choice, Game g);
 
 }

@@ -11,18 +11,18 @@ import javax.swing.ImageIcon;
  * @author harrissa
  * 
  */
-public class Crash extends ReactionCard {
+public class DoubleCrash extends ReactionCard {
 	/**
 	 * default constructor for the CRASH class... It setst the appropriate
 	 * values for CRASH
 	 */
-	public Crash() {
-		this.imagePath = "CrashGem.png";
+	public DoubleCrash() {
+		this.imagePath = "DoubleCrashGem.png";
 		this.cardColor.add(CardColor.PURPLE);
 		this.cardType = cardType.CIRCLE;
 		this.defense = true;
 		this.opposing = true;
-		this.name = "Crash";
+		this.name = "DoubleCrashGem";
 		this.value = 0;
 		this.cost = 5;
 
@@ -39,12 +39,15 @@ public class Crash extends ReactionCard {
 	public void use(ArrayList<Choice> choices, Game game) {
 		Choice oppChoice = choices.get(0);
 		Choice gemChoice = choices.get(1);
+		Choice gem2Choice = choices.get(2);
 		Player crashee = (Player) oppChoice.getChoice().get(0);
 		Player crasher = game.getCurrentPlayer();
 		int gem = (Integer) gemChoice.getChoice().get(0);
+		int gem2 = (Integer) gem2Choice.getChoice().get(0);
 		crasher.gemPile[gem] = crasher.gemPile[gem] - 1;
-		crashee.gemPile[0] = crashee.gemPile[0] + gem + 1;
-		crasher.money++;
+		crasher.gemPile[gem2] = crasher.gemPile[gem2] - 1;
+		crashee.gemPile[0] = crashee.gemPile[0] + gem2 + gem + 1;
+		crasher.money+=2;
 	}
 	
 	/**
@@ -72,7 +75,7 @@ public class Crash extends ReactionCard {
 	 * Returns new instance of Crash Gem card
 	 */
 	public Card newCard(){
-		return new Crash();
+		return new DoubleCrash();
 	}
 
 	@Override
@@ -95,7 +98,7 @@ public class Crash extends ReactionCard {
 
 	@Override
 	public boolean canReactTo(Card card) {
-		if (card instanceof Crash){
+		if (card instanceof DoubleCrash){
 			return true;
 		}
 		return false;
