@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -18,9 +19,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JScrollPane;
 
 public class GUI {
 
@@ -45,7 +48,7 @@ public class GUI {
 	public ArrayList<Integer> charsSoFar = new ArrayList<Integer>();
 
 	public GUI() {
-		this.game = new Game(1);
+		this.game = new Game(2);
 		this.game.setLocale("English");
 		this.frame = new JFrame(this.game.names.getString("Title"));
 		this.frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
@@ -105,11 +108,11 @@ public class GUI {
 	}
 
 	private void setUpCharChoicePanel() {
-		
+
 		this.selectedChar = 0;
 		this.charChoices = new JPanel();
 		this.charsSoFar = new ArrayList<Integer>();
-		
+
 		class ChangeCharListener implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -134,6 +137,8 @@ public class GUI {
 	}
 
 	public void titleScreen() {
+
+		frame.setJMenuBar(null);
 
 		JPanel titleStuff = new JPanel();
 		titleStuff.setBackground(this.trans);
@@ -196,8 +201,8 @@ public class GUI {
 		mostPhases.setBackground(this.trans);
 		mostPhases.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		mostPhases.add(screen);
-		mostPhases.add(selectBut);
 		mostPhases.add(this.charChoices);
+		mostPhases.add(selectBut);
 
 		if (this.panel.getComponentCount() != 0) {
 			this.panel.removeAll();
@@ -222,7 +227,9 @@ public class GUI {
 		JOptionPane.setDefaultLocale(this.game.currentLocale);
 		this.frame.setTitle(this.game.names.getString("Title"));
 
-		if (this.game.isGameWon()){
+		this.lang = lang;
+		
+		if (this.game.isGameWon()) {
 			WinScreen();
 			return;
 		}
@@ -289,11 +296,21 @@ public class GUI {
 			g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
 		}
 	}
+	
+	public JButton getBackgroundButton(){
+		JButton toUse = new JButton();
+		toUse.setIcon(new ImageIcon("./cardbg.png"));
+		return toUse;
+	}
+	
+	
 
 	public void firstSetUp() {
 		JPanel shopPhase = new JPanel();
 		shopPhase.setName("Shopping");
 		JPanel shopCards = new JPanel();
+		
+		JLabel money = new JLabel(this.game.names.getString("Money")+": "+this.game.playerMoney);
 
 		class CardShopListener implements ActionListener {
 			@Override
@@ -305,7 +322,7 @@ public class GUI {
 		shopPhase.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		shopCards.setBackground(this.trans);
 		shopCards.setPreferredSize(new Dimension(FRAME_WIDTH,
-				14 * FRAME_HEIGHT / 16));
+				14 * FRAME_HEIGHT / 17));
 		for (int i = 0; i < this.game.bank.size(); i++) {
 			JButton card = new JBackgroundButton();
 			card.setName("" + i);
@@ -324,6 +341,7 @@ public class GUI {
 
 		JButton endPhase = new JButton(this.game.names.getString("EndPhase"));
 		endPhase.addActionListener(new EndShopListener());
+		shopPhase.add(money);
 		shopPhase.add(shopCards);
 		shopPhase.add(endPhase);
 		if (this.panel.getComponentCount() != 0) {
@@ -384,9 +402,9 @@ public class GUI {
 			JPanel gemPileMargins = new JPanel();
 			JPanel gemPile = new JPanel();
 			gemPileMargins.setPreferredSize(new Dimension(FRAME_WIDTH
-					/ (this.game.playerNum + 1), 400));
+					/ (this.game.playerNum + 1), 300));
 			gemPileMargins.setBackground(this.trans);
-			gemPile.setPreferredSize(new Dimension(100, 400));
+			gemPile.setPreferredSize(new Dimension(100, 300));
 			gemPile.setBackground(this.trans);
 
 			addGemPile(i, gemPile);
@@ -408,12 +426,47 @@ public class GUI {
 
 		this.gemPileStuff.setBackground(this.trans);
 		this.gemPileStuff.setPreferredSize(new Dimension(FRAME_WIDTH,
-				3 * FRAME_HEIGHT / 5));
+				3 * FRAME_HEIGHT / 5 - 50));
 
+		JPanel turns = new JPanel();
+		turns.setBackground(this.trans);
+		
+		Player curr = this.game.getCurrentPlayer();
+		int black = curr.blackTurns;
+		int blue = curr.blueTurns;
+		int red = curr.redTurns;
+		int brown = curr.brownTurns;
+		int purple = curr.purpleTurns;
+		
+		
+		JLabel picLabel = new JLabel(new ImageIcon("black.png"));
+		JLabel textLabel = new JLabel(""+black);
+		picLabel.setBackground(this.trans);
+		turns.add(picLabel);
+		turns.add(textLabel);
+		picLabel = new JLabel(new ImageIcon("blue.png"));
+		textLabel = new JLabel(""+blue);
+		turns.add(picLabel);
+		turns.add(textLabel);
+		picLabel = new JLabel(new ImageIcon("red.png"));
+		textLabel = new JLabel(""+red);
+		turns.add(picLabel);
+		turns.add(textLabel);
+		picLabel = new JLabel(new ImageIcon("brown.png"));
+		textLabel = new JLabel(""+brown);
+		turns.add(picLabel);
+		turns.add(textLabel);
+		picLabel = new JLabel(new ImageIcon("purple.png"));
+		textLabel = new JLabel(""+purple);
+		turns.add(picLabel);
+		turns.add(textLabel);
+		
+		
 		JPanel mostPhases = new JPanel();
 		mostPhases.setBackground(this.trans);
 		mostPhases.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 		mostPhases.add(this.gemPileStuff);
+		mostPhases.add(turns);
 		mostPhases.add(this.playerStuff);
 
 		if (this.panel.getComponentCount() != 0) {
@@ -472,7 +525,8 @@ public class GUI {
 		JPanel winStuff = new JPanel();
 		winStuff.setBackground(this.trans);
 		winStuff.setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT));
-		JLabel picLabel = new JLabel(new ImageIcon(this.game.names.getString("Path")+"won.png"));
+		JLabel picLabel = new JLabel(new ImageIcon(
+				this.game.names.getString("Path") + "won.png"));
 		picLabel.setBackground(this.trans);
 		winStuff.add(picLabel);
 		JButton startGameUp = new JButton(this.game.names.getString("Again"));
@@ -536,7 +590,7 @@ public class GUI {
 		} else {
 			updateFrame();
 			newTurn();
-		}	
+		}
 	}
 
 	private void updateFrame() {
@@ -667,6 +721,7 @@ public class GUI {
 
 		if (decision == 0) {
 			this.game.playerBuyCard(this.game.getCurrentPlayer(), clicked);
+			setUp();
 		}
 
 		updateFrame();
@@ -843,7 +898,14 @@ public class GUI {
 		// Create the menu bar.
 		JMenuBar menuBar = new JMenuBar();
 
-		// Build the first menu.
+		if (!this.chooseCharPhase) {
+			// Build the file menu
+			JMenu menu1 = new JMenu(this.game.names.getString("Game"));
+			addFileMenu(menu1);
+			menuBar.add(menu1);
+		}
+		
+		// Build the language menu
 		JMenu menu = new JMenu(this.game.names.getString("LangOption"));
 		menu.getAccessibleContext().setAccessibleDescription(
 				"The only menu in this program that has menu items");
@@ -853,6 +915,51 @@ public class GUI {
 		String[] keys = { "english", "french" };
 		makeLangOptions(langs, country, keys, menu);
 		frame.setJMenuBar(menuBar);
+		
+		//Build the help menu
+		JMenu menu3 = new JMenu(this.game.names.getString("Help"));
+		addHelpMenu(menu3);
+		menuBar.add(menu3);
 	}
 
+	public void addFileMenu(JMenu menu1) {
+		class NewGame implements ActionListener {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				titleScreen();
+			}
+		}
+
+		class ReGame implements ActionListener {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				startGameWithPlaysAndChars();
+			}
+		}
+
+		JMenuItem newGame = new JMenuItem(this.game.names.getString("New"), KeyEvent.VK_T);
+		newGame.addActionListener(new NewGame());
+
+		JMenuItem reGame = new JMenuItem(this.game.names.getString("Restart"), KeyEvent.VK_T);
+		reGame.addActionListener(new ReGame());
+		menu1.add(newGame);
+		menu1.add(reGame);
+	}
+	
+	public void addHelpMenu(JMenu menu1) {
+		class helpListener implements ActionListener {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				helpScreen();
+			}
+		}
+
+		JMenuItem rules = new JMenuItem(this.game.names.getString("Rules"), KeyEvent.VK_T);
+		rules.addActionListener(new helpListener());
+		menu1.add(rules);
+	}
+	
+	public void helpScreen(){
+		new HelpScreen(this.game);
+	}
 }
