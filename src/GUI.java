@@ -580,13 +580,14 @@ public class GUI {
 			}
 			// No target
 		} else if (completeSoFar) {
-			clicked.use(choices.getChoiceList(), this.game);
 
 			if (this.game.getNumber > 0) {
 				this.game.useCard(clicked);
+				clicked.use(choices.getChoiceList(), this.game);
 				quickBuy(this.game.underVal, this.game.getNumber);
 			} else {
 				this.game.useCard(clicked);
+				clicked.use(choices.getChoiceList(), this.game);
 				updateFrame();
 				newTurn();
 			}
@@ -594,6 +595,8 @@ public class GUI {
 			updateFrame();
 			newTurn();
 		}
+		
+	
 	}
 
 	private void updateFrame() {

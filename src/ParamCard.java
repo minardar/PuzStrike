@@ -6,14 +6,13 @@ public class ParamCard extends Card {
 	int blackTurns, purpleTurns, redTurns, brownTurns, blueTurns, draw, money;
 
 	public ParamCard() {
-		this.cardColor.add(CardColor.BROWN);
 		this.cardType = cardType.PUZZLE;
 		this.defense = false;
 		this.value = 0;
 		this.name = "";
 		this.imagePath = name + ".png";
 		this.cost = 0;
-		
+
 		int blackTurns = 0, purpleTurns = 0, redTurns = 0, brownTurns = 0, blueTurns = 0, draw = 0, money = 0;
 	}
 
@@ -40,7 +39,7 @@ public class ParamCard extends Card {
 		newCard.setEqual(this);
 		return newCard;
 	}
-	
+
 	public void setEqual(ParamCard card) {
 		this.cardColor = card.cardColor;
 		this.cardType = card.cardType;
@@ -57,37 +56,43 @@ public class ParamCard extends Card {
 		draw = card.draw;
 		money = card.money;
 	}
-	
+
 	public void DrawThree() {
+		this.cardColor.add(CardColor.BROWN);
 		this.name = "DrawThree";
 		this.imagePath = name + ".png";
 		this.cost = 3;
 		draw += 3;
 	}
+
 	public void ThreeColors() {
+		this.cardColor.add(CardColor.BROWN);
 		this.name = "ThreeColors";
-		this.imagePath= "/Valerie/"+name+".png";
-		this.redTurns+=1;
-		this.blueTurns+=1;
-		this.brownTurns+=1;
+		this.imagePath = "/Valerie/" + name + ".png";
+		this.redTurns += 1;
+		this.blueTurns += 1;
+		this.brownTurns += 1;
 	}
-	
+
 	public void OneTwoPunch() {
+		this.cardColor.add(CardColor.BROWN);
 		this.name = "OneTwoPunch";
 		this.imagePath = name + ".png";
 		this.cost = 4;
 		blackTurns += 2;
 	}
-	
+
 	public void Roundhouse() {
+		this.cardColor.add(CardColor.BROWN);
 		this.name = "Roundhouse";
 		this.imagePath = name + ".png";
 		this.cost = 6;
 		blackTurns += 1;
 		draw += 2;
 	}
-	
+
 	public void OneOfEach() {
+		this.cardColor.add(CardColor.BROWN);
 		this.name = "OneOfEach";
 		this.imagePath = name + ".png";
 		this.cost = 5;
@@ -95,45 +100,51 @@ public class ParamCard extends Card {
 		draw += 1;
 		money += 1;
 	}
-	
+
 	public void BagOfTricks() {
+		this.cardColor.add(CardColor.BROWN);
 		this.name = "BagOfTricks";
 		this.imagePath = "/Setsuki/" + name + ".png";
 		brownTurns += 1;
 		draw += 1;
 	}
-	
+
 	public void SpeedOfTheFox() {
+		this.cardColor.add(CardColor.BROWN);
 		this.name = "SpeedOfTheFox";
 		this.imagePath = "/Setsuki/" + name + ".png";
 		brownTurns += 2;
 		draw += 1;
 	}
-	
+
 	public void FutureSight() {
+		this.cardColor.add(CardColor.BROWN);
 		this.name = "FutureSight";
 		this.imagePath = "/Max/" + name + ".png";
 		draw += 2;
 	}
-	
+
 	public void TroublesomeRhetoric() {
+		this.cardColor.add(CardColor.BROWN);
 		this.name = "TroublesomeRhetoric";
 		this.imagePath = "/DeGray/" + name + ".png";
 		blackTurns += 1;
 		draw += 1;
 		money += 2;
 	}
-	
-	public void VersatileStyle () {
+
+	public void VersatileStyle() {
+		this.cardColor.add(CardColor.BROWN);
 		this.name = "VersatileStyle";
 		this.imagePath = "/Grave/" + name + ".png";
 		blackTurns += 1;
 		draw += 2;
 		money += 2;
 	}
-	
-	public class Recklessness extends ParamCard{
+
+	public class Recklessness extends ParamCard {
 		public Recklessness() {
+			this.cardColor.add(CardColor.BROWN);
 			this.name = "Recklessness";
 			this.imagePath = name + ".png";
 			this.cost = 2;
@@ -153,9 +164,10 @@ public class ParamCard extends Card {
 			return super.newCard();
 		}
 	}
-	
-	public class ItsComboTime extends ParamCard{
+
+	public class ItsComboTime extends ParamCard {
 		public ItsComboTime() {
+			this.cardColor.add(CardColor.BROWN);
 			this.name = "ItsComboTime";
 			this.imagePath = name + ".png";
 			this.cost = 8;
@@ -181,5 +193,5 @@ public class ParamCard extends Card {
 		this.setChosenEffect(choice);
 		this.setTargets(new ArrayList<Player>());
 	}
-	
+
 }
