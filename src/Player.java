@@ -135,28 +135,4 @@ public class Player {
 		this.hand.remove(card);
 		this.discard.add(card);
 	}
-	
-//	public void setHand(ArrayList<Card> cards) {
-//		this.hand = cards;
-//	}
-//	
-//	public void setBag(ArrayList<Card> cards) {
-//		this.bag = cards;
-//	}
-//	
-//	public void setDiscard(ArrayList<Card> cards) {
-//		this.discard = cards;
-//	}
-//	
-//	public ArrayList<Card> getHand() {
-//		return this.hand;
-//	}
-//	
-//	public ArrayList<Card> getBag() {
-//		return this.bag;
-//	}
-//	
-//	public ArrayList<Card> getDiscard() {
-//		return this.discard;
-//	}
 }
