@@ -50,8 +50,8 @@ public class Reversal extends Crash {
 		return false;
 	}
 
-	public ChoiceGroup getReactChoices(Game g) {
-		return super.getReactChoices(g);
+	public ChoiceGroup getReactChoices(Game g, Player p) {
+		return super.getReactChoices(g, p);
 	}
 	
 	public void prepare(ArrayList<Choice> choice, Game g){

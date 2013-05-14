@@ -34,7 +34,10 @@ public class Player {
 			this.bag.add(new TrainingDay());
 		}
 		this.bag.add(new Crash());
-
+		this.bag.add(new Crash());
+		this.bag.add(new DoubleCrash());
+		this.bag.add(new DoubleCrash());
+		this.bag.add(new DoubleCrash());
 	}
 
 	/**

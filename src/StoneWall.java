@@ -48,7 +48,7 @@ public class StoneWall extends ReactionCard{
 		return false;
 	}
 	
-	public ChoiceGroup getReactChoices(Game g) {
+	public ChoiceGroup getReactChoices(Game g, Player p) {
 		return new ChoiceGroup();
 	}
 

@@ -45,6 +45,9 @@ public class TrainingDay extends TrickyCard {
 			case 1:
 				ArrayList<String> cards = g.getHand(this);
 				ArrayList<Object> cardObj = g.getHandObj(this);
+				if(cards.isEmpty()){
+					return null;
+				}
 				Choice c1 = new Choice(g.choices.getString("cardKeep"), cards, cardObj, 1);
 				return c1;
 			case 2:
@@ -55,6 +58,9 @@ public class TrainingDay extends TrickyCard {
 				Card magic = (Card) choice.getChoice().get(0);
 				cards2.remove(magic.getName(g));
 				cardObj2.remove(magic);
+				if(cards2.isEmpty()){
+					return null;
+				}
 				Choice c2 = new Choice(g.choices.getString("cardTrash"), cards2, cardObj2, 1);
 				return c2;
 			default:

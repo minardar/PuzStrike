@@ -56,15 +56,7 @@ public class Crash extends ReactionCard {
 	 * @return
 	 */
 	public ChoiceGroup getChoice(Game g) {
-		ArrayList<String> opponents = g.getOpponents();
-		ArrayList<Object> oppObj = g.getOpponentsObj();
-		Choice c1 = new Choice(g.choices.getString("opponents"), opponents, oppObj, 1);
-		ArrayList<String> gempile = g.getGempile();
-		ArrayList<Object> gemObj = g.getGempileObj();
-		Choice c2 = new Choice(g.choices.getString("useGem"), gempile, gemObj, 1);
-		ChoiceGroup choices = new ChoiceGroup();
-		choices.addChoiceToGroup(c1);
-		choices.addChoiceToGroup(c2);
+		TrickyChoiceGroup choices = new TrickyChoiceGroup(this, g);
 		return choices;
 	}
 	
@@ -88,6 +80,9 @@ public class Crash extends ReactionCard {
 		} else {
 			opp.gemPile[0] = opp.gemPile[0] + (reactGemSelected-gemSelected);
 		}
+		opp.useTurn(cardUsed);
+		opp.cardWasUsed(cardUsed);
+		reacting.cardWasUsed(this);
 	}
 
 	@Override
@@ -99,9 +94,12 @@ public class Crash extends ReactionCard {
 	}
 
 	@Override
-	public ChoiceGroup getReactChoices(Game g) {
-		ArrayList<String> gempile = g.getGempile();
-		ArrayList<Object> gemObj = g.getGempileObj();
+	public ChoiceGroup getReactChoices(Game g, Player p) {
+		ArrayList<String> gempile = g.getGempile(p);
+		ArrayList<Object> gemObj = g.getGempileObj(p);
+		if(gempile.isEmpty()){
+			return null;
+		}
 		Choice c2 = new Choice(g.choices.getString("useGem"), gempile, gemObj, 1);
 		ChoiceGroup choices = new ChoiceGroup();
 		choices.addChoiceToGroup(c2);
@@ -118,7 +116,23 @@ public class Crash extends ReactionCard {
 
 	@Override
 	public Choice getTrickyChoice(int i, Choice choice, Game g) {
-		// ignore
-		return null;
+		switch (i) {
+		case 1:
+			ArrayList<String> opponents = g.getOpponents();
+			ArrayList<Object> oppObj = g.getOpponentsObj();
+			Choice c1 = new Choice(g.choices.getString("opponents"), opponents,
+					oppObj, 1);
+			return c1;
+		case 2:
+			ArrayList<String> gempile = g.getGempile();
+			ArrayList<Object> gemObj = g.getGempileObj();
+			if(gempile.isEmpty()){
+				return null;
+			}
+			Choice c2 = new Choice(g.choices.getString("useGem"), gempile, gemObj, 1);
+			return c2;
+		default:
+			return null;
+		}
 	}
 }

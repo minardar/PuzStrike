@@ -319,6 +319,23 @@ public class Game {
 		}
 		return gemStrings;
 	}
+	/**
+	 * Same as getGempile but with player instead of current
+	 * @return
+	 */
+	public ArrayList<String> getGempile(Player p) {
+		int[] gempile = p.gemPile;
+		ArrayList<String> gemStrings = new ArrayList<String>();
+		int whichGem = 1;
+		for (int gems : gempile) {
+			for (int i = 0; i < gems; i++) {
+				gemStrings.add(Integer.toString(whichGem) + " "
+						+ choices.getString("gem"));
+			}
+			whichGem++;
+		}
+		return gemStrings;
+	}
 
 	/**
 	 * A method that will return a list of gems in the players gempile in
@@ -329,6 +346,22 @@ public class Game {
 	public ArrayList<Object> getGempileObj() {
 		ArrayList<Object> objList = new ArrayList<Object>();
 		Player p = getCurrentPlayer();
+		int[] gempile = p.gemPile;
+		int whichGem = 1;
+		for (int gems : gempile) {
+			for (int i = 0; i < gems; i++) {
+				objList.add(whichGem - 1);
+			}
+			whichGem++;
+		}
+		return objList;
+	}
+	/**
+	 * Same as getGempileObj, but with player instead of current
+	 * @return
+	 */
+	public ArrayList<Object> getGempileObj(Player p) {
+		ArrayList<Object> objList = new ArrayList<Object>();
 		int[] gempile = p.gemPile;
 		int whichGem = 1;
 		for (int gems : gempile) {

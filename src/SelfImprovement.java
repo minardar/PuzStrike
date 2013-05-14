@@ -50,7 +50,7 @@ import java.util.ArrayList;
 			return card.cardColor.contains(CardColor.RED);
 		}
 		
-		public ChoiceGroup getReactChoices(Game g) {
+		public ChoiceGroup getReactChoices(Game g, Player p) {
 			return new ChoiceGroup();
 		}
 

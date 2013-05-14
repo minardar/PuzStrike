@@ -7,5 +7,5 @@ public abstract class ReactionCard extends TrickyCard {
 
 	public abstract boolean canReactTo(Card card);
 	
-	public abstract ChoiceGroup getReactChoices(Game g);
+	public abstract ChoiceGroup getReactChoices(Game g, Player p);
 }

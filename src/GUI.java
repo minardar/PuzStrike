@@ -871,10 +871,15 @@ public class GUI {
 				ReactionCard react = (ReactionCard) card;
 				boolean wantReact = cardReactInfo(card);
 				if (wantReact) {
-					ChoiceGroup reactChoices = react.getReactChoices(this.game);
-
-					Choice currents = reactChoices.getNextChoice();
-
+					ChoiceGroup reactChoices = react.getReactChoices(this.game,targets.get(i));
+					Choice currents = null;
+					if(reactChoices!=null){
+					currents = reactChoices.getNextChoice();
+					}
+					else{
+						return false;
+					}
+					
 					boolean completeSoFarReact = cycleChoices(reactChoices,
 							currents, react,
 							this.game.players.indexOf(targets.get(i)));
