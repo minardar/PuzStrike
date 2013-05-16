@@ -23,8 +23,8 @@ public class UnstablePower extends Crash {
 		crasher.gemPile[gem] = crasher.gemPile[gem] - 1;
 		crashee.gemPile[0] = crashee.gemPile[0] + gem + 1;
 		crasher.money += 2;
-		crasher.discard.add(new Wound());
-		crasher.discard.add(new Wound());
+		game.playerGetCard(crasher, game.bank.get(7));
+		game.playerGetCard(crasher, game.bank.get(7));
 	}
 	
 	
@@ -39,6 +39,8 @@ public class UnstablePower extends Crash {
 	@Override
 	public void react(Card cardUsed, Player reacting, ArrayList<Choice> choices, Game game) {
 		super.react(cardUsed, reacting, choices, game);
+		game.playerGetCard(reacting, game.bank.get(7));
+		game.playerGetCard(reacting, game.bank.get(7));
 	}
 
 	@Override

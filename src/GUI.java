@@ -139,6 +139,7 @@ public class GUI {
 	public void titleScreen() {
 
 		frame.setJMenuBar(null);
+		this.game = new Game(2);
 
 		JPanel titleStuff = new JPanel();
 		titleStuff.setBackground(this.trans);
