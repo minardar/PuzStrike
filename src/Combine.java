@@ -55,8 +55,8 @@ public class Combine extends Card {
 	 * @return
 	 */
 	public ChoiceGroup getChoice(Game g) {
-		ArrayList<String> gempile = g.getGempile();
-		Choice c1 = new Choice("Choose the first gem to Combine!", gempile, g.getGempileObj(), 2);
+		ArrayList<String> gempile = g.getGempile(g.getCurrentPlayer());
+		Choice c1 = new Choice("Choose the first gem to Combine!", gempile, g.getGempileObj(g.getCurrentPlayer()), 2);
 		ChoiceGroup choice = new ChoiceGroup();
 		choice.addChoiceToGroup(c1);
 		return choice;

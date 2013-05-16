@@ -39,9 +39,13 @@ public class Game {
 
 		// add Cards to Always Cards
 		this.AlwaysCards.add(new Gem(1));
-		this.AlwaysCards.add(new Crash());
-		this.AlwaysCards.add(new Wound());
+		this.AlwaysCards.add(new Gem(2));
+		this.AlwaysCards.add(new Gem(3));
+		this.AlwaysCards.add(new Gem(4));
 		this.AlwaysCards.add(new Combine());
+		this.AlwaysCards.add(new Crash());
+		this.AlwaysCards.add(new DoubleCrash());
+		this.AlwaysCards.add(new Wound());
 
 		// add Cards to All Cards
 		ParamCard drawThree = new ParamCard();
@@ -53,7 +57,7 @@ public class Game {
 		ParamCard roundhouse = new ParamCard();
 		roundhouse.Roundhouse();
 		this.AllCards.add(roundhouse);
-
+		this.AllCards.add(new OneOfEach());
 		Card dashingStrike = new DashingStrike();
 		this.AllCards.add(dashingStrike);
 		Card selfImprovement = new SelfImprovement();
@@ -62,6 +66,7 @@ public class Game {
 		this.AllCards.add(reallyAnnoying);
 		Card sneakAttack = new SneakAttack();
 		this.AllCards.add(sneakAttack);
+		this.AllCards.add(new TrainingDay());
 
 		// done with cards
 		makePlayers(number);
@@ -96,15 +101,27 @@ public class Game {
 		Card gem1 = this.AlwaysCards.get(0);
 		gem1.setAmount(64 - this.playerNum * 6);
 		this.bank.add(gem1);
-		Card crash = this.AlwaysCards.get(1);
-		crash.setAmount(16 - this.playerNum);
-		this.bank.add(crash);
-		Card wound = this.AlwaysCards.get(2);
-		wound.setAmount(24);
-		this.bank.add(wound);
-		Card combine = this.AlwaysCards.get(3);
+		Card gem2 = this.AlwaysCards.get(1);
+		gem2.setAmount(20);
+		this.bank.add(gem2);
+		Card gem3 = this.AlwaysCards.get(2);
+		gem3.setAmount(16);
+		this.bank.add(gem3);
+		Card gem4 = this.AlwaysCards.get(3);
+		gem4.setAmount(12);
+		this.bank.add(gem4);
+		Card combine = this.AlwaysCards.get(4);
 		combine.setAmount(20);
 		this.bank.add(combine);
+		Card crash = this.AlwaysCards.get(5);
+		crash.setAmount(16 - this.playerNum);
+		this.bank.add(crash);
+		Card doubleC = this.AlwaysCards.get(6);
+		doubleC.setAmount(10);
+		this.bank.add(doubleC);
+		Card wound = this.AlwaysCards.get(7);
+		wound.setAmount(24);
+		this.bank.add(wound);
 
 		for (Card card : this.AllCards) {
 			card.setAmount(5);
@@ -303,24 +320,6 @@ public class Game {
 	 * 
 	 * @return
 	 */
-	public ArrayList<String> getGempile() {
-		Player p = getCurrentPlayer();
-		int[] gempile = p.gemPile;
-		ArrayList<String> gemStrings = new ArrayList<String>();
-		int whichGem = 1;
-		for (int gems : gempile) {
-			for (int i = 0; i < gems; i++) {
-				gemStrings.add(Integer.toString(whichGem) + " "
-						+ choices.getString("gem"));
-			}
-			whichGem++;
-		}
-		return gemStrings;
-	}
-	/**
-	 * Same as getGempile but with player instead of current
-	 * @return
-	 */
 	public ArrayList<String> getGempile(Player p) {
 		int[] gempile = p.gemPile;
 		ArrayList<String> gemStrings = new ArrayList<String>();
@@ -339,23 +338,6 @@ public class Game {
 	 * A method that will return a list of gems in the players gempile in
 	 * objects
 	 * 
-	 * @return
-	 */
-	public ArrayList<Object> getGempileObj() {
-		ArrayList<Object> objList = new ArrayList<Object>();
-		Player p = getCurrentPlayer();
-		int[] gempile = p.gemPile;
-		int whichGem = 1;
-		for (int gems : gempile) {
-			for (int i = 0; i < gems; i++) {
-				objList.add(whichGem - 1);
-			}
-			whichGem++;
-		}
-		return objList;
-	}
-	/**
-	 * Same as getGempileObj, but with player instead of current
 	 * @return
 	 */
 	public ArrayList<Object> getGempileObj(Player p) {
@@ -614,10 +596,9 @@ public class Game {
 	 * @param choiceList
 	 */
 	public void useCardNotReactedTo(Card clicked, ArrayList<Choice> choiceList) {
+		clicked.use(choiceList, this);
 		this.getCurrentPlayer().useTurn(clicked);
 		this.getCurrentPlayer().cardWasUsed(clicked);
-		clicked.use(choiceList, this);
-		this.lastUsedCard = clicked;
 
 	}
 }

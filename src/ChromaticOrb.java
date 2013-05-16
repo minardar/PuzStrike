@@ -30,8 +30,8 @@ public class ChromaticOrb extends ParamCard {
 		ArrayList<String> opponents = g.getOpponents();
 		ArrayList<Object> oppObj = g.getOpponentsObj();
 		Choice c1 = new Choice(g.choices.getString("opponents"), opponents, oppObj, 1);
-		ArrayList<String> gempile = g.getGempile();
-		ArrayList<Object> gemObj = g.getGempileObj();
+		ArrayList<String> gempile = g.getGempile(g.getCurrentPlayer());
+		ArrayList<Object> gemObj = g.getGempileObj(g.getCurrentPlayer());
 		Choice c2 = new Choice(g.choices.getString("useGem"), gempile, gemObj, 1);
 		ChoiceGroup choices = new ChoiceGroup();
 		choices.addChoiceToGroup(c1);

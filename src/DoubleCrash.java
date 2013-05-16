@@ -135,8 +135,8 @@ public class DoubleCrash extends ReactionCard {
 					oppObj, 1);
 			return c1;
 		case 2:
-			ArrayList<String> gempile = g.getGempile();
-			ArrayList<Object> gemObj = g.getGempileObj();
+			ArrayList<String> gempile = g.getGempile(g.getCurrentPlayer());
+			ArrayList<Object> gemObj = g.getGempileObj(g.getCurrentPlayer());
 			if (gempile.isEmpty()) {
 				return null;
 			}
@@ -144,8 +144,8 @@ public class DoubleCrash extends ReactionCard {
 					gemObj, 1);
 			return c2;
 		case 3:
-			ArrayList<String> gempile2 = g.getGempile();
-			ArrayList<Object> gemObj2 = g.getGempileObj();
+			ArrayList<String> gempile2 = g.getGempile(g.getCurrentPlayer());
+			ArrayList<Object> gemObj2 = g.getGempileObj(g.getCurrentPlayer());
 			Object chosenGem = choice.getChoice().get(0);
 			int indexChosen = gemObj2.indexOf(chosenGem);
 			gempile2.remove(indexChosen);

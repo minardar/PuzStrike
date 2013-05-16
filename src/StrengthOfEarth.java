@@ -24,8 +24,8 @@ public class StrengthOfEarth extends ParamCard{
 	}
 	
 	public ChoiceGroup getChoice(Game g) {
-		ArrayList<String> gempile = g.getGempile();
-		Choice c1 = new Choice(g.choices.getString("useGem"), gempile, g.getGempileObj(), 1);
+		ArrayList<String> gempile = g.getGempile(g.getCurrentPlayer());
+		Choice c1 = new Choice(g.choices.getString("useGem"), gempile, g.getGempileObj(g.getCurrentPlayer()), 1);
 		ChoiceGroup choice = new ChoiceGroup();
 		choice.addChoiceToGroup(c1);
 		return choice;

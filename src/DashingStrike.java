@@ -28,8 +28,8 @@ public class DashingStrike extends ParamCard {
 		public ChoiceGroup getChoice(Game g) {
 			ArrayList<String> opponents = g.getOpponents();
 			Choice c1 = new Choice(g.choices.getString("opponents"), opponents, g.getOpponentsObj(), 1);
-			ArrayList<String> gempile = g.getGempile();
-			Choice c2 = new Choice(g.choices.getString("gemTrash"), gempile, g.getGempileObj(), 1);
+			ArrayList<String> gempile = g.getGempile(g.getCurrentPlayer());
+			Choice c2 = new Choice(g.choices.getString("gemTrash"), gempile, g.getGempileObj(g.getCurrentPlayer()), 1);
 			ChoiceGroup choices = new ChoiceGroup();
 			choices.addChoiceToGroup(c1);
 			choices.addChoiceToGroup(c2);

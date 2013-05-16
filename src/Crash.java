@@ -124,8 +124,8 @@ public class Crash extends ReactionCard {
 					oppObj, 1);
 			return c1;
 		case 2:
-			ArrayList<String> gempile = g.getGempile();
-			ArrayList<Object> gemObj = g.getGempileObj();
+			ArrayList<String> gempile = g.getGempile(g.getCurrentPlayer());
+			ArrayList<Object> gemObj = g.getGempileObj(g.getCurrentPlayer());
 			if(gempile.isEmpty()){
 				return null;
 			}
