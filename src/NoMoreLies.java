@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 
-public class NoMoreLies extends ParamCard{
+public class NoMoreLies extends ParamCard {
 	public NoMoreLies() {
 		this.cardColor = new ArrayList<CardColor>();
 		cardColor.add(CardColor.BROWN);

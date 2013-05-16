@@ -91,55 +91,12 @@ public class ParamCard extends Card {
 		draw += 2;
 	}
 
-	public void OneOfEach() {
-		this.cardColor.add(CardColor.BROWN);
-		this.name = "OneOfEach";
-		this.imagePath = name + ".png";
-		this.cost = 5;
-		blackTurns += 1;
-		draw += 1;
-		money += 1;
-	}
-
-	public void BagOfTricks() {
-		this.cardColor.add(CardColor.BROWN);
-		this.name = "BagOfTricks";
-		this.imagePath = "/Setsuki/" + name + ".png";
-		brownTurns += 1;
-		draw += 1;
-	}
-
 	public void SpeedOfTheFox() {
 		this.cardColor.add(CardColor.BROWN);
 		this.name = "SpeedOfTheFox";
 		this.imagePath = "/Setsuki/" + name + ".png";
 		brownTurns += 2;
 		draw += 1;
-	}
-
-	public void FutureSight() {
-		this.cardColor.add(CardColor.BROWN);
-		this.name = "FutureSight";
-		this.imagePath = "/Max/" + name + ".png";
-		draw += 2;
-	}
-
-	public void TroublesomeRhetoric() {
-		this.cardColor.add(CardColor.BROWN);
-		this.name = "TroublesomeRhetoric";
-		this.imagePath = "/DeGray/" + name + ".png";
-		blackTurns += 1;
-		draw += 1;
-		money += 2;
-	}
-
-	public void VersatileStyle() {
-		this.cardColor.add(CardColor.BROWN);
-		this.name = "VersatileStyle";
-		this.imagePath = "/Grave/" + name + ".png";
-		blackTurns += 1;
-		draw += 2;
-		money += 2;
 	}
 
 	public class Recklessness extends ParamCard {

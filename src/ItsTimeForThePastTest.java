@@ -32,7 +32,7 @@ public class ItsTimeForThePastTest {
 		Game g = new Game(3);
 		Player current = g.getCurrentPlayer();
 		ParamCard testCard = new ParamCard();
-		testCard.OneOfEach();
+		testCard.OneTwoPunch();
 		current.discard.add(testCard);
 		
 		ArrayList<String> a = new ArrayList<String>();

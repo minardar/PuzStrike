@@ -30,14 +30,7 @@ public class Player {
 		for (int i = 0; i < 5; i++) {
 			this.bag.add(new Gem(1));
 		}
-		for (int i = 0; i < 3; i++) {
-			this.bag.add(new TrainingDay());
-		}
 		this.bag.add(new Crash());
-		this.bag.add(new Crash());
-		this.bag.add(new DoubleCrash());
-		this.bag.add(new DoubleCrash());
-		this.bag.add(new DoubleCrash());
 	}
 
 	/**

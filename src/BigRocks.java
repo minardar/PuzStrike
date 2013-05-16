@@ -20,8 +20,7 @@ public class BigRocks extends ParamCard{
 		game.getCurrentPlayer().hand.remove(gem);
 		int value = gem.value;
 		
-		if (value == 4) value = 0;
-		else value++;
+		if (value != 4) value++;
 		
 		Card gem2 = new Gem(value);
 		game.getCurrentPlayer().hand.add(gem2);

@@ -15,12 +15,19 @@ public class StoneWall extends ReactionCard{
 	}
 	
 	public void use(ArrayList<Choice> choices, Game game) {
+		this.draw += 1;
+		Choice choice = choices.get(0);
 		super.use(choices, game);
-		game.getCurrentPlayer().drawFromBag(1);
+		Card card = (Card) choice.getChoice().get(0);
+		game.getCurrentPlayer().lockedCards.add(card);
+		game.getCurrentPlayer().hand.remove(card);
 	}
 	
 	public ChoiceGroup getChoice(Game g) {
-		return new ChoiceGroup();
+		Choice c1 = new Choice(g.choices.getString("cardKeep"), g.getHand(this), g.getHandObj(this), 1);
+		ChoiceGroup choice = new ChoiceGroup();
+		choice.addChoiceToGroup(c1);
+		return choice;
 	}
 	
 	public Card newCard() {
@@ -32,13 +39,9 @@ public class StoneWall extends ReactionCard{
 	}
 	
 	public void react(Card cardUsed, Player reacting, ArrayList<Choice> choices, Game game) {
-		Player opp = game.getCurrentPlayer();
 		ArrayList<Choice> cardChoices = cardUsed.getChosenEffect();
 		int gemSelected = (Integer) cardChoices.get(1).getChoice().get(0);
 		reacting.gemPile[gemSelected] = reacting.gemPile[gemSelected] - 1;
-		opp.useTurn(cardUsed);
-		opp.cardWasUsed(cardUsed);
-		reacting.cardWasUsed(this);
 	}
 	
 	public boolean canReactTo(Card card) {
@@ -48,13 +51,13 @@ public class StoneWall extends ReactionCard{
 		return false;
 	}
 	
-	public ChoiceGroup getReactChoices(Game g, Player p) {
+	public ChoiceGroup getReactChoices(Game g, Player P) {
 		return new ChoiceGroup();
 	}
 
 	@Override
 	public Choice getTrickyChoice(int i, Choice choice, Game g) {
-		// ignore
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

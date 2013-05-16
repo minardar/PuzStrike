@@ -32,7 +32,7 @@ public class DoubleTakeTest {
 		Game g = new Game(3);
 		Player current = g.getCurrentPlayer();
 		ParamCard testCard = new ParamCard();
-		testCard.OneOfEach();
+		testCard.OneTwoPunch();
 		current.hand.add(testCard);
 		
 		ArrayList<String> a = new ArrayList<String>();
@@ -45,7 +45,6 @@ public class DoubleTakeTest {
 		choice.add(c1);
 		
 		card.use(choice, g);
-		assertEquals(2, current.money);
 		assertEquals(0, current.blackTurns);
 	}
 }

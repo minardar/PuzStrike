@@ -29,9 +29,9 @@ public class DoubleCrash extends ReactionCard {
 	}
 
 	/**
-	 * Use for DoubleCrash gem. This gem should take a gem/gems out of the crasher and
-	 * put them in the crashee's gempile. it also give the crasher a single gem
-	 * of cash.
+	 * Use for DoubleCrash gem. This gem should take a gem/gems out of the
+	 * crasher and put them in the crashee's gempile. it also give the crasher a
+	 * single gem of cash.
 	 * 
 	 * @param choices
 	 *            An arraylist of {Crashee, GemChoices, GemChoices2}
@@ -40,16 +40,16 @@ public class DoubleCrash extends ReactionCard {
 		Choice oppChoice = choices.get(0);
 		Choice gemChoice = choices.get(1);
 		int gem2 = -1;
-		if(choices.size()>2){
-		Choice gem2Choice = choices.get(2);
-		gem2 = (Integer) gem2Choice.getChoice().get(0);
+		if (choices.size() > 2) {
+			Choice gem2Choice = choices.get(2);
+			gem2 = (Integer) gem2Choice.getChoice().get(0);
 		}
 		Player crashee = (Player) oppChoice.getChoice().get(0);
 		Player crasher = game.getCurrentPlayer();
 		int gem = (Integer) gemChoice.getChoice().get(0);
 		crasher.gemPile[gem] = crasher.gemPile[gem] - 1;
-		if(gem2>-1){
-		crasher.gemPile[gem2] = crasher.gemPile[gem2] - 1;
+		if (gem2 > -1) {
+			crasher.gemPile[gem2] = crasher.gemPile[gem2] - 1;
 		}
 		crashee.gemPile[0] = crashee.gemPile[0] + gem2 + gem + 2;
 		crasher.money += 2;
@@ -107,7 +107,7 @@ public class DoubleCrash extends ReactionCard {
 	public ChoiceGroup getReactChoices(Game g, Player p) {
 		ArrayList<String> gempile = g.getGempile(p);
 		ArrayList<Object> gemObj = g.getGempileObj(p);
-		if(gempile.isEmpty()){
+		if (gempile.isEmpty()) {
 			return null;
 		}
 		Choice c2 = new Choice(g.choices.getString("useGem"), gempile, gemObj,
@@ -137,10 +137,11 @@ public class DoubleCrash extends ReactionCard {
 		case 2:
 			ArrayList<String> gempile = g.getGempile();
 			ArrayList<Object> gemObj = g.getGempileObj();
-			if(gempile.isEmpty()){
+			if (gempile.isEmpty()) {
 				return null;
 			}
-			Choice c2 = new Choice(g.choices.getString("useGem"), gempile, gemObj, 1);
+			Choice c2 = new Choice(g.choices.getString("useGem"), gempile,
+					gemObj, 1);
 			return c2;
 		case 3:
 			ArrayList<String> gempile2 = g.getGempile();
@@ -149,11 +150,12 @@ public class DoubleCrash extends ReactionCard {
 			int indexChosen = gemObj2.indexOf(chosenGem);
 			gempile2.remove(indexChosen);
 			gemObj2.remove(indexChosen);
-			if(gempile2.isEmpty()){
+			if (gempile2.isEmpty()) {
 				return null;
 			}
 			
-			Choice c3 = new Choice(g.choices.getString("useGem"), gempile2, gemObj2, 1);
+			Choice c3 = new Choice(g.choices.getString("useGem"), gempile2,
+					gemObj2, 1);
 
 			return c3;
 		default:

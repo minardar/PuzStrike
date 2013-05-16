@@ -53,9 +53,7 @@ public class Game {
 		ParamCard roundhouse = new ParamCard();
 		roundhouse.Roundhouse();
 		this.AllCards.add(roundhouse);
-		ParamCard oneOfEach = new ParamCard();
-		oneOfEach.OneOfEach();
-		this.AllCards.add(oneOfEach);
+
 		Card dashingStrike = new DashingStrike();
 		this.AllCards.add(dashingStrike);
 		Card selfImprovement = new SelfImprovement();
@@ -559,9 +557,7 @@ public class Game {
 			break;
 		case 2:
 			playerCards.add(new DoubleTake());
-			ParamCard bagOfTricks = new ParamCard();
-			bagOfTricks.BagOfTricks();
-			playerCards.add(bagOfTricks);
+			playerCards.add(new BagOfTricks());
 			ParamCard speedOfTheFox = new ParamCard();
 			speedOfTheFox.SpeedOfTheFox();
 			playerCards.add(speedOfTheFox);
@@ -569,16 +565,12 @@ public class Game {
 		case 3:
 			playerCards.add(new ResearchAndDevelopment());
 			playerCards.add(new ItsTimeForThePast());
-			ParamCard futureSight = new ParamCard();
-			futureSight.FutureSight();
-			playerCards.add(futureSight);
+			playerCards.add(new FutureSight());
 			break;
 		case 4:
 			playerCards.add(new MartialMastery());
 			playerCards.add(new Reversal());
-			ParamCard versatileStyle = new ParamCard();
-			versatileStyle.VersatileStyle();
-			playerCards.add(versatileStyle);
+			playerCards.add(new VersatileStyle());
 			break;
 		case 5:
 			playerCards.add(new PlayingWithFire());
@@ -588,9 +580,7 @@ public class Game {
 		case 6:
 			playerCards.add(new NoMoreLies());
 			playerCards.add(new PileBunker());
-			ParamCard troublesomeRhetoric = new ParamCard();
-			troublesomeRhetoric.TroublesomeRhetoric();
-			playerCards.add(troublesomeRhetoric);
+			playerCards.add(new TroublesomeRhetoric());
 			break;
 		default:
 			playerCards.add(new StoneWall());
