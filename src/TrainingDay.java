@@ -53,6 +53,7 @@ public class TrainingDay extends TrickyCard {
 			case 2:
 				ArrayList<Card> excl = new ArrayList<Card>();
 				excl.add(new Crash());
+				excl.add(new DoubleCrash());
 				ArrayList<String> cards2 = g.getHand(excl, this, false);
 				ArrayList<Object> cardObj2 = g.getHandObj(excl, this, false);
 				Card magic = (Card) choice.getChoice().get(0);
