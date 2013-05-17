@@ -5,42 +5,42 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 
-public class OneOfEachTest {
-	
+public class FutureSightTest {
+
 	@Test
-	public void testOneOfEach() {
-		Card testCard = new OneOfEach();
-		assertEquals("OneOfEach", testCard.name);
+	public void testFutureSight() {
+		Card card = new FutureSight();
+		assertEquals(CardType.STAR, card.cardType);
 	}
 	
 	@Test
 	public void testCardChoices() {
 		Game g = new Game(3);
-		Card card = new OneOfEach();
+		Card card = new FutureSight();
 		assertNotNull(card.getChoice(g).getNextChoice());
+	}
+
+	@Test
+	public void testNewCard() {
+		Card card = new FutureSight();
+		assertTrue(card.newCard() instanceof FutureSight);
 	}
 	
 	@Test
 	public void testUseCard() {
 		Game game = new Game(2);
-		OneOfEach card = new OneOfEach();
+		FutureSight card = new FutureSight();
 		game.getCurrentPlayer().drawFromBag(5);
 		ArrayList<String> cards = game.getHand(card);
 		ArrayList<Object> cardObj = game.getHandObj(card);
-		Choice c1 = new Choice("Choose card to keep.", cards, cardObj, 1);
+		Choice c1 = new Choice("Choose card to keep.", cards, cardObj, 2);
 		c1.addChoice(game.getCurrentPlayer().hand.get(0).getName(game));
+		c1.addChoice(game.getCurrentPlayer().hand.get(1).getName(game));
 		ArrayList<Choice> choices = new ArrayList<Choice>();
 		choices.add(c1);
 		card.use(choices, game);
-		assertEquals(2, game.getCurrentPlayer().blackTurns);
-		assertEquals(1, game.getCurrentPlayer().money);
-		assertEquals(1, game.getCurrentPlayer().lockedCards.size());
-	}
-	
-	@Test
-	public void testNewCard() {
-		Card card = new OneOfEach();
-		assertTrue(card.newCard() instanceof OneOfEach);
+		assertEquals(2, game.getCurrentPlayer().lockedCards.size());
+		assertEquals(5, game.getCurrentPlayer().hand.size());
 	}
 
 }

@@ -17,7 +17,7 @@ public class PileBunkerTest {
 	public void testPileBunkerChoices() {
 		Game g = new Game(3);
 		Card card = new PileBunker();
-		assertEquals(0, card.getChoice(g).choices.size());
+		assertNotNull(card.getChoice(g).getNextChoice());
 	}
 
 	@Test
@@ -28,14 +28,20 @@ public class PileBunkerTest {
 	
 	@Test
 	public void testUsePileBunker() {
-		Card card = new PileBunker();
-		Game g = new Game(3);
-		Player current = g.getCurrentPlayer();
-
-		ArrayList<Choice> choice = new ArrayList<Choice>();
-		card.use(choice, g);
-		Player opp = (Player) g.getOpponentsObj().get(0);
-		assertEquals(1, current.hand.size());
+		Game game = new Game(2);
+		PileBunker card = new PileBunker();
+		game.getCurrentPlayer().drawFromBag(5);
+		ArrayList<String> one = new ArrayList<String>();
+		ArrayList<Object> two = new ArrayList<Object>();
+		one.add("1");
+		two.add("1");
+		Choice c1 = new Choice(game.choices.getString("object"), one, two, 2);
+		c1.addChoice("1");
+		ArrayList<Choice> choices = new ArrayList<Choice>();
+		choices.add(c1);
+		card.use(choices, game);
+		Player opp = (Player) game.getOpponentsObj().get(0);
+		assertEquals(6, game.getCurrentPlayer().hand.size());
 		assertEquals(1, opp.gemPile[0]);
 	}
 }

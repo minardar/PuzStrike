@@ -17,20 +17,30 @@ public class CreativeThoughtsTest {
 	public void testCreativeThoughtsChoices() {
 		Game g = new Game(3);
 		Card card = new CreativeThoughts();
-		assertEquals(0, card.getChoice(g).choices.size());
+		assertNotNull(card.getChoice(g).getNextChoice());
 	}
 	
 	@Test
 	public void testUseCreativeThoughts() {
-		Card card = new CreativeThoughts();
-		Game g = new Game(3);
-		Player current = g.getCurrentPlayer();
-		card.use(new ArrayList<Choice>(), g);
-		assertEquals(2, current.blackTurns);
-		assertEquals(1, current.money);
-		assertEquals(1, current.hand.size());
+		Game game = new Game(2);
+		CreativeThoughts card = new CreativeThoughts();
+		game.getCurrentPlayer().drawFromBag(5);
+		ArrayList<String> one = new ArrayList<String>();
+		ArrayList<Object> two = new ArrayList<Object>();
+		one.add("1");
+		two.add("1");
+		one.add("3");
+		two.add("3");
+		Choice c1 = new Choice(game.choices.getString("object"), one, two, 2);
+		c1.addChoice("1");
+		c1.addChoice("3");
+		ArrayList<Choice> choices = new ArrayList<Choice>();
+		choices.add(c1);
+		card.use(choices, game);
+		assertEquals(2, game.getCurrentPlayer().blackTurns);
+		assertEquals(1, game.getCurrentPlayer().money);
 	}
-
+	
 	@Test
 	public void testNewCard() {
 		Card card = new CreativeThoughts();
